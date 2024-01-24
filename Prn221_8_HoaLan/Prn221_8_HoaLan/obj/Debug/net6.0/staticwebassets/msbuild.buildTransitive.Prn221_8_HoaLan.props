@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Prn221_8_HoaLan.props" />
+</Project>
