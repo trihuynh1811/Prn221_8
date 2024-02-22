@@ -1,4 +1,4 @@
-using DataAccessLayer.Models;
+using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

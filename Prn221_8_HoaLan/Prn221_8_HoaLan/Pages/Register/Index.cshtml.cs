@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using DataAccessLayer.Models;
+using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Prn221_8_HoaLan.Pages.Register
