@@ -1,0 +1,44 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrapper {
+  width: min-content;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-item input {
+  margin-bottom: 20px !important;
+}
+
+.login-wrapper label {
+  display: block;
+}
+
+.login-wrapper input {
+  width: 100%;
+  margin: 0 10px;
+  padding: 10px;
+  background: red;
+}

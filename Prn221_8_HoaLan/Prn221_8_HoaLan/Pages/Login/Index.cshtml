@@ -1,0 +1,33 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.Login.IndexModel
+
+@section styles {
+<link rel="stylesheet" href="./Index.cshtml.css" />
+}
+
+@{
+}
+
+<head>
+  <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
+</head>
+<div class="login-container">
+  <div class="login-wrapper flex-center">
+    <div>
+      <h1>Login</h1>
+      <form class="form-horizontal" method="post">
+        <div class="form-item flex-column">
+          <label>Email</label>
+          <input asp-for="User.UserEmail" />
+        </div>
+        <div class="form-item flex-column">
+          <label>Password</label>
+          <input type="password" asp-for="User.Password" />
+        </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
