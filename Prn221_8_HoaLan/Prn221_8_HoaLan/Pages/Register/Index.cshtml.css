@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   width: 100vw;
   height: 100vh;
 }
@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.login-wrapper {
+.register-wrapper {
   width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -36,11 +36,11 @@
   margin-bottom: 20px !important;
 }
 
-.login-wrapper label {
+.register-wrapper label {
   display: block;
 }
 
-.login-wrapper input {
+.register-wrapper input {
   width: 100%;
   margin: 0 10px;
   padding: 10px;

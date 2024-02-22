@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Prn221_8_HoaLan.Pages.Login
 {
-    public class IndexModel : PageModel
+    public class LoginModel : PageModel
     {
         [BindProperty]
         public User User { get; set; }
