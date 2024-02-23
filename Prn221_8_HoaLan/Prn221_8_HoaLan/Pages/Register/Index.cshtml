@@ -1,31 +1,37 @@
 ﻿@page "/register"
 @model Prn221_8_HoaLan.Pages.Register.RegisterModel
+
 @{
+  Layout = "../Shared/_Layout.cshtml";
 }
 
 <head>
   <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
 </head>
-<div class="register-container">
+<div class="register-container flex-center">
   <div class="register-wrapper flex-center">
     <div class="form-wrapper">
       <h1>Register</h1>
       <form class="form-horizontal" method="post">
         <div class="form-item flex-column">
           <label>Username</label>
-          <input asp-for="User.UserName" />
+          <input style="margin-bottom: 10px" class="input" asp-for="User.UserName" />
         </div>
         <div class="form-item flex-column">
           <label>Email</label>
-          <input asp-for="User.UserEmail" />
+          <input style="margin-bottom: 10px" class="input" asp-for="User.UserEmail" />
         </div>
         <div class="form-item flex-column">
           <label>Password</label>
-          <input type="password" asp-for="User.Password" />
+          <input style="margin-bottom: 10px" class="input" type="password" asp-for="User.Password" />
         </div>
         <div class="form-item flex-column">
           <label>Confirm Password</label>
-          <input type="password" asp-for="ConfirmPassword" />
+          <input style="margin-bottom: 10px" class="input" type="password" asp-for="ConfirmPassword" />
+        </div>
+        <div class="flex justify-end">
+          Already have an account?
+          <a href="/login"> Login</a>
         </div>
         <div>
           <button type="submit">Register</button>

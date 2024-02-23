@@ -2,23 +2,28 @@
 @model Prn221_8_HoaLan.Pages.Login.LoginModel
 
 @{
+  Layout = "../Shared/_Layout.cshtml";
 }
 
 <head>
   <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
 </head>
-<div class="login-container">
+
+<div class="login-container flex-center">
   <div class="login-wrapper flex-center">
     <div class="form-wrapper">
       <h1>Login</h1>
       <form class="form-horizontal" method="post">
         <div class="form-item flex-column">
           <label>Email</label>
-          <input asp-for="User.UserEmail" />
+          <input style="margin-bottom: 10px" asp-for="User.UserEmail" />
         </div>
         <div class="form-item flex-column">
           <label>Password</label>
-          <input type="password" asp-for="User.Password" />
+          <input style="margin-bottom: 10px" type="password" asp-for="User.Password" />
+        </div>
+        <div>
+          <p>Register a new <a href="/register">account</a></p>
         </div>
         <div>
           <button type="submit">Login</button>
