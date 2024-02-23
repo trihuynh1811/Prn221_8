@@ -35,21 +35,9 @@
   width: 100%;
 }
 
-input {
-  background: red;
-}
-
 .login-wrapper label {
   display: block;
 }
-
-.login-wrapper input {
-  width: 100%;
-  margin: 0 10px;
-  padding: 10px;
-  background: red;
-}
-
 
 
 button {
