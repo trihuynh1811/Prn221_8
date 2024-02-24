@@ -40,6 +40,10 @@ namespace DataAccessLayer.Model
             {
                 entity.ToTable("auction");
 
+                entity.HasIndex(e => e.OrderId, "UK_bvlmyhb2isivkfvtp5kv3tpl0")
+                    .IsUnique()
+                    .HasFilter("([order_id] IS NOT NULL)");
+
                 entity.Property(e => e.AuctionId).HasColumnName("auction_id");
 
                 entity.Property(e => e.AuctionName)
@@ -47,9 +51,18 @@ namespace DataAccessLayer.Model
                     .IsUnicode(false)
                     .HasColumnName("auction_name");
 
+                entity.Property(e => e.OrderId).HasColumnName("order_id");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
                 entity.Property(e => e.Product).HasColumnName("product");
 
                 entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.HasOne(d => d.Order)
+                    .WithOne(p => p.Auction)
+                    .HasForeignKey<Auction>(d => d.OrderId)
+                    .HasConstraintName("FKiepn1ayfrf4b659sg16t9rmjr");
 
                 entity.HasOne(d => d.ProductNavigation)
                     .WithMany(p => p.Auctions)
@@ -131,6 +144,17 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
+                entity.Property(e => e.Description)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Image)
+                    .IsUnicode(false)
+                    .HasColumnName("image");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(255)
                     .IsUnicode(false)
@@ -183,10 +207,30 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.Address)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("last_name");
+
                 entity.Property(e => e.Password)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("password");
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("phone_number");
 
                 entity.Property(e => e.Role).HasColumnName("role");
 
