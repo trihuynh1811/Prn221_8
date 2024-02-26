@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Prn221_8_HoaLan.Pages.Login;
 using System.ComponentModel.DataAnnotations;
 using Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Prn221_8_HoaLan.Pages.Register
 {
@@ -87,24 +88,20 @@ namespace Prn221_8_HoaLan.Pages.Register
                 PhoneNumber = PhoneNumber,
                 UserEmail = Email,
                 UserName = UserName,
+                Status = true,
                 Role = 1
             };
-
-            //if (!Password.Equals(ConfirmPassword))
-            //{
-            //    ViewData["Message"] = "Password and confirm password is not equal!";
-            //}
             if (_userRepo.checkExistUser(newUser))
             {
                 ViewData["Message"] = "Tài khoản đã tồn tại.";
+                return Page();
             }
             else
             {
                 _userRepo.Save(newUser);
                 ViewData["Message"] = "Đăng ký thành công!";
+                return RedirectToPage("/Index");
             }
-
-            return Page();
         }
 
 

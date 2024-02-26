@@ -32,6 +32,11 @@ namespace Repository
             }
             return false;
         }
+
+        public User? GetUserByUsernamePassword(string userName, string password)
+        {
+            return GetContext().Users.SingleOrDefault(p => p.UserName == userName && p.Password == password);
+        }
     }
 
 }

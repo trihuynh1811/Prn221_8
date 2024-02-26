@@ -12,5 +12,6 @@ namespace Repository
     {
         User? GetUserByEmail(string email);
         bool checkExistUser(User user);
+        User? GetUserByUsernamePassword(string userName, string password);
     }
 }
