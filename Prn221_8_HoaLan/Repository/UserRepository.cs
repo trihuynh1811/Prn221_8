@@ -20,6 +20,18 @@ namespace Repository
         {
             return GetContext().Users.Include(user => user.Orders).ToList();
         }
+
+        public bool checkExistUser(User user)
+        {
+            bool isUsernameExists = GetContext().Users.Any(u => u.UserName == user.UserName);
+            bool isEmailExists = GetContext().Users.Any(u => u.UserEmail == user.UserEmail);
+            bool isPhoneNumberExists = GetContext().Users.Any(u => u.PhoneNumber == user.PhoneNumber);
+            if (isUsernameExists || isUsernameExists || isUsernameExists)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
 }

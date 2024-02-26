@@ -11,5 +11,6 @@ namespace Repository
     public interface IUserRepository : IBaseRepository<User>
     {
         User? GetUserByEmail(string email);
+        bool checkExistUser(User user);
     }
 }
