@@ -1,7 +1,26 @@
+﻿using DataAccessLayer.Model;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add service
+builder.Services.AddDbContext<HoaLanContext>(options =>
+{
+    options.UseSqlServer("Server=(local);database=HoaLan;uid=sa;pwd=12345;Trusted_Connection=True;TrustServerCertificate=True;");
+});
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+// Add secction
+builder.Services.AddDistributedMemoryCache(); // Có thể thay thế bằng cơ chế lưu trữ cache khác nếu cần
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian tự động hủy session sau 30 phút không sử dụng
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -13,13 +32,19 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add middleware session into pipeline
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 
 app.Run();

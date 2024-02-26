@@ -53,6 +53,8 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
+                entity.Property(e => e.Price).HasColumnName("price");
+
                 entity.Property(e => e.Product).HasColumnName("product");
 
                 entity.Property(e => e.Status).HasColumnName("status");
@@ -205,10 +207,30 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.Address)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("last_name");
+
                 entity.Property(e => e.Password)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("password");
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("phone_number");
 
                 entity.Property(e => e.Role).HasColumnName("role");
 
