@@ -11,7 +11,7 @@ namespace DataAccessLayer.Model
         public int? Auction { get; set; }
         public int? Participant { get; set; }
 
-        public virtual Auction AuctionNavigation { get; set; }
-        public virtual User ParticipantNavigation { get; set; }
+        public virtual Auction? AuctionNavigation { get; set; }
+        public virtual User? ParticipantNavigation { get; set; }
     }
 }

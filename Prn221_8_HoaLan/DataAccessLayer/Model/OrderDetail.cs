@@ -10,7 +10,7 @@ namespace DataAccessLayer.Model
         public int? Orders { get; set; }
         public int? Product { get; set; }
 
-        public virtual Order OrdersNavigation { get; set; }
-        public virtual Product ProductNavigation { get; set; }
+        public virtual Order? OrdersNavigation { get; set; }
+        public virtual Product? ProductNavigation { get; set; }
     }
 }

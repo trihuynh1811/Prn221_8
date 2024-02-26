@@ -16,14 +16,14 @@ namespace DataAccessLayer.Model
         {
         }
 
-        public virtual DbSet<Auction> Auctions { get; set; }
-        public virtual DbSet<AuctionDetail> AuctionDetails { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Auction> Auctions { get; set; } = null!;
+        public virtual DbSet<AuctionDetail> AuctionDetails { get; set; } = null!;
+        public virtual DbSet<Order> Orders { get; set; } = null!;
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<Report> Reports { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,6 +40,10 @@ namespace DataAccessLayer.Model
             {
                 entity.ToTable("auction");
 
+                entity.HasIndex(e => e.OrderId, "UK_bvlmyhb2isivkfvtp5kv3tpl0")
+                    .IsUnique()
+                    .HasFilter("([order_id] IS NOT NULL)");
+
                 entity.Property(e => e.AuctionId).HasColumnName("auction_id");
 
                 entity.Property(e => e.AuctionName)
@@ -47,9 +51,16 @@ namespace DataAccessLayer.Model
                     .IsUnicode(false)
                     .HasColumnName("auction_name");
 
+                entity.Property(e => e.OrderId).HasColumnName("order_id");
+
                 entity.Property(e => e.Product).HasColumnName("product");
 
                 entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.HasOne(d => d.Order)
+                    .WithOne(p => p.Auction)
+                    .HasForeignKey<Auction>(d => d.OrderId)
+                    .HasConstraintName("FKiepn1ayfrf4b659sg16t9rmjr");
 
                 entity.HasOne(d => d.ProductNavigation)
                     .WithMany(p => p.Auctions)
@@ -130,6 +141,17 @@ namespace DataAccessLayer.Model
                 entity.ToTable("product");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Image)
+                    .IsUnicode(false)
+                    .HasColumnName("image");
+
+                entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(255)
