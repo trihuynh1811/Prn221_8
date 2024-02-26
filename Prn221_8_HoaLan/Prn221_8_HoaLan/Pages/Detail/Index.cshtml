@@ -1,0 +1,52 @@
+﻿@page "/detail"
+@model Prn221_8_HoaLan.Pages.Detail.DetailModel
+@{
+Layout = "../Shared/_Layout.cshtml";
+}
+
+<head>
+  <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
+</head>
+
+<body style="background: #242424; color: #fff;">
+  <nav class="navbar">
+    <input type="button" onclick="history.go(-1)" value="Return" />
+    <div class="search-section flex justify-end">
+      <div class="search-container">
+        <input type="text" placeholder="Search for orchids">
+        <button><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <div>
+      <a href="#">On going auctions</a>
+      <a href="#">Your Shop</a>
+    </div>
+  </nav>
+  <main>
+    <div class="detail-container">
+      <div class="detail-wrapper">
+        <div class="detail-image">
+          <img src="images/orchid-stock.jpeg" style="min-width: 400px; min-height: 400px;" alt="Orchid">
+        </div>
+        <div class="detail-info">
+          <h1>Orchid</h1>
+          <p>Orchids are a diverse and widespread family of flowering plants, with blooms that are often colourful and
+            fragrant. The orchid family (Orchidaceae) is the second largest family of flowering plants, with about 880
+            genera and some 22,000 accepted species. They are perennial herbs with no woody structure. Orchids are
+            easily
+            distinguished from other plants, as they share some very evident, shared derived characteristics, or
+            "apomorphies". Among these are: bilateral symmetry of the flower (zygomorphism), many resupinate flowers, a
+            nearly always highly modified petal (labellum), fused stamens and carpels, and extremely small seeds.</p>
+          <div class="detail-price">
+            <h2>Price: $100</h2>
+            <button>Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-container">
+    </div>
+  </footer>
+</body>
