@@ -1,0 +1,40 @@
+﻿@page "/login"
+@model Prn221_8_HoaLan.Pages.Login.LoginModel
+
+@{
+    Layout = "_LayoutLoginRegister";
+}
+
+<head>
+    <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
+</head>
+
+<div class="login-container d-flex justify-content-center align-items-center">
+    <div class="login-wrapper flex-center">
+        <div class="form-wrapper">
+            <h1>Login</h1>
+            <form class="form-horizontal" method="post">
+                <div class="form-item flex-column">
+                    <label>Email</label>
+                    <input asp-for="Username" />
+                </div>
+                <div class="form-item flex-column">
+                    <label>Password</label>
+                    <input type="password" asp-for="Password" />
+                </div>
+                <div>
+                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            @ViewData["ErrorMessage"]
+                        </div>
+                    }
+                </div>
+                No account? <a asp-page="../Register/Register">Register</a>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
