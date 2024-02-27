@@ -15,12 +15,14 @@
             <h1>Login</h1>
             <form class="form-horizontal" method="post">
                 <div class="form-item flex-column">
-                    <label>Email</label>
+                    <label>Username</label>
                     <input asp-for="Username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-item flex-column">
                     <label>Password</label>
                     <input type="password" asp-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div>
                     @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
