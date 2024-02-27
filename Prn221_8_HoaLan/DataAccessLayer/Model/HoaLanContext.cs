@@ -47,8 +47,7 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.AuctionId).HasColumnName("auction_id");
 
                 entity.Property(e => e.AuctionName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(100)
                     .HasColumnName("auction_name");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
@@ -146,7 +145,6 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(1000)
-                    .IsUnicode(false)
                     .HasColumnName("description");
 
                 entity.Property(e => e.Image)
@@ -156,8 +154,7 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.ProductName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(100)
                     .HasColumnName("product_name");
 
                 entity.Property(e => e.Status).HasColumnName("status");
@@ -175,7 +172,6 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.ReportContent)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
                     .HasColumnName("report_content");
 
                 entity.HasOne(d => d.ProductNavigation)
@@ -196,8 +192,7 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.Property(e => e.RoleName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(100)
                     .HasColumnName("role_name");
             });
 
@@ -208,18 +203,15 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(200)
                     .HasColumnName("address");
 
                 entity.Property(e => e.FirstName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(100)
                     .HasColumnName("first_name");
 
                 entity.Property(e => e.LastName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
+                    .HasMaxLength(100)
                     .HasColumnName("last_name");
 
                 entity.Property(e => e.Password)
@@ -242,7 +234,7 @@ namespace DataAccessLayer.Model
                     .HasColumnName("user_email");
 
                 entity.Property(e => e.UserName)
-                    .HasMaxLength(255)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("user_name");
 

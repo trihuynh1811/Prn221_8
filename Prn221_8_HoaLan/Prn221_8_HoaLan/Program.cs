@@ -6,18 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 // Add service
 builder.Services.AddDbContext<HoaLanContext>(options =>
-{
-    options.UseSqlServer("Server=(local);database=HoaLan;uid=sa;pwd=12345;Trusted_Connection=True;TrustServerCertificate=True;");
-});
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HoaLan")));
+
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 // Add secction
-builder.Services.AddDistributedMemoryCache(); // Có thể thay thế bằng cơ chế lưu trữ cache khác nếu cần
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian tự động hủy session sau 30 phút không sử dụng
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
