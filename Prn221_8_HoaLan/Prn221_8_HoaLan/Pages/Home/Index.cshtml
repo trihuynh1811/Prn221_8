@@ -1,0 +1,35 @@
+﻿@page "/home"
+@model Prn221_8_HoaLan.Pages.Home.HomeModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/Prn221_8_HoaLan.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/custom.css" asp-append-version="true" />
+</head>
+
+<body style="background: #242424; color: #fff;">
+    <nav class="navbar">
+        <div class="search-section flex justify-end">
+            <div class="search-container">
+                <input type="text" placeholder="Search for orchids">
+                <button><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div>
+            <a href="#">On going auctions</a>
+            <a href="#">Your Shop</a>
+        </div>
+    </nav>
+    <div class="hero-section">
+        <h1>Welcome to the Orchid Auction & Buying Platform</h1>
+    </div>
+    <div class="carousel-section">
+        <div class="carousel">
+            <img src="https://via.placeholder.com/600x400?text=Orchid+1" alt="Orchid 1">
+            <img src="https://via.placeholder.com/600x400?text=Orchid+2" alt="Orchid 2">
+            <img src="https://via.placeholder.com/600x400?text=Orchid+3" alt="Orchid 3">
+        </div>
+    </div>
+</body>

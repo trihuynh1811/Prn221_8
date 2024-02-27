@@ -1,0 +1,136 @@
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-end{
+    justify-content: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    z-index: 1;
+}
+  
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #f28f2c;
+}
+
+.search-section {
+    flex-grow: 1;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    width: 100%;
+    max-width: 600px;
+    padding: 8px;
+    margin-left: 20%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    border: none;
+    font-size: 18px;
+    padding: 8px;
+}
+
+.search-container button {
+    background-color: #f28f2c;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #e67e22;
+}
+
+.navbar a.button {
+    padding: 10px;
+    margin: 0 20px;
+    background: #f2f2f2;
+    color: #242424;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar a.button:hover {
+    background: #e67e22;
+    color: #fff;
+}
+
+.hero-section {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f28f2c;
+    margin-top: 10%;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    text-align: center;
+}
+
+.carousel-section {
+    margin-top: 50px;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.carousel img {
+    width: 600px;
+    height: 400px;
+    scroll-snap-align: center;
+    margin-right: 20px;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
