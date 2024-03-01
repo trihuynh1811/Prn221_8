@@ -37,6 +37,29 @@ namespace Repository
         {
             return GetContext().Users.SingleOrDefault(p => p.UserName == userName && p.Password == password);
         }
+
+        public List<User> SearchUserByUserName(string searchValue)
+        {
+            if (searchValue == null)
+            {
+                searchValue = "";
+            }
+            return GetAll().Where(user => user.UserName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        }
+
+        public List<User> SearchUserByUserNameAndRole(string searchValue, string Role)
+        {
+            if (Role.Equals("0"))
+            {
+                return SearchUserByUserName(searchValue);
+            }
+            if (searchValue == null)
+            {
+                searchValue = "";
+            }
+            return GetAll().Where(user => user.Role.ToString().Equals(Role) && user.UserName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
     }
 
 }
