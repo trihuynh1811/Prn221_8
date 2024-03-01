@@ -10,7 +10,7 @@ namespace BussinessService.Request
     {
         public string? AuctionName { get; set; }
         public float Price { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; } = false;
         public int? Product { get; set; }
         public int? Quantity { get; set; }
     }

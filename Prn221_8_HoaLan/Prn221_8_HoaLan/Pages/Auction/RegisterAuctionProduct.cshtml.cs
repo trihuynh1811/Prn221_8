@@ -72,14 +72,18 @@ namespace Prn221_8_HoaLan.Pages.Auction
                         imageUrl = uploadResponse.data?.link;
                         CreateUpdateProductDTO dto = new CreateUpdateProductDTO
                         {
-                            ProductName = AuctionName,
+                            ProductName = ProductName,
                             Price = 0,
                             Image = imageUrl,
                             Description = ProductDesc,
-                            Quantity = int.Parse(ProductQuantity)
                         };
-
-                        Product p = auctionService.CreateAuction(dto); 
+                        CreateUpdateAuctionDTO aDto = new CreateUpdateAuctionDTO
+                        {
+                            AuctionName = AuctionName,
+                            Price = 0,
+                            Quantity = int.Parse(ProductQuantity),
+                        };
+                        Product p = auctionService.CreateAuction(dto, aDto); 
                     }
                 }
             }catch(Exception ex)
