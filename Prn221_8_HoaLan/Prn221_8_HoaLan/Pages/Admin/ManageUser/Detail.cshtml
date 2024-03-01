@@ -1,0 +1,76 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.Admin.UserInformationManager.DetailModel
+@{
+}
+
+<form class="form-horizontal mb-5" method="post">
+    <div class="input-group mb-3 mt-5">
+     <select asp-for="RoleValue" class="form-control">
+        <option value="0">All</option>
+        <option value="4">Customer</option>
+        <option value="3">Product Owner</option>
+        <option value="2">Staff</option>
+        <option value="1">Admin</option>
+    </select>
+    <input type="text" class="form-control" placeholder="Search User" asp-for="SearchValue">
+    <button class="btn btn-success" type="submit">Search</button> 
+</form>
+
+</div>
+    <table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <td scope="col" class="font-weight-bold">
+                User ID
+            </td>
+            <td scope="col" class="font-weight-bold">
+                Full Name
+            </td scope="col" class="font-weight-bold">
+            <td scope="col" class="font-weight-bold">
+                User Name
+            </td>
+            <td scope="col" class="font-weight-bold">
+                Role
+            </td>
+            <td scope="col" class="font-weight-bold">
+                Status
+            </td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListUser)
+        {
+            <tr>
+                <td >
+                    @item.UserId
+                </td>
+                <td>
+                    @item.LastName @item.FirstName
+                </td>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @if (@item.Role == 1)
+                    {
+                        <p>Admin</p>
+                    }else if(item.Role == 2){
+                        <p>Staff</p>
+                    }else if(item.Role == 3){
+                        <p>Product Owner</p>
+                    }else if(item.Role == 4){
+                        <p>Customer</p>
+                    }
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> | 
+                    <a asp-page="./Details" asp-route-id="@item.UserId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>

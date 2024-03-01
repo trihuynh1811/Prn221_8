@@ -11,12 +11,19 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BussinessService\BussinessService.csproj" />
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Admin\Test\" />
+    <Folder Include="Pages\ABC\" />
+    <Folder Include="Pages\Staff\" />
   </ItemGroup>
 
 </Project>

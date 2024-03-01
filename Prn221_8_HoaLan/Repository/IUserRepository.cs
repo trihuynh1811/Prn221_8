@@ -10,8 +10,9 @@ namespace Repository
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User? GetUserByEmail(string email);
+        public List<User> SearchUserByUserName(string searchValue);
         bool checkExistUser(User user);
         User? GetUserByUsernamePassword(string userName, string password);
+        public List<User> SearchUserByUserNameAndRole(string searchValue, String Role);
     }
 }
