@@ -1,17 +1,28 @@
 ﻿using DataAccessLayer.Model;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using BussinessService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 // Add service
 builder.Services.AddDbContext<HoaLanContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HoaLan")));
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
+builder.Services.AddTransient<IAuctionDetailRepository, AuctionDetailRepository>();
+
+builder.Services.AddTransient<IAuctionService,  AuctionService>();
 // Add secction
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

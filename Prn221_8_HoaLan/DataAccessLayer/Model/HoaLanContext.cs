@@ -56,6 +56,8 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.Product).HasColumnName("product");
 
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.HasOne(d => d.Order)
@@ -156,6 +158,8 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(100)
                     .HasColumnName("product_name");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.Status).HasColumnName("status");
             });

@@ -1,14 +1,20 @@
 ﻿@page
 @model IndexModel
+@using DataAccessLayer.Model;
+@using Newtonsoft.Json;
 @{
     ViewData["Title"] = "Home page";
 }
 @{
     Layout = "_Layout";
 }
-
+@{
+    var sessionUser = HttpContext.Session.GetString("User");
+    User? customer = sessionUser != null ? JsonConvert.DeserializeObject<User>(sessionUser) : null;
+    string customerName = customer != null ? $"{customer.FirstName} {customer.LastName}" : "";
+}
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome @customerName</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
