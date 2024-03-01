@@ -28,13 +28,23 @@ namespace BussinessService
                 Price = pDto.Price,
                 Description = pDto.Description,
                 Image = pDto.Image,
-                Quantity = pDto.Quantity,
                 Status = pDto.Status,
             };
+
             try
             {
                 p = productRepository.SaveProduct(p);
-            }catch(Exception ex)
+                Auction a = new Auction
+                {
+                    AuctionName = aDto.AuctionName,
+                    Price = aDto.Price,
+                    Status = aDto.Status,
+                    Product = p.ProductId,
+                    Quantity = pDto.Quantity,
+                };
+                auctionRepository.Save(a);
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.InnerException.ToString());
             }

@@ -8,5 +8,10 @@ namespace BussinessService.Request
 {
     public class CreateUpdateAuctionDTO
     {
+        public string? AuctionName { get; set; }
+        public float Price { get; set; }
+        public bool Status { get; set; }
+        public int? Product { get; set; }
+        public int? Quantity { get; set; }
     }
 }

@@ -10,6 +10,6 @@ namespace BussinessService
 {
     public interface IAuctionService
     {
-        public Product CreateAuction(CreateUpdateProductDTO pDto);
+        public Product CreateAuction(CreateUpdateProductDTO pDto, CreateUpdateAuctionDTO aDto);
     }
 }
