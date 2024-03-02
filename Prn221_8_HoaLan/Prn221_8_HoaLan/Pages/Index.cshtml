@@ -9,12 +9,17 @@
     Layout = "_Layout";
 }
 @{
-    var sessionUser = HttpContext.Session.GetString("User");
-    User? customer = sessionUser != null ? JsonConvert.DeserializeObject<User>(sessionUser) : null;
-    string customerName = customer != null ? $"{customer.FirstName} {customer.LastName}" : "";
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if(user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @customerName</h1>
+    <h1 class="display-4">Welcome @fullName</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

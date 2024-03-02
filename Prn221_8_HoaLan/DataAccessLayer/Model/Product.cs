@@ -18,6 +18,7 @@ namespace DataAccessLayer.Model
         public float Price { get; set; }
         public string? ProductName { get; set; }
         public bool Status { get; set; }
+        public int? Quantity { get; set; }
 
         public virtual ICollection<Auction> Auctions { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

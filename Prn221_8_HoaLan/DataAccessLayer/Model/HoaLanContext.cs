@@ -161,6 +161,10 @@ namespace DataAccessLayer.Model
                     .HasMaxLength(100)
                     .HasColumnName("product_name");
 
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Status).HasColumnName("status");
             });
 
