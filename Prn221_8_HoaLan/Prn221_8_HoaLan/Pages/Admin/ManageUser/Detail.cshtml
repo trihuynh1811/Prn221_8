@@ -1,6 +1,13 @@
 ﻿@page
+@using DataAccessLayer.Model;
 @model Prn221_8_HoaLan.Pages.Admin.UserInformationManager.DetailModel
 @{
+    Layout = "_LayoutAdmin";
+}
+@{
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    ViewBag.Role = user.Role;
 }
 
 <form class="form-horizontal mb-5" method="post">
@@ -14,9 +21,9 @@
     </select>
     <input type="text" class="form-control" placeholder="Search User" asp-for="SearchValue">
     <button class="btn btn-success" type="submit">Search</button> 
+    </div>
 </form>
 
-</div>
     <table class="table table-hover">
     <thead class="table-dark">
         <tr>
@@ -74,3 +81,4 @@
             </tr>
         }
     </tbody>
+    </table>

@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prn221_8_HoaLan", "Prn221_8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{1DE8CDE4-3135-4A78-9FA2-E29968FE6B89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{96F7B461-075C-474E-924B-22C2C00F8478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{96F7B461-075C-474E-924B-22C2C00F8478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessService", "BussinessService\BussinessService.csproj", "{1F7ACC28-7B13-4836-97EF-C2226E029CB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BussinessService", "BussinessService\BussinessService.csproj", "{1F7ACC28-7B13-4836-97EF-C2226E029CB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

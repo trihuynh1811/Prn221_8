@@ -6,7 +6,6 @@ namespace DataAccessLayer.Model
     public partial class AuctionDetail
     {
         public int AuctionDetailId { get; set; }
-        public int HostId { get; set; }
         public int WinnerId { get; set; }
         public int? Auction { get; set; }
         public int? Participant { get; set; }

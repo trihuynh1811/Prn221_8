@@ -40,13 +40,9 @@
                         <li class="nav-item">
                             <a class="btn btn-outline-primary" asp-area="" asp-page="/Login/Login">Login</a>
                         </li>
-                        @if (ViewBag.Role == 3)
-                        {
-                            <li class="nav-item">
-                                <a class="btn btn-outline-primary" asp-area="" asp-page="/Auction/RegisterAuctionProduct">Register For Auction</a>
-                            </li>
-                        }
-
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" asp-area="" asp-page="/Admin/ManageUser/Detail">Register For Auction</a>
+                        </li>
                     </ul>
                 </div>
             </div>

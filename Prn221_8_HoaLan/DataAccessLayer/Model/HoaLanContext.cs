@@ -50,13 +50,15 @@ namespace DataAccessLayer.Model
                     .HasMaxLength(100)
                     .HasColumnName("auction_name");
 
+                entity.Property(e => e.CreateBy).HasColumnName("createBy");
+
+                entity.Property(e => e.HostBy).HasColumnName("hostBy");
+
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Product).HasColumnName("product");
-
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
@@ -78,8 +80,6 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.AuctionDetailId).HasColumnName("auction_detail_id");
 
                 entity.Property(e => e.Auction).HasColumnName("auction");
-
-                entity.Property(e => e.HostId).HasColumnName("host_id");
 
                 entity.Property(e => e.Participant).HasColumnName("participant");
 
@@ -158,8 +158,6 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(100)
                     .HasColumnName("product_name");
-
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.Status).HasColumnName("status");
             });

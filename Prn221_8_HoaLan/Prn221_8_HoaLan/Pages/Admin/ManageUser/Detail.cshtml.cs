@@ -23,8 +23,18 @@ namespace Prn221_8_HoaLan.Pages.Admin.UserInformationManager
             _iuser = UserRepo;
         }
 
-        public PageResult OnGet()
-        {   
+        public IActionResult OnGet()
+        {
+            var session = HttpContext.Session;
+            if(session == null)
+            {
+                return RedirectToPage("../../NoAuthorization");
+            }
+            User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+            if(user == null || user.Role > 1)
+            {
+                return RedirectToPage("../../NoAuthorization");
+            }
             if (SearchValue == null || SearchValue == "") {
                 ListUser = _iuser.GetAll();
             }
