@@ -13,5 +13,6 @@ namespace BussinessService.Request
         public bool Status { get; set; } = false;
         public int? Product { get; set; }
         public int? Quantity { get; set; }
+        public int CreateBy { get; set; }
     }
 }

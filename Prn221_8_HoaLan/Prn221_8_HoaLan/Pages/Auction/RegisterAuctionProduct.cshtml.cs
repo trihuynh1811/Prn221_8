@@ -36,12 +36,11 @@ namespace Prn221_8_HoaLan.Pages.Auction
 
         public IActionResult OnGet()
         {
-            //var customer = HttpContext.Session.Get("User");
-            //if(customer == null)
-            //{
-            //    return RedirectToPage("../Login/Login");
-            //}
-            //imageName = "nothing";
+            var customer = HttpContext.Session.Get("User");
+            if (customer == null)
+            {
+                return RedirectToPage("../Login/Login");
+            }
             return Page();
         }
 
@@ -53,6 +52,8 @@ namespace Prn221_8_HoaLan.Pages.Auction
             var apiUrl = "https://api.imgur.com/3/image";
             string? imageUrl = "";
 
+            var session = HttpContext.Session;
+            User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
             try
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Client-ID {clientId}");
@@ -82,6 +83,7 @@ namespace Prn221_8_HoaLan.Pages.Auction
                             AuctionName = AuctionName,
                             Price = 0,
                             Quantity = int.Parse(ProductQuantity),
+                            CreateBy = user.UserId
                         };
                         Product p = auctionService.CreateAuction(dto, aDto); 
                     }

@@ -41,6 +41,7 @@ namespace BussinessService
                     Status = aDto.Status,
                     Product = p.ProductId,
                     Quantity = pDto.Quantity,
+                    CreateBy = aDto.CreateBy
                 };
                 auctionRepository.Save(a);
             }

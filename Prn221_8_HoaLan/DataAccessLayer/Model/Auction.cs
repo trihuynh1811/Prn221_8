@@ -18,6 +18,7 @@ namespace DataAccessLayer.Model
         public int? Product { get; set; }
         public int? CreateBy { get; set; }
         public int? HostBy { get; set; }
+        public int? Quantity { get; set; }
 
         public virtual Order? Order { get; set; }
         public virtual Product? ProductNavigation { get; set; }
