@@ -2,69 +2,232 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Prn221_8_HoaLan</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <script src="https://kit.fontawesome.com/f381550269.js" crossorigin="anonymous"></script>
-    @RenderSection("Styles", required: false)
-    <style>
-        body {
-            margin: 0 !important;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - Prn221_8_HoaLan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <script src="https://kit.fontawesome.com/f381550269.js" crossorigin="anonymous"></script>
+  @RenderSection("Styles", required: false)
+  <style>
+    /* Colors */
+    :root {
+      --primary-color: #141414;
+      /* black */
+      --secondary-color: #f18e64;
+      /* orange */
+      --tertiary-color: #fff;
+      /* white */
+      --danger-color: #FF4000;
+    }
+
+    body {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .navbar,
+    .navbar-nav,
+    .nav-item,
+    .navbar-branc {
+      background-color: var(--primary-color) !important;
+      color: var(--secondary-color) !important;
+      padding: 10px 0 !important;
+    }
+
+    /* Search and Select */
+    .form-control {
+      background-color: var(--tertiary-color);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .form-control:focus {
+      background-color: var(--tertiary-color);
+      border-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+
+    select.form-control option {
+      background-color: var(--tertiary-color);
+      color: var(--primary-color);
+    }
+
+    /* Table */
+    .table {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+      border: 1px solid var(--secondary-color);
+      border-radius: 5px;
+    }
+
+    .table th {
+      border-bottom-color: var(--primary-color);
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--secondary-color);
+    }
+
+    .table td {
+      border-color: var(--primary-color);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #232323 !important;
+      color: var(--secondary-color);
+    }
+
+    /* Animations */
+    .table td,
+    .table th {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .table td::before,
+    .table th::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--secondary-color);
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .table td:hover::before,
+    .table th:hover::before {
+      opacity: 0.1;
+    }
+
+    /* Elegant links */
+    a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    a::before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--primary-color);
+    }
+
+    a:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--tertiary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: 1px solid var(--secondary-color);
+      color: var(--tertiary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: var(--tertiary-color);
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+      border-left: 1px solid var(--secondary-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--tertiary-color);
+    }
+
+    .btn-danger {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+    }
+
+    .btn-danger:hover {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--danger-color);
+      border-bottom-color: var(--danger-color);
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" asp-area="" asp-page="/Login/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" asp-area="" asp-page="/Admin/ManageUser/Detail">ManageUser</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Prn221_8_HoaLan - <a asp-area="" asp-page="/Privacy">Privacy</a>
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+      <div class="container">
+        <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+          <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+              <a class="" asp-area="" asp-page="/Login/Login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="" asp-area="" asp-page="/Admin/ManageUser/Detail">ManageUser</a>
+            </li>
+          </ul>
         </div>
-    </footer>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <main role="main" class="pb-3">
+      @RenderBody()
+    </main>
+  </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+  <footer class="border-top footer text-muted">
+    <div class="container">
+      &copy; 2024 - Prn221_8_HoaLan - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
+  </footer>
 
-    @await RenderSectionAsync("Scripts", required: false)
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
