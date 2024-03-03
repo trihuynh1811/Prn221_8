@@ -4,11 +4,6 @@
 @{
     Layout = "_LayoutAdmin";
 }
-@{
-    var session = HttpContext.Session;
-    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
-    ViewBag.Role = user.Role;
-}
 
 <form class="form-horizontal mb-5" method="post">
     <div class="input-group mb-3 mt-5">

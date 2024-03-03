@@ -30,8 +30,8 @@ namespace Prn221_8_HoaLan.Pages.Admin.UserInformationManager
             {
                 return RedirectToPage("../../NoAuthorization");
             }
-            User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
-            if(user == null || user.Role > 1)
+            string admin = Prn221_8_HoaLan.SessionExtensions.Get<string>(session, "Admin");
+            if(admin == null)
             {
                 return RedirectToPage("../../NoAuthorization");
             }

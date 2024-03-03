@@ -38,6 +38,7 @@ namespace Prn221_8_HoaLan.Pages.Login
             }
             else if (_configuration.GetSection("AdminAccount")["Username"].Equals(Username) && _configuration.GetSection("AdminAccount")["Password"].Equals(Password))
             {
+                Prn221_8_HoaLan.SessionExtensions.Set<string>(session, "Admin", Username);
                 return RedirectToPage("../Admin/ManageUser/Detail");
             }
             else
