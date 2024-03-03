@@ -12,6 +12,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://kit.fontawesome.com/f381550269.js" crossorigin="anonymous"></script>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- fevicon -->
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+
     @RenderSection("Styles", required: false)
     <style>
         body {
@@ -20,8 +38,56 @@
     </style>
 </head>
 
-<body>
-    <header>
+<body class="main-layout" style="min-height: 100vh;">
+    <header class="" style="border-bottom: 1px solid;">
+        <!-- header inner -->
+        <div class="">
+            <div class="">
+                <div class="d-flex align-items-center">
+                    <div class="w-100">
+                        <nav class="py-2 px-4">
+                            <div class="w-100" id="navbarsExample04">
+                                <ul class="d-flex align-items-center">
+                                    <li class="nav-item active">
+                                        <a asp-page="/Index">
+                                            <img class="" src="~/images/orchild.png" alt="#"
+                                                 style="width: 4.25rem; height: 4.25rem; object-fit: contain;" />
+                                        </a>
+                                    </li>
+                                    <li class="nav-item active" style="margin-left: 3rem; font-size: 1.25rem;">
+                                        <a class="nav-link" asp-page="/Index">Home</a>
+                                    </li>
+
+                                    @if (ViewBag.Role == 3)
+                                    {
+                                        <li class="nav-item" style="font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Products/ProductDisplay">Shop</a>
+                                        </li>
+                                        <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Products/ProductRegister">Register Product</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Products/ProductDisplay">Shop</a>
+                                        </li>
+                                    }
+                                    <li class="nav-item d_none login_btn" style="font-size: 1.25rem;">
+                                        <a class="nav-link" asp-page="/Login/Login">Login</a>
+                                    </li>
+                                    <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                        <a class="nav-link" asp-page="/Register/Register">Register</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+@*     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
@@ -40,33 +106,38 @@
                         <li class="nav-item">
                             <a class="btn btn-outline-primary" asp-area="" asp-page="/Login/Login">Login</a>
                         </li>
-                        @if (ViewBag.Role == 3)
-                        {
-                            <li class="nav-item">
-                                <a class="btn btn-outline-primary" asp-area="" asp-page="/Auction/RegisterAuctionProduct">Register For Auction</a>
-                            </li>
-                        }
+
 
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    </header> *@
 
-    <footer class="border-top footer text-muted">
+    @RenderBody()
+
+@*     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Prn221_8_HoaLan - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer> *@
+    <footer class="mt-4 w-100 position-sticky" style="height: 3rem; top: 100%;">
+        <div class="position-absolute d-flex flex-column align-items-center justify-content-center w-100"
+             style="background-color: black; height: 3rem;">
+            <p>© 2024 All Rights Reserved</p>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
