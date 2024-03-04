@@ -34,10 +34,18 @@
     .navbar,
     .navbar-nav,
     .nav-item,
-    .navbar-branc {
+    .navbar-brand {
       background-color: var(--primary-color) !important;
       color: var(--secondary-color) !important;
       padding: 10px 0 !important;
+    }
+
+    .nav-item {
+      margin-left: 10px;
+    }
+
+    .nav-item>a:hover {
+      color: var(--danger-color) !important;
     }
 
     /* Search and Select */
@@ -127,14 +135,6 @@
       transform: scaleX(0);
       transform-origin: left;
       transition: all 0.3s ease;
-    }
-
-    a:hover {
-      color: var(--primary-color);
-    }
-
-    a:hover::before {
-      transform: scaleX(1);
     }
 
     /* Buttons */
