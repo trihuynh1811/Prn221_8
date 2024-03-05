@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using DataAccessLayer.Model
+@{
+    var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(Context.Session, "User");
+    var admin = Prn221_8_HoaLan.SessionExtensions.Get<String>(Context.Session, "Admin");
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -73,12 +78,21 @@
                                             <a class="nav-link" asp-page="/Products/ProductDisplay">Shop</a>
                                         </li>
                                     }
-                                    <li class="nav-item d_none login_btn" style="font-size: 1.25rem;">
-                                        <a class="nav-link" asp-page="/Login/Login">Login</a>
-                                    </li>
+                                    @if (user == null && admin == null)
+                                    {
+                                        <li class="nav-item d_none login_btn" style="font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Login/Login">Login</a>
+                                        </li>
+                                        <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                            <a class="nav-link btn btn-secondary" asp-page="/Register/Register">Register</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
                                     <li class="nav-item d_none" style="font-size: 1.25rem;">
-                                        <a class="nav-link" asp-page="/Register/Register">Register</a>
+                                            <a class="nav-link btn btn-danger" asp-page="/Logout/Logout">Logout</a>
                                     </li>
+                                    }
                                 </ul>
                             </div>
                         </nav>
