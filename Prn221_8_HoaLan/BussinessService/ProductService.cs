@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BussinessService
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         readonly IProductRepository productRepository;
 
@@ -31,7 +31,7 @@ namespace BussinessService
             };
             try
             {
-                productRepository.Save(newPorduct);
+                productRepository.SaveProduct(newPorduct);
             }
             catch(Exception ex)
             {
