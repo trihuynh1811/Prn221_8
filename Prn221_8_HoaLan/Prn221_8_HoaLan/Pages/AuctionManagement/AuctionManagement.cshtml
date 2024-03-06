@@ -1,0 +1,59 @@
+@page "/auction-management"
+@model Prn221_8_HoaLan.Pages.AuctionManagement.AuctionManagementModel
+@using DataAccessLayer.Model;
+@{
+Layout = "_LayoutAdmin";
+}
+
+<div class="container">
+  <h2>Product Management</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Image</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var product in Model.Products)
+      {
+      <tr>
+        <td>@product.ProductId</td>
+        <td>@product.ProductName</td>
+        <td>@product.Price</td>
+        <td>@product.Quantity</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">View
+            Image</button></td>
+        <td>
+          <button type="button" class="btn btn-primary">Approve</button>
+          <button type="button" class="btn btn-danger">Decline</button>
+        </td>
+      </tr>
+      <!-- Product Image Modal -->
+      <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
+        aria-labelledby="productImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productImageModalLabel">Product Image</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img src="" style="max-width: 100%; max-height: 31.25rem;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </tbody>
+  </table>
+</div>
