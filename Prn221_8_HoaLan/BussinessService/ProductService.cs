@@ -38,5 +38,21 @@ namespace BussinessService
                 throw new Exception(ex.InnerException.ToString());
             }
         }
+
+        public Product GetById(int id)
+        {
+            return productRepository.GetById(id);
+        }
+
+        public void SetProductStatus(int id, string status)
+        {
+            Product p = GetById(id);
+            //p.Status = status;
+        }
+
+        public List<Product> GetProducts()
+        {
+            return productRepository.GetAll();
+        }
     }
 }

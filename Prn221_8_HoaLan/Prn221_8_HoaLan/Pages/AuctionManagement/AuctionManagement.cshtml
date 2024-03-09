@@ -2,58 +2,94 @@
 @model Prn221_8_HoaLan.Pages.AuctionManagement.AuctionManagementModel
 @using DataAccessLayer.Model;
 @{
-Layout = "_LayoutAdmin";
+    Layout = "_LayoutAdmin";
 }
-
-<div class="container">
-  <h2>Product Auction Management</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Image</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var product in Model.Products)
-      {
-      <tr>
-        <td>@product.ProductId</td>
-        <td>@product.ProductName</td>
-        <td>@product.Price</td>
-        <td>@product.Quantity</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">View
-            Image</button></td>
-        <td>
-          <button type="button" class="btn btn-primary">Approve</button>
-          <button type="button" class="btn btn-danger">Decline</button>
-        </td>
-      </tr>
-      <!-- Product Image Modal -->
-      <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
-        aria-labelledby="productImageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="productImageModalLabel">Product Image</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img src="" style="max-width: 100%; max-height: 31.25rem;">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      }
-    </tbody>
-  </table>
+<div class="imageOverlay position-fixed top-0 start-0 d-none d-flex justify-content-center w-100 h-100"
+     style="z-index: 99;">
+    <div class="d-flex flex-column align-items-center justify-content-center my-2"
+         style="width: 100%; height: 100%; position: fixed; margin: 0px; background: #000000ab">
+        <img alt="" class="reviewImg" style="width: 500px; height: 500px; object-fit: contain"
+             src="">
+        <div class="closeBtn" style="background: red; border-radius: 30px; width: 25%; text-align: center; height: 5%" role="button">Close</div>
+    </div>
 </div>
+<div class="container">
+    <h2>Product Auction Management</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.ProductId</td>
+                    <td>@product.ProductName</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal" onclick="reviewImageClick('@product.Image')">
+                            View
+                            Image
+                        </button>
+                    </td>
+                    @if (!product.Status)
+                    {
+                        <td>
+                            <button type="button" class="btn btn-primary">Approve</button>
+                            <button type="button" class="btn btn-danger">Decline</button>
+                        </td>
+                    }
+
+                </tr>
+                <!-- Product Image Modal -->
+                <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
+                     aria-labelledby="productImageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productImageModalLabel">Product Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="" style="max-width: 100%; max-height: 31.25rem;">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+
+    const imageOverlay = document.querySelector('.imageOverlay')
+    const reviewImg = document.querySelector('.reviewImg')
+    const closeBtn = document.querySelector('.closeBtn')
+    if (imageOverlay !== null) {
+        imageOverlay.classList.add('d-none')
+    }
+
+    function reviewImageClick(imgSrc) {
+        reviewImg.src = imgSrc
+        imageOverlay.classList.remove('d-none')
+    }
+
+    if(closeBtn !== null){
+        closeBtn.addEventListener('click', ()=>{
+            imageOverlay.classList.add('d-none')
+        })
+    }
+</script>
