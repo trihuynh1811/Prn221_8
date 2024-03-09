@@ -9,16 +9,12 @@
   <ItemGroup>
     <Compile Remove="Pages\ABC\**" />
     <Compile Remove="Pages\Admin\Test\**" />
-    <Compile Remove="Pages\Staff\**" />
     <Content Remove="Pages\ABC\**" />
     <Content Remove="Pages\Admin\Test\**" />
-    <Content Remove="Pages\Staff\**" />
     <EmbeddedResource Remove="Pages\ABC\**" />
     <EmbeddedResource Remove="Pages\Admin\Test\**" />
-    <EmbeddedResource Remove="Pages\Staff\**" />
     <None Remove="Pages\ABC\**" />
     <None Remove="Pages\Admin\Test\**" />
-    <None Remove="Pages\Staff\**" />
   </ItemGroup>
 
   <ItemGroup>
