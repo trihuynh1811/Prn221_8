@@ -1,5 +1,8 @@
-@page "/auction-management"
-@model Prn221_8_HoaLan.Pages.AuctionManagement.AuctionManagementModel
+﻿@page "/staff-product-management"
+@model Prn221_8_HoaLan.Pages.Staff.ManagementProduct.ManageProductModel
+@{
+}
+
 @using DataAccessLayer.Model;
 @{
     Layout = "_LayoutAdmin";
@@ -20,6 +23,7 @@
             </tr>
         </thead>
         <tbody>
+            <form method="post">
             @foreach (var product in Model.Products)
             {
                 <tr>
@@ -37,8 +41,8 @@
                         @product.Status
                     </td>
                     <td>
-                        <button type="button" class="btn btn-primary">Approve</button>
-                        <button type="button" class="btn btn-danger">Decline</button>
+                        <button type="submit" class="btn btn-primary" name="button" value="Approve">Approve</button>
+                        <button type="submit" class="btn btn-danger" name="button" value="Reject">Reject</button>
                     </td>
                 </tr>
                 <!-- Product Image Modal -->
@@ -62,6 +66,7 @@
                     </div>
                 </div>
             }
+            </form>
         </tbody>
     </table>
 </div>
