@@ -11,6 +11,7 @@ namespace BussinessService
     public interface IProductService 
     {
         public void CreateProduct(CreateUpdateProductDTO dto);
+        public List<Product> getAllProduct();
 
         public List<Product> GetProducts();
 

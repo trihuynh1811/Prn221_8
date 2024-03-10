@@ -1,0 +1,81 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.Admin.ManageAuction.AssignAuctionToStaff
+@{
+}
+
+@using DataAccessLayer.Model;
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container">
+    <h2>Auction Management</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Assign to Staff</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post">
+                @foreach (var auction in Model.Auctions)
+                {
+                <tr>
+                    <td>@auction.AuctionName</td>
+                    <td>@auction.Price</td>
+                    <td>@auction.Status</td>
+                    <td>@auction.Quantity</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">
+                            View Image
+                        </button>
+                    </td>
+                    <td>@auction.Status</td>
+                    <td>
+                         <div class="form-group">
+                            <select class="form-control" name="SelectedStaffId">
+                                    @foreach (var staff in Model.Staffs)
+                                    {
+                                    <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
+                                    }
+                            </select>
+                        </div> 
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" name="button" value="Reject">Assign</button>
+                    </td>
+                </tr>
+                }
+            </form>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Product Image Modal -->
+@*                 <div class="modal fade" id="productImageModal_@auction.Product" tabindex="-1" role="dialog"
+                     aria-labelledby="productImageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productImageModalLabel">Product Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="" style="max-width: 100%; max-height: 31.25rem;">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> *@

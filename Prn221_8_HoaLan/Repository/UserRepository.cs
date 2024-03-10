@@ -60,6 +60,14 @@ namespace Repository
             }
             return GetAll().Where(user => user.Role.ToString().Equals(Role) && user.UserName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
+        public List<User> GetUserByRoleName(string RoleName)
+        {
+            var roleDTO = GetContext().Roles.FirstOrDefault(u => u.RoleName.Equals(RoleName));
+            return GetContext().Users
+            .Where(u => u.Role == roleDTO.RoleId)
+            .ToList();
+        }
     }
 
 }

@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessService;
+using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Prn221_8_HoaLan.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        public IndexModel(ILogger<IndexModel> logger)
+        public IProductService ProductService;
+        public List<Product> Products;
+        public IndexModel(IProductService iPro)
         {
-            _logger = logger;
+            ProductService = iPro;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            Products = ProductService.getAllProduct();
+            return Page();
         }
     }
 }

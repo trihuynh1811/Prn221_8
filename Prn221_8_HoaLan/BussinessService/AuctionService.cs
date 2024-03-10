@@ -53,6 +53,11 @@ namespace BussinessService
             return p;
         }
 
+        public List<Auction> GetAllAuction()
+        {
+            return auctionRepository.GetAll();
+        }
+
         public List<Auction>? GetByUserId(int id)
         {
             return auctionRepository.GetByUserId(id);

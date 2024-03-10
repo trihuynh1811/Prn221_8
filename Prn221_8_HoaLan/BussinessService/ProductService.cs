@@ -39,6 +39,11 @@ namespace BussinessService
             }
         }
 
+        public List<Product> getAllProduct()
+        {
+            return productRepository.GetAll();
+        }
+
         public Product GetById(int id)
         {
             return productRepository.GetById(id);
