@@ -19,6 +19,7 @@ namespace DataAccessLayer.Model
         public string? ProductName { get; set; }
         public string Status { get; set; } = null!;
         public int? Quantity { get; set; }
+        public bool IsAuction { get; set; }
 
         public virtual ICollection<Auction> Auctions { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

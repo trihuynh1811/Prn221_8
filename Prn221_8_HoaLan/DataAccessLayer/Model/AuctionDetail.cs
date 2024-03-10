@@ -7,10 +7,11 @@ namespace DataAccessLayer.Model
     {
         public int AuctionDetailId { get; set; }
         public int WinnerId { get; set; }
-        public int? Auction { get; set; }
+        public int Auction { get; set; }
         public int? Participant { get; set; }
+        public double ParticipantPrice { get; set; }
 
-        public virtual Auction? AuctionNavigation { get; set; }
+        public virtual Auction AuctionNavigation { get; set; } = null!;
         public virtual User? ParticipantNavigation { get; set; }
     }
 }

@@ -4,26 +4,29 @@
     Layout = "_Layout";
 }
 
-<div>
-    file name: <h1>@Model.imageName</h1>
-    <form method="post" enctype="multipart/form-data">
-        <label>Name of the auction</label>
-        <input type="text" value="" name="auctionName" />
-        <br />
-        <label>Name of product</label>
-        <input type="text" value="" name="productName" />   
-        <br />
-        <label>Description of product</label>
-        <textarea name="productDesc" rows="4" cols="50">
-
-        </textarea>
-        <br />
-        <label>Quantity</label>
-        <input type="number" value="1" name="productQuantity" min="1" max="10" />
-        <br />
-        <label for="imageInput">select image</label>
-        <input type="file" id="imageInput" name="imageFile" />s
-        <br />
-        <input type="submit" value="register product" />
-    </form>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="border p-4 col-md-8 mx-auto">
+        <h1 class="text-center mb-4">Product Register</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="auctionName" class="form-label">Name of the Auction</label>
+                <input type="text" class="form-control" id="auctionName" name="auctionName">
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Name of Product</label>
+                <input type="text" class="form-control" id="productName" name="productName">
+            </div>
+            <div class="mb-3">
+                <label for="productDesc" class="form-label">Description of Product</label>
+                <textarea class="form-control" id="productDesc" name="productDesc" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="imageInput" class="form-label">Select Image</label>
+                <input type="file" class="form-control" id="imageInput" name="imageFile" />
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-primary">Register Product</button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -20,28 +20,28 @@ namespace BussinessService
             this.productRepository = productRepository;
         }
 
-        public Product CreateAuction(CreateUpdateProductDTO pDto, CreateUpdateAuctionDTO aDto)
+        public Product CreateAuction(CreateUpdateProductDTO productDTO, CreateUpdateAuctionDTO auctionDTO)
         {
-            Product p = new Product
+            Product product = new Product
             {
-                ProductName = pDto.ProductName,
-                Price = pDto.Price,
-                Description = pDto.Description,
-                Image = pDto.Image,
-                Status = pDto.Status,
+                ProductName = productDTO.ProductName,
+                Price = productDTO.Price,
+                Description = productDTO.Description,
+                Image = productDTO.Image,
+                Status = productDTO.Status,
+                IsAuction = productDTO.IsAuction==0?false:true,
+                Quantity = productDTO.Quantity,
             };
 
             try
             {
-                p = productRepository.SaveProduct(p);
+                product = productRepository.SaveProduct(product);
                 Auction a = new Auction
                 {
-                    AuctionName = aDto.AuctionName,
-                    Price = aDto.Price,
-                    Status = aDto.Status,
-                    Product = p.ProductId,
-                    Quantity = pDto.Quantity,
-                    CreateBy = aDto.CreateBy
+                    AuctionName = auctionDTO.AuctionName,
+                    Product = product.ProductId,
+                    CreateBy = auctionDTO.CreateBy,
+                    Status = auctionDTO.Status,
                 };
                 auctionRepository.Save(a);
             }
@@ -50,7 +50,7 @@ namespace BussinessService
                 throw new Exception(ex.InnerException.ToString());
             }
 
-            return p;
+            return product;
         }
 
         public List<Auction> GetAllAuction()
