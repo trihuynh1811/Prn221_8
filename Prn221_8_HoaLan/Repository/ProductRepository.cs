@@ -10,9 +10,9 @@ namespace Repository
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
-            return GetAll().Find(x => x.ProductId == id);
+            return GetAll()?.FirstOrDefault(x => x.ProductId == id);
         }
 
         public Product SaveProduct(Product p)

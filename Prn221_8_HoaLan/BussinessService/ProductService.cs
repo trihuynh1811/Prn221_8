@@ -46,8 +46,22 @@ namespace BussinessService
 
         public void SetProductStatus(int id, string status)
         {
-            Product p = GetById(id);
-            //p.Status = status;
+            try
+            {
+                Product? p = productRepository.GetById(id);
+                if (p == null)
+                {
+                    p = productRepository.GetAll().FirstOrDefault(x => x.ProductId.Equals(id));
+                    p.Status = status;
+                    return;
+                }
+                p.Status = status;
+                productRepository.Update(p);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.InnerException.ToString());
+            }
         }
 
         public List<Product> GetProducts()

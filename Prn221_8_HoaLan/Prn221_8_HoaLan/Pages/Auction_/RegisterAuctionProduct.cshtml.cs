@@ -8,7 +8,7 @@ using BussinessService;
 using Repository;
 using DataAccessLayer.Model;
 
-namespace Prn221_8_HoaLan.Pages.Auction
+namespace Prn221_8_HoaLan.Pages.Auctions
 {
     public class RegisterAuctionProductModel : PageModel
     {

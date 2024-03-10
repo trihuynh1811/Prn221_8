@@ -36,18 +36,21 @@
                     <td>@product.Price</td>
                     <td>@product.Quantity</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal" onclick="reviewImageClick('@product.Image')">
                             View
                             Image
                         </button>
                     </td>
-                    <td>
+                    <td data-id="@product.ProductId">
                         @product.Status
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Approve</button>
-                        <button type="button" class="btn btn-danger">Decline</button>
-                    </td>
+                    @if (product.Status.Equals("processing"))
+                    {
+                        <td>
+                            <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approve', this)">Approve</button>
+                            <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'decline', this)">Decline</button>
+                        </td>
+                    }
                 </tr>
                 <!-- Product Image Modal -->
                 <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
@@ -85,6 +88,22 @@
     function reviewImageClick(imgSrc) {
         reviewImg.src = imgSrc
         imageOverlay.classList.remove('d-none')
+    }
+
+    async function updateApproveDecline(id, status, btn){
+        let data = {
+            id: id,
+            status: status
+        }
+        const res = await fetch('?handler=ApproveDecline', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => console.log(res.status)).catch(e => console.log(e))
+
+        btn.parentElement.classList.add('d-none');
     }
 
     if(closeBtn !== null){

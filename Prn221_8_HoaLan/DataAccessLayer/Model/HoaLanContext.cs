@@ -165,7 +165,9 @@ namespace DataAccessLayer.Model
                     .HasColumnName("quantity")
                     .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.Status)
+                    .HasMaxLength(10)
+                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Report>(entity =>

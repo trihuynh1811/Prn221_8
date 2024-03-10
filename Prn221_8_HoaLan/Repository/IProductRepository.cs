@@ -12,6 +12,6 @@ namespace Repository
     {
         Product SaveProduct(Product p);
 
-        Product GetById(int id);
+        Product? GetById(int id);
     }
 }
