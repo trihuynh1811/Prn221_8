@@ -76,7 +76,7 @@ namespace Prn221_8_HoaLan.Pages.Products
                             Price = float.Parse(ProductPrice),
                             Image = imageUrl,
                             Description = Description,
-                            Status = false,
+                            Status = "approved",
                             Quantity = int.Parse(QuanityProduct),
                         };
                         _productService.CreateProduct(productDTO);

@@ -52,5 +52,10 @@ namespace BussinessService
 
             return p;
         }
+
+        public List<Auction> GetAllAuction()
+        {
+            return auctionRepository.GetAll();
+        }
     }
 }

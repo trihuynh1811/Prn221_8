@@ -35,8 +35,4 @@
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Admin\ManageAuction\" />
-  </ItemGroup>
-
 </Project>

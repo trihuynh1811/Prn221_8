@@ -14,5 +14,6 @@ namespace Repository
         bool checkExistUser(User user);
         User? GetUserByUsernamePassword(string userName, string password);
         public List<User> SearchUserByUserNameAndRole(string searchValue, String Role);
+        public List<User> GetUserByRoleName(String RoleName);
     }
 }

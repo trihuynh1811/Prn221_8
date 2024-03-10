@@ -1,12 +1,15 @@
-@page "/auction-management"
-@model Prn221_8_HoaLan.Pages.AuctionManagement.AuctionManagementModel
+﻿@page
+@model Prn221_8_HoaLan.Pages.Admin.ManageAuction.AssignAuctionToStaff
+@{
+}
+
 @using DataAccessLayer.Model;
 @{
     Layout = "_LayoutAdmin";
 }
 
 <div class="container">
-    <h2>Product Auction Management</h2>
+    <h2>Auction Management</h2>
     <table class="table">
         <thead>
             <tr>
@@ -16,33 +19,48 @@
                 <th>Quantity</th>
                 <th>Image</th>
                 <th>Status</th>
+                <th>Assign to Staff</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model.Products)
-            {
+            <form method="post">
+                @foreach (var auction in Model.Auctions)
+                {
                 <tr>
-                    <td>@product.ProductId</td>
-                    <td>@product.ProductName</td>
-                    <td>@product.Price</td>
-                    <td>@product.Quantity</td>
+                    <td>@auction.AuctionName</td>
+                    <td>@auction.Price</td>
+                    <td>@auction.Status</td>
+                    <td>@auction.Quantity</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">
-                            View
-                            Image
+                            View Image
                         </button>
                     </td>
+                    <td>@auction.Status</td>
                     <td>
-                        @product.Status
+                         <div class="form-group">
+                            <select class="form-control" name="SelectedStaffId">
+                                    @foreach (var staff in Model.Staffs)
+                                    {
+                                    <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
+                                    }
+                            </select>
+                        </div> 
                     </td>
                     <td>
-                        <button type="button" class="btn btn-primary">Approve</button>
-                        <button type="button" class="btn btn-danger">Decline</button>
+                        <button type="submit" class="btn btn-primary" name="button" value="Reject">Assign</button>
                     </td>
                 </tr>
-                <!-- Product Image Modal -->
-                <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
+                }
+            </form>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Product Image Modal -->
+@*                 <div class="modal fade" id="productImageModal_@auction.Product" tabindex="-1" role="dialog"
                      aria-labelledby="productImageModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -60,8 +78,4 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </tbody>
-    </table>
-</div>
+                </div> *@

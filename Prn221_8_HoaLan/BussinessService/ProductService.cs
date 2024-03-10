@@ -38,5 +38,10 @@ namespace BussinessService
                 throw new Exception(ex.InnerException.ToString());
             }
         }
+
+        public List<Product> getAllProduct()
+        {
+            return productRepository.GetAll();
+        }
     }
 }

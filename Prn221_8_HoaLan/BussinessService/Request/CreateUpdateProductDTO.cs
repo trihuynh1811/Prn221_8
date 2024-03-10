@@ -12,7 +12,7 @@ namespace BussinessService.Request
         public string? Image { get; set; }
         public float Price { get; set; }
         public string? ProductName { get; set; }
-        public bool Status { get; set; } = false;
+        public string Status { get; set; } = "processing";
         public int? Quantity { get; set; } = 0;
     }
 }
