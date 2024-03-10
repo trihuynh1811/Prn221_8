@@ -14,6 +14,7 @@ namespace BussinessService.Request
         public string? ProductName { get; set; }
         public string Status { get; set; } = "processing";
         public int? Quantity { get; set; } = 0;
+        public int UserId { get; set; }
         public int? IsAuction { get; set; } = 0;
     }
 }

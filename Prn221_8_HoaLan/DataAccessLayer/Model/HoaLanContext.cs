@@ -183,6 +183,8 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.Status)
                     .HasMaxLength(10)
                     .HasColumnName("status");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
             });
 
             modelBuilder.Entity<Report>(entity =>

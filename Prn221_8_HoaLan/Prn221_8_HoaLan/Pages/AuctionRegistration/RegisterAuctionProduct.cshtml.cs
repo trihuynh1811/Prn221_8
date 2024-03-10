@@ -43,6 +43,7 @@ namespace Prn221_8_HoaLan.Pages.Auctions
 
         public async Task<IActionResult> OnPost(IFormFile imageFile)
         {
+
             var httpClient = _httpClientFactory.CreateClient();
             var clientSecret = "c75a7c6cf6f9c5fb9e79c7f00098a55e80163387";
             var clientId = "cb2bb6bdf2aedbf";
@@ -76,6 +77,7 @@ namespace Prn221_8_HoaLan.Pages.Auctions
                             Description = ProductDesc,
                             IsAuction = 1,
                             Quantity = 1,
+                            UserId = user.UserId
                         };
                         CreateUpdateAuctionDTO AuctionDTO = new CreateUpdateAuctionDTO
                         {

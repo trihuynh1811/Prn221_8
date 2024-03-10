@@ -31,6 +31,7 @@ namespace BussinessService
                 Status = productDTO.Status,
                 IsAuction = productDTO.IsAuction==0?false:true,
                 Quantity = productDTO.Quantity,
+                UserId = productDTO.UserId,
             };
 
             try
