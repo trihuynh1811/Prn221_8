@@ -52,5 +52,10 @@ namespace BussinessService
 
             return p;
         }
+
+        public List<Auction>? GetByUserId(int id)
+        {
+            return auctionRepository.GetByUserId(id);
+        }
     }
 }

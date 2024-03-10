@@ -10,5 +10,9 @@ namespace Repository
 {
     public class AuctionRepository : BaseRepository<Auction>, IAuctionRepository
     {
+        public List<Auction>? GetByUserId(int userId)
+        {
+            return GetAll()?.Where(x => x.CreateBy.Equals(userId)).ToList();
+        }
     }
 }

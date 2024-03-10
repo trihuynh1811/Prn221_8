@@ -1,13 +1,18 @@
 ﻿@page "/staff-product-management"
 @model Prn221_8_HoaLan.Pages.Staff.ManagementProduct.ManageProductModel
-@{
-}
-
 @using DataAccessLayer.Model;
 @{
     Layout = "_LayoutAdmin";
 }
-
+<div class="imageOverlay position-fixed top-0 start-0 d-none d-flex justify-content-center w-100 h-100"
+     style="z-index: 99;">
+    <div class="d-flex flex-column align-items-center justify-content-center my-2"
+         style="width: 100%; height: 100%; position: fixed; margin: 0px; background: #000000ab">
+        <img alt="" class="reviewImg" style="width: 500px; height: 500px; object-fit: contain"
+             src="">
+        <div class="closeBtn" style="background: red; border-radius: 30px; width: 25%; text-align: center; height: 5%" role="button">Close</div>
+    </div>
+</div>
 <div class="container">
     <h2>Product Auction Management</h2>
     <table class="table">
@@ -23,7 +28,6 @@
             </tr>
         </thead>
         <tbody>
-            <form method="post">
             @foreach (var product in Model.Products)
             {
                 <tr>
@@ -32,18 +36,21 @@
                     <td>@product.Price</td>
                     <td>@product.Quantity</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal" onclick="reviewImageClick('@product.Image')">
                             View
                             Image
                         </button>
                     </td>
-                    <td>
+                    <td data-id="@product.ProductId">
                         @product.Status
                     </td>
-                    <td>
-                        <button type="submit" class="btn btn-primary" name="button" value="Approve">Approve</button>
-                        <button type="submit" class="btn btn-danger" name="button" value="Reject">Reject</button>
-                    </td>
+                    @if (product.Status.Equals("processing"))
+                    {
+                        <td>
+                            <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approve', this)">Approve</button>
+                            <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'decline', this)">Decline</button>
+                        </td>
+                    }
                 </tr>
                 <!-- Product Image Modal -->
                 <div class="modal fade" id="productImageModal_@product.ProductId" tabindex="-1" role="dialog"
@@ -66,7 +73,42 @@
                     </div>
                 </div>
             }
-            </form>
         </tbody>
     </table>
 </div>
+<script>
+
+    const imageOverlay = document.querySelector('.imageOverlay')
+    const reviewImg = document.querySelector('.reviewImg')
+    const closeBtn = document.querySelector('.closeBtn')
+    if (imageOverlay !== null) {
+        imageOverlay.classList.add('d-none')
+    }
+
+    function reviewImageClick(imgSrc) {
+        reviewImg.src = imgSrc
+        imageOverlay.classList.remove('d-none')
+    }
+
+    async function updateApproveDecline(id, status, btn) {
+        let data = {
+            id: id,
+            status: status
+        }
+        const res = await fetch('?handler=ApproveDecline', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => console.log(res.status)).catch(e => console.log(e))
+
+        btn.parentElement.classList.add('d-none');
+    }
+
+    if (closeBtn !== null) {
+        closeBtn.addEventListener('click', () => {
+            imageOverlay.classList.add('d-none')
+        })
+    }
+</script>

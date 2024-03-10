@@ -10,5 +10,6 @@ namespace Repository
 {
     public interface IAuctionRepository : IBaseRepository<Auction>
     {
+        List<Auction>? GetByUserId(int userId);
     }
 }

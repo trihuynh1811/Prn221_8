@@ -1,36 +1,62 @@
+using BussinessService;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using Repository;
 
 namespace Prn221_8_HoaLan.Pages.Staff.ManagementProduct
 {
+    [IgnoreAntiforgeryToken(Order = 1001)]
     public class ManageProductModel : PageModel
     {
+        private readonly IProductService productService;
+
+        public ManageProductModel(IProductService productService)
+        {
+            this.productService = productService;
+        }
+
         [BindProperty]
         public List<Product> Products { get; set; }
+        public List<Auction> Auctions { get; set; }
 
-        IProductRepository _iproduct;
-        public ManageProductModel(IProductRepository iProduct)
-        {
-            _iproduct = iProduct;
-        }
         public IActionResult OnGet()
         {
-            Products = _iproduct.GetAll();
+            Products = productService.GetProducts();
+
             return Page();
         }
-        public IActionResult OnPost()
+
+        public async Task<IActionResult> OnPostApproveDecline()
         {
-            var buttonValue = Request.Form["button"];
-            bool StatusAction = true;
-            if(buttonValue == "Reject")
+            string requestBody = string.Empty;
+            int id;
+            string status = "";
+            ApproveDeclineModel model;
+            using (var reader = new System.IO.StreamReader(Request.Body))
             {
-                StatusAction = false;
+                requestBody = await reader.ReadToEndAsync();
+                model = JsonConvert.DeserializeObject<ApproveDeclineModel>(requestBody);
+                id = model.id;
+                status = model.status;
+            }
+            if (id > 0 && !status.Equals(""))
+            {
+                id = model.id;
+                status = model.status;
+                productService.SetProductStatus(id, status);
             }
 
-
-            return Page();
+            return new ContentResult
+            {
+                StatusCode = 200
+            };
         }
     }
+}
+public class ApproveDeclineModel
+{
+    public int id { get; set; }
+    public string status { get; set; }
 }
