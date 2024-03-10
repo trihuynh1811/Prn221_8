@@ -10,6 +10,11 @@ namespace Repository
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
+        //public List<Product> GetByUserId(int id)
+        //{
+        //    return GetAll()?.Where(x => x.UserId.Equals(id)).ToList();
+        //}
+
         public Product? GetById(int id)
         {
             return GetAll()?.FirstOrDefault(x => x.ProductId == id);

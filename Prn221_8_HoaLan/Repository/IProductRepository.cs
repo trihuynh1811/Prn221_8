@@ -13,5 +13,7 @@ namespace Repository
         Product SaveProduct(Product p);
 
         Product? GetById(int id);
+
+        //List<Product> GetByUserId(int id);
     }
 }
