@@ -11,5 +11,6 @@ namespace Repository
     public interface IAuctionRepository : IBaseRepository<Auction>
     {
         Auction GetAuctionById(int id);
+        List<Auction> GetAuctionsByHostId(int hostId);
     }
 }

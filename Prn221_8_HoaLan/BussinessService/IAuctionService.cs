@@ -16,5 +16,6 @@ namespace BussinessService
         public Auction? GetAuctionById(int id);
 
         public bool AssignToStaff(int StaffId, int AuctionId);
+        public List<Auction> GetAuctionByHostId(int hostId);
     }
 }

@@ -15,5 +15,10 @@ namespace Repository
         {
             return GetContext().Auctions.FirstOrDefault(p=>p.AuctionId == id);
         }
+
+        public List<Auction> GetAuctionsByHostId(int hostId)
+        {
+            return GetContext().Auctions.Where(p => p.HostBy == hostId).ToList();
+        }
     }
 }

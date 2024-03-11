@@ -32,6 +32,12 @@
             </tr>
         </thead>
         <tbody>
+            @if(Model.Auctions==null || Model.Auctions.ToList().Count==0)
+            {
+                <tr>
+                    <td colspan="7" class="text-center">No auction to assign to staff</td>
+                </tr>
+            }else{
             <form method="post">
                 @foreach (var auction in Model.Auctions)
                 {
@@ -62,6 +68,7 @@
                 </tr>
                 }
             </form>
+            }
         </tbody>
     </table>
 </div>
