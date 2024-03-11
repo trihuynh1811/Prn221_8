@@ -1,0 +1,46 @@
+﻿@page "{AuctionId:int}"
+@model Prn221_8_HoaLan.Pages.Admin.ManageAuction.AuctionDetailModel
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="border p-4 col-md-8 mx-auto">
+        <img src="@Model.Product.Image" class="img-fluid mx-auto d-block" alt="Auction Image">
+        <h1 class="text-center mb-4">Auction Information</h1>
+
+        <div class="mb-3">
+            <label for="auctionId" class="form-label">Auction ID</label>
+            <div class="form-control" id="auctionId" name="auctionId">@Model.Auction.AuctionId</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="auctionName" class="form-label">Auction Name</label>
+            <div class="form-control" id="auctionName" name="auctionName">@Model.Auction.AuctionName</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <div class="form-control" id="productName" name="productName">@Model.Product.ProductName</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="productDesc" class="form-label">Product Description</label>
+            <div class="form-control" id="productDesc" name="productDesc">@Model.Product.Description</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <div class="form-control" id="status" name="status">@Model.Auction.Status</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="createBy" class="form-label">Created By</label>
+            <div class="form-control" id="createBy" name="createBy">@Model.Auction.CreateBy</div>
+        </div>
+
+        <div class="mb-3 text-center">
+            <a class="btn btn-secondary" asp-page="/Admin/ManageAuction/AssignAuctionToStaff">Close</a>
+        </div>
+    </div>
+</div>

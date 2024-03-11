@@ -11,5 +11,6 @@ namespace Repository
     public interface IProductRepository : IBaseRepository<Product>
     {
         Product SaveProduct(Product p);
+        Product GetProductById(int id);
     }
 }

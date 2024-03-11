@@ -13,6 +13,13 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
         IAuctionService _auctionService;
         IUserService _userService;
         public List<User> Staffs;
+
+        [BindProperty]
+        public int SelectedStaffId {  get; set; }
+
+        [BindProperty(Name = "AuctionId")]
+        public int AuctionId { get; set; }
+
         public AssignAuctionToStaff(IAuctionService auctionService, IUserService userService)
         {
             _auctionService = auctionService;
@@ -21,13 +28,20 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
 
         public IActionResult OnGet()
         {
-            Auctions = _auctionService.GetAllAuction();
+            Auctions = _auctionService.GetAllAssignedAuction();
             Staffs = _userService.GetUserByRoleNameService("Staff");
             return Page();
         }
 
         public IActionResult OnPost()
         {
+            if (SelectedStaffId != null)
+            {
+                _auctionService.AssignToStaff(SelectedStaffId, AuctionId);
+            }
+            Auctions = _auctionService.GetAllAssignedAuction();
+            Staffs = _userService.GetUserByRoleNameService("Staff");
+
             return Page();
         }
     }

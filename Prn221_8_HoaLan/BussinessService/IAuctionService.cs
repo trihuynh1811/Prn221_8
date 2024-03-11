@@ -12,5 +12,9 @@ namespace BussinessService
     {
         public Product CreateAuction(CreateUpdateProductDTO pDto, CreateUpdateAuctionDTO aDto);
         public List<Auction> GetAllAuction();
+        public List<Auction> GetAllAssignedAuction();
+        public Auction? GetAuctionById(int id);
+
+        public bool AssignToStaff(int StaffId, int AuctionId);
     }
 }

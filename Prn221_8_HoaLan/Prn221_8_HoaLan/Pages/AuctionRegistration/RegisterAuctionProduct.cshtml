@@ -3,6 +3,17 @@
 @{
     Layout = "_Layout";
 }
+@using DataAccessLayer.Model
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="border p-4 col-md-8 mx-auto">

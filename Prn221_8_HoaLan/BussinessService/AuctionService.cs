@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BussinessService.Request;
 using DataAccessLayer.Model;
+using Microsoft.Identity.Client;
 using Repository;
 
 namespace BussinessService
@@ -18,6 +19,22 @@ namespace BussinessService
         {
             this.auctionRepository = auctionRepository;
             this.productRepository = productRepository;
+        }
+
+        public bool AssignToStaff(int StaffId, int AuctionId)
+        {
+            try{
+
+                var auction = auctionRepository.GetAuctionById(AuctionId);
+                auction.HostBy = StaffId;
+                auctionRepository.Update(auction);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
         }
 
         public Product CreateAuction(CreateUpdateProductDTO productDTO, CreateUpdateAuctionDTO auctionDTO)
@@ -54,9 +71,19 @@ namespace BussinessService
             return product;
         }
 
+        public List<Auction> GetAllAssignedAuction()
+        {
+            return auctionRepository.GetAll().Where(p => p.HostBy == null).ToList();
+        }
+
         public List<Auction> GetAllAuction()
         {
             return auctionRepository.GetAll();
+        }
+
+        public Auction? GetAuctionById(int id)
+        {
+            return auctionRepository.GetAuctionById(id);
         }
     }
 }
