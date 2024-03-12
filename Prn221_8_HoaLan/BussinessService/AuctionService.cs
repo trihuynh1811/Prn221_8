@@ -126,9 +126,9 @@ namespace BussinessService
             }
         }
 
-        public List<Auction> SearchUserByUserNameAndRole(int hostId, string searchValue, string StatusAuction)
+        public List<Auction> SearchAuctoionByAuctionNameAndStatus(int hostId, string searchValue, string StatusAuction)
         {
-            if ("All".Equals(StatusAuction ))
+            if ("All".Equals(StatusAuction))
             {
                 if (searchValue == null)
                 {
@@ -136,18 +136,46 @@ namespace BussinessService
                 }
                 return auctionRepository.GetAll()
                                     .Where(
-                                            auction =>auction.HostBy == hostId&& auction.AuctionName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)
+                                            auction => auction.HostBy == hostId && auction.AuctionName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)
                                            ).ToList();
             }
             if (searchValue == null)
             {
                 searchValue = "";
             }
+            if (StatusAuction == null)
+            {
+                StatusAuction = "";
+            }
             return auctionRepository.GetAll()
                                     .Where(
                                             auction => auction.HostBy == hostId && auction.Status.ToString().Equals(StatusAuction)
                                             && auction.AuctionName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)
                                             ).ToList();
+        }
+
+        public bool ChangeStatusAuction(int AuctionId, string status)
+        {
+            try
+            {
+                var auction = auctionRepository.GetAll().FirstOrDefault(a => a.AuctionId == AuctionId);
+                if (auction == null)
+                {
+                    return false;
+                }
+                auction.Status = status;
+                auctionRepository.Update(auction);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public List<Auction> GetAuctionByStatus(string status)
+        {
+            return (List<Auction>)auctionRepository.GetAll().Where(p => status.Equals(p.Status)).ToList();
         }
     }
 }

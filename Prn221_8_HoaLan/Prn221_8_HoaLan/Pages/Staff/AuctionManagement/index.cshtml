@@ -24,9 +24,10 @@
                 <option value="Upcomming">Upcomming</option>
                 <option value="Ongoing">Ongoing</option>
                 <option value="Finished">Finished</option>
+                <option value="Processing">Processing</option>
             </select>
             <input type="text" class="form-control" placeholder="Search Auction Name" asp-for="SearchValue">
-            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn btn-primary" type="submit" name="button" value="Search">Search</button>
         </div>
     </form>
     <table class="table">
@@ -64,16 +65,28 @@
                         </td>
                         <td class="text-center">
                             <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
-                                @if (!"Upcomming".Equals(auction.Status))
+                                @if ("Processing".Equals(auction.Status))
                                 {
                                 <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
                                     Register Auction
                                 </a>
                                 }
-                                else
+                                else if ("Upcomming".Equals(auction.Status))
+                                {
+                                <button class="btn btn-primary" name="button" value="Start Auction">
+                                    Start Auction
+                                </button>
+                                }
+                                else if ("Ongoing".Equals(auction.Status))
+                                {
+                                <button class="btn btn-primary" name="button" value="End Auction">
+                                    End Auction
+                                </button>
+                                }
+                                else if ("Finished".Equals(auction.Status))
                                 {
                                 <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
-                                    Start
+                                    View Auction
                                 </a>
                                 }
                         </td>
