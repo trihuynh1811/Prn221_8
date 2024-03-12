@@ -19,10 +19,10 @@ namespace DataAccessLayer.Model
         public int? HostBy { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        public double? PriceStep { get; set; }
-        public double? StartPrice { get; set; }
+        public float? PriceStep { get; set; }
+        public float? StartPrice { get; set; }
         public int? WinnerId { get; set; }
-        public double? EndPrice { get; set; }
+        public float? EndPrice { get; set; }
 
         public virtual Order? Order { get; set; }
         public virtual Product? ProductNavigation { get; set; }
