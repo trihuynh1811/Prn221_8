@@ -17,6 +17,18 @@
 
 <div class="container">
     <h2>Auction Management</h2>
+    <form class="form-horizontal mb-5" method="post">
+        <div class="input-group mb-3 mt-5">
+            <select asp-for="StatusAuctionValue" class="form-control">
+                <option value="All">All</option>
+                <option value="Upcomming">Upcomming</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Finished">Finished</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Search Auction Name" asp-for="SearchValue">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>
@@ -29,26 +41,46 @@
             </tr>
         </thead>
         <tbody>
-            <form method="post">
-                @foreach (var auction in Model.Auctions)
-                {
+            @if (Model.Auctions == null || Model.Auctions.ToList().Count == 0)
+            {
                 <tr>
-                    <td class="text-center">@auction.AuctionId</td>
-                    <td class="text-center">@auction.AuctionName </td>
-                    <td class="text-center">@auction.CreateBy</td>
-                    <td class="text-center">@auction.Status</td>
-                    <td class="text-center">
-                        <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
-                            View Detail
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
-                        <button type="submit" class="btn btn-primary" name="button" value="CreateAuction">Create Auction</button>
-                    </td>
+                    <td colspan="6" class="text-center">No auction</td>
                 </tr>
+            }
+            else
+            {
+                <form method="post">
+                    @foreach (var auction in Model.Auctions)
+                    {
+                    <tr>
+                        <td class="text-center">@auction.AuctionId</td>
+                        <td class="text-center">@auction.AuctionName </td>
+                        <td class="text-center">@auction.CreateBy</td>
+                        <td class="text-center">@auction.Status</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
+                                View Detail
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
+                                @if (!"Upcomming".Equals(auction.Status))
+                                {
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                    Register Auction
+                                </a>
+                                }
+                                else
+                                {
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                    Start
+                                </a>
+                                }
+                        </td>
+                    </tr>
+                    }
+                </form>
                 }
-            </form>
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>

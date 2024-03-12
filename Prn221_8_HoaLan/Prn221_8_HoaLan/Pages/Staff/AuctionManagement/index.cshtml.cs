@@ -7,6 +7,12 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
 {
     public class indexModel : PageModel
     {
+        [BindProperty]
+        public string SearchValue { get; set; }
+
+        [BindProperty]
+        public string StatusAuctionValue { get; set; }
+
         IAuctionService _iAuctionSrv;
         public List<Auction> Auctions;
 
@@ -23,6 +29,16 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
                 return RedirectToPage("/Login/Login");
             }
             Auctions = _iAuctionSrv.GetAuctionByHostId(user.UserId);
+            return Page();
+        }
+        public IActionResult OnPost()
+        {
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            if (user == null)
+            {
+                return RedirectToPage("/Login/Login");
+            }
+            Auctions = _iAuctionSrv.SearchUserByUserNameAndRole(user.UserId, SearchValue, StatusAuctionValue);
             return Page();
         }
     }

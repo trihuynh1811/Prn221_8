@@ -23,14 +23,14 @@ namespace BussinessService
 
         public bool AssignToStaff(int StaffId, int AuctionId)
         {
-            try{
-
+            try
+            {
                 var auction = auctionRepository.GetAuctionById(AuctionId);
                 auction.HostBy = StaffId;
                 auctionRepository.Update(auction);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return false;
@@ -46,7 +46,7 @@ namespace BussinessService
                 Description = productDTO.Description,
                 Image = productDTO.Image,
                 Status = productDTO.Status,
-                IsAuction = productDTO.IsAuction==0?false:true,
+                IsAuction = productDTO.IsAuction == 0 ? false : true,
                 Quantity = productDTO.Quantity,
                 UserId = productDTO.UserId,
             };
@@ -83,12 +83,71 @@ namespace BussinessService
 
         public List<Auction> GetAuctionByHostId(int hostId)
         {
-            return auctionRepository. GetAll().Where(p=>p.HostBy==hostId).ToList();
+            return auctionRepository.GetAll().Where(p => p.HostBy == hostId).ToList();
         }
 
         public Auction? GetAuctionById(int id)
         {
             return auctionRepository.GetAuctionById(id);
+        }
+        public string checkRegisterAuctionFromStaff(float StartPrice, float PriceStep, DateTime StartTime, DateTime EndTime)
+        {
+            DateTime currentTime = DateTime.Now;
+            if (StartTime <= currentTime)
+            {
+                return "The Start time must be greater than the current time";
+            }
+            if (StartTime >= EndTime)
+            {
+                return "The start time must be less than the end time";
+            }
+            return "No error";
+        }
+        public bool registerAuctionFromStaff(int AuctionId, float StartPrice, float PriceStep, DateTime StartTime, DateTime EndTime)
+        {
+            try
+            {
+                var auction = auctionRepository.GetAuctionById(AuctionId);
+                if (auction == null)
+                {
+                    throw new Exception($"Not found auction by id: {AuctionId}");
+                }
+                auction.StartPrice = StartPrice;
+                auction.PriceStep = PriceStep;
+                auction.StartTime = StartTime;
+                auction.EndTime = EndTime;
+                auction.Status = "Upcomming";
+                auctionRepository.Update(auction);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public List<Auction> SearchUserByUserNameAndRole(int hostId, string searchValue, string StatusAuction)
+        {
+            if ("All".Equals(StatusAuction ))
+            {
+                if (searchValue == null)
+                {
+                    searchValue = "";
+                }
+                return auctionRepository.GetAll()
+                                    .Where(
+                                            auction =>auction.HostBy == hostId&& auction.AuctionName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)
+                                           ).ToList();
+            }
+            if (searchValue == null)
+            {
+                searchValue = "";
+            }
+            return auctionRepository.GetAll()
+                                    .Where(
+                                            auction => auction.HostBy == hostId && auction.Status.ToString().Equals(StatusAuction)
+                                            && auction.AuctionName.Contains(searchValue, StringComparison.OrdinalIgnoreCase)
+                                            ).ToList();
         }
     }
 }

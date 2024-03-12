@@ -11,5 +11,6 @@ namespace BussinessService
     {
         public List<User> GetAllUser();
         public List<User> GetUserByRoleNameService(string RoleName);
+        public List<User> GetActiveStaffSrv();
     }
 }

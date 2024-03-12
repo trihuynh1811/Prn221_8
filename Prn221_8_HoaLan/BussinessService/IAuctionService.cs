@@ -17,5 +17,8 @@ namespace BussinessService
 
         public bool AssignToStaff(int StaffId, int AuctionId);
         public List<Auction> GetAuctionByHostId(int hostId);
+        public string checkRegisterAuctionFromStaff(float StartPrice, float PriceStep, DateTime StartTime, DateTime EndTime);
+        public bool registerAuctionFromStaff(int AuctionId, float StartPrice, float PriceStep, DateTime StartTime, DateTime EndTime );
+        public List<Auction> SearchUserByUserNameAndRole(int hostId, string searchValue, String StatusAuction);
     }
 }
