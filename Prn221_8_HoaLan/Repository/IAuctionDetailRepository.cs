@@ -10,5 +10,6 @@ namespace Repository
 {
     public interface IAuctionDetailRepository : IBaseRepository<AuctionDetail>
     {
+        public List<AuctionDetail> GetListAuctionDetailByAuctionId(int AuctionId);
     }
 }

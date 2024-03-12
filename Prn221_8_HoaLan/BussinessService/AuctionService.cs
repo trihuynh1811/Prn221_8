@@ -86,7 +86,7 @@ namespace BussinessService
             return auctionRepository.GetAll().Where(p => p.HostBy == hostId).ToList();
         }
 
-        public Auction? GetAuctionById(int id)
+        public Auction GetAuctionById(int id)
         {
             return auctionRepository.GetAuctionById(id);
         }

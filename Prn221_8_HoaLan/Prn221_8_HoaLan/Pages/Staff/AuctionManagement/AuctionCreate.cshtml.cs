@@ -39,13 +39,13 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
             //    return Page();
             //}
 
-            //var StrError = auctionService.checkRegisterAuctionFromStaff(StartPrice, PriceStep, StartTime, EndTime);
-            //if (!"No error".Equals(StrError))
-            //{
-            //    ModelState.AddModelError("Model.EndTime", StrError);
-            //    return Page();
-            //}
-            //auctionService.registerAuctionFromStaff(AuctionId, StartPrice, PriceStep, StartTime, EndTime);
+            var StrError = auctionService.checkRegisterAuctionFromStaff(StartPrice, PriceStep, StartTime, EndTime);
+            if (!"No error".Equals(StrError))
+            {
+                ModelState.AddModelError("Model.EndTime", StrError);
+                return Page();
+            }
+            auctionService.registerAuctionFromStaff(AuctionId, StartPrice, PriceStep, StartTime, EndTime);
             return RedirectToPage("/Staff/AuctionManagement/index");
         }
     }

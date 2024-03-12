@@ -14,7 +14,7 @@ namespace BussinessService
         public List<Auction> GetAllAuction();
         public List<Auction> GetAuctionByStatus(string status);
         public List<Auction> GetAllAssignedAuction();
-        public Auction? GetAuctionById(int id);
+        public Auction GetAuctionById(int id);
 
         public bool AssignToStaff(int StaffId, int AuctionId);
         public List<Auction> GetAuctionByHostId(int hostId);

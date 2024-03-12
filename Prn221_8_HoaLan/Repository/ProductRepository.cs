@@ -10,7 +10,7 @@ namespace Repository
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public Product GetProductById(int id)
+        public Product GetProductById(int? id)
         {
             return GetContext().Products.FirstOrDefault(p=>p.ProductId == id);
         }

@@ -11,6 +11,8 @@ namespace BussinessService
     {
         List<AuctionDetail> GetAllAuctionDetail();
         List<AuctionDetail> GetAllAuctionDetailByAuctionId(int AuctionId);
-
+        float GetCurrentPriceSrv(int AuctionId);
+        string CheckBidPrice(float BidPrice, float CurrentPrice, float StepPrice);
+        public void InsertBidToAuctionDetail(int UserId, int AuctionId, float PriceBid, DateTime BidTime);
     }
 }
