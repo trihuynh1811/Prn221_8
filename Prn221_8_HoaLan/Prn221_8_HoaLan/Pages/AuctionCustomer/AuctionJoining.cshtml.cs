@@ -13,8 +13,10 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
 
         public Auction auction;
         public Product product;
+        public String Host;
+        public String CreateBy;
+        public List<String> listParticipant;
         public List<AuctionDetail> AuctionDetails { get; set; }
-        [BindProperty]
         public float BidPrice { get; set; }
         public float CurrentPrice { get; set; }
 
@@ -43,9 +45,21 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
             {
                 return Redirect("./NoAuthoriztion");
             }
+
+            Host = auctionService.GetNameByAuctionId(AuctionId, (int)auction.HostBy);
+            CreateBy = auctionService.GetNameByAuctionId(AuctionId, (int)auction.CreateBy);
+            listParticipant = auctionDetailService.GetListUserNameInAuctionDetail(AuctionId);
             AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
             CurrentPrice = auctionDetailService.GetCurrentPriceSrv(AuctionId);
             ModelState.Clear();
+            if (auction.EndTime < DateTime.Now)
+            {
+                ViewData["EndBibMessage"] = "THE AUCTION IS ENDED!";
+            }
+            else
+            {
+                ViewData["EndBibMessage"] = "";
+            }
             return Page();
         }
 
@@ -67,8 +81,20 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
             {
                 return Redirect("./NoAuthoriztion");
             }
-            
+            // Get Host and product owner and customer name
+            Host = auctionService.GetNameByAuctionId(AuctionId, (int)auction.HostBy);
+            CreateBy = auctionService.GetNameByAuctionId(AuctionId, (int)auction.CreateBy);
+            listParticipant = auctionDetailService.GetListUserNameInAuctionDetail(AuctionId);
+
             CurrentPrice = auctionDetailService.GetCurrentPriceSrv(AuctionId);
+            AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
+            // Kiem tra con thoi gian khong?
+            DateTime currentTime = DateTime.Now;
+            if (auction.EndTime < currentTime)
+            {
+                ViewData["EndBibMessage"] = "THE AUCTION IS ENDED!";
+                return Page();
+            }
             var StrError = auctionDetailService.CheckBidPrice(BidPrice, CurrentPrice, (float)auction.PriceStep);
             if (!"No Error".Equals(StrError))
             {
@@ -77,7 +103,7 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
                 return Page();
             }
             auctionDetailService.InsertBidToAuctionDetail(user.UserId, auction.AuctionId, BidPrice, DateTime.Now);
-            AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
+            
             CurrentPrice = BidPrice;
             return Page();
         }

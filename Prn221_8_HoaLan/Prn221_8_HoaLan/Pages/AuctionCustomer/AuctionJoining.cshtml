@@ -1,17 +1,16 @@
 ﻿@page "{AuctionId:int}"
+@using Newtonsoft.Json
 @model Prn221_8_HoaLan.Pages.AuctionCustomer.AuctionJoiningModel
 @{
     Layout = "_Layout";
 }
 @{
-    var fullName = "";
-    var session = HttpContext.Session;
-    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
-    if (user != null)
-    {
-        fullName = user.FirstName + " " + user.LastName;
-        ViewBag.Role = user.Role;
-    }
+    var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+    string json = JsonConvert.SerializeObject(Model.auction, settings);
 }
 <!DOCTYPE html>
 <html>
@@ -29,6 +28,55 @@
             overflow: hidden; /* Đảm bảo rằng hình ảnh không vượt ra khỏi khung bao */
         }
     </style>
+    <script>
+        var auction = @Html.Raw(json);
+        console.log(auction);
+
+        // Lấy thời gian kết thúc và bắt đầu của phiên đấu giá
+        var endTime = new Date(auction.EndTime).getTime();
+        var startTime = new Date(auction.StartTime).getTime();
+        console.log(endTime);
+
+
+        // Định nghĩa hàm countdown
+        function countdown() {
+            var now = new Date().getTime();
+            var distance = endTime - now;
+            var StartTime = startTime - now;
+            var timerId = 'time-' + auction.AuctionId;
+            console.log(auction.AuctionId);
+            var timerElement = document.getElementById("countdown");
+
+            // Tính toán số ngày, giờ, phút, giây còn lại
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị đồng hồ đếm ngược
+            timerElement.innerHTML = '<span>' + days + ' Day   </span>:    <span>' + hours + ' Hour   </span>:    <span>' + minutes + ' Minute   </span>:   <span>' + seconds + ' S</span>';
+
+            // Kiểm tra xem phiên đấu giá đã kết thúc chưa
+            if (distance < 0) {
+                clearInterval(x);
+                timerElement.innerHTML = "Time Out!!!";
+                updateAuctionStatus(auction.Id);
+                findWinner(auction.Id);
+            }
+
+            // Kiểm tra xem phiên đấu giá đã bắt đầu chưa
+            if (StartTime > 0) {
+                clearInterval(x);
+                timerElement.innerHTML = "AUCTION IS NOT STARTED";
+            }
+        }
+
+        // Gọi hàm countdown và cập nhật mỗi giây
+        var x = setInterval(countdown, 1000);
+
+        // Thực hiện countdown lần đầu khi trang được load
+        countdown();
+    </script>
 </head>
 <body>
 
@@ -36,16 +84,20 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="@Model.product.Image" class="img-fluid rounded-image" alt="Product Image">
+                <h2 class="text-center mt-5">TIME REMANING</h2>
+                <h4 id="countdown" class="text-center"></h4>
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">@Model.auction.AuctionName</h2>
                 <p class="text-center">@Model.product.Description</p>
-                <p><strong>Host Name:</strong> HostName</p>
+                <p><strong>Host Name:</strong> @Model.Host </p>
+                <p><strong>Product owner Name:</strong> @Model.CreateBy </p>
                 <p><strong>Start Time:</strong> @Model.auction.StartTime</p>
                 <p><strong>End Time:</strong> @Model.auction.EndTime</p>
                 <p><strong>Start Price:</strong> @Model.auction.StartPrice.ToString()</p>
                 <p><strong>Price Step:</strong> @Model.auction.PriceStep</p>
                 <p><strong>Current Price:</strong> @Model.CurrentPrice</p>
+
 
                 <!-- Bid History -->
                 <h4 class="text-center">Bid History</h4>
@@ -56,15 +108,22 @@
                     }
                     else
                     {
-                        @foreach (var item in Model.AuctionDetails)
+                        @for(int i=0; i < Model.listParticipant.Count; i++)
                         {
-                            <li class="list-group-item">UserName:@item.ParticipantId - BidAmount: @item.ParticipantPrice - Time:@item.BidTime</li>
+                             <li class="list-group-item">Name: @Model.listParticipant[i]   -   BidAmount: @Model.AuctionDetails[i].ParticipantPrice   -   Time:@Model.AuctionDetails[i].BidTime</li> 
                         }
                     }
 
                 </ul>
-
+                @if ("THE AUCTION IS ENDED!".Equals(ViewData["EndBibMessage"]))
+                {
+                        <h4 class="text-center mt-5"> @ViewData["EndBibMessage"]</h4>
+                }
+                else
+                {
+                 
                 <!-- Bid Form -->
+                <p>@ViewBag.Message</p>
                 <form method="post">
                     <div class="input-group mt-3">
                         <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
@@ -82,6 +141,7 @@
                     </div>
                 </form>
                 <div asp-validation-summary="All" class="text-danger text-center"></div>
+                }
             </div>
         </div>
     </div>

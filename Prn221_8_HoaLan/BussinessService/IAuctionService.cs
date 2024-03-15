@@ -22,6 +22,7 @@ namespace BussinessService
         public bool registerAuctionFromStaff(int AuctionId, float StartPrice, float PriceStep, DateTime StartTime, DateTime EndTime );
         public List<Auction> SearchAuctoionByAuctionNameAndStatus(int hostId, string searchValue, String StatusAuction);
         public bool ChangeStatusAuction(int AuctionId, string status);
+        public string GetNameByAuctionId(int AuctionId, int UserId);
 
     }
 }

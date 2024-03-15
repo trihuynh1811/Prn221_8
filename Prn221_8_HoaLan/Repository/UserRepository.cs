@@ -68,6 +68,11 @@ namespace Repository
             .Where(u => u.Role == roleDTO.RoleId)
             .ToList();
         }
+
+        public User GetUserById(int Id)
+        {
+            return GetContext().Users.FirstOrDefault(p=>p.UserId==Id);
+        }
     }
 
 }
