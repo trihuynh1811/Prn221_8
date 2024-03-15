@@ -13,11 +13,14 @@ namespace BussinessService
         readonly IAuctionRepository auctionRepository;
         readonly IAuctionDetailRepository auctionDetailRepository;
         readonly IOrderRepository orderRepository;
-        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder)
+        readonly IOrderDetailRepository orderDetailRepository;
+
+        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder, IOrderDetailRepository orderDetailRepository)
         {
             auctionDetailRepository = iauctiondetail;
             auctionRepository = iauction;
             orderRepository = iroder;
+            this.orderDetailRepository = orderDetailRepository;
         }
 
         public string CheckBidPrice(float BidPrice, float CurrentPrice, float PriceStep)
@@ -74,6 +77,7 @@ namespace BussinessService
                         Orders = order.OrderId,
                         Product = auction.Product,
                     };
+                    orderDetailRepository.Save(oderDetail);
                     return true;
                 }
                 return false;
