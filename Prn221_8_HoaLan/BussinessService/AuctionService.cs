@@ -14,11 +14,12 @@ namespace BussinessService
     {
         readonly IAuctionRepository auctionRepository;
         readonly IProductRepository productRepository;
-
-        public AuctionService(IAuctionRepository auctionRepository, IProductRepository productRepository)
+        readonly IUserRepository userRepository;
+        public AuctionService(IAuctionRepository auctionRepository, IProductRepository productRepository, IUserRepository iuser)
         {
             this.auctionRepository = auctionRepository;
             this.productRepository = productRepository;
+            userRepository = iuser;
         }
 
         public bool AssignToStaff(int StaffId, int AuctionId)
@@ -176,6 +177,13 @@ namespace BussinessService
         public List<Auction> GetAuctionByStatus(string status)
         {
             return (List<Auction>)auctionRepository.GetAll().Where(p => status.Equals(p.Status)).ToList();
+        }
+
+        public string GetNameByAuctionId(int AuctionId, int UserId)
+        {
+            var auction = auctionRepository.GetAuctionById(AuctionId);
+            User user = (User)userRepository.GetUserById((int)UserId);
+            return user.LastName + " " + user.FirstName;
         }
     }
 }

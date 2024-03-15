@@ -54,12 +54,12 @@
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Hiển thị đồng hồ đếm ngược
-            timerElement.innerHTML = '<span>' + days + 'D </span>:<span>' + hours + 'H </span>:<span>' + minutes + 'M </span>:<span>' + seconds + 'S</span>';
+            timerElement.innerHTML = '<span>' + days + ' Day   </span>:    <span>' + hours + ' Hour   </span>:    <span>' + minutes + ' Minute   </span>:   <span>' + seconds + ' S</span>';
 
             // Kiểm tra xem phiên đấu giá đã kết thúc chưa
             if (distance < 0) {
                 clearInterval(x);
-                timerElement.innerHTML = "AUCTION IS ENDED";
+                timerElement.innerHTML = "Time Out!!!";
                 updateAuctionStatus(auction.Id);
                 findWinner(auction.Id);
             }
@@ -84,13 +84,14 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="@Model.product.Image" class="img-fluid rounded-image" alt="Product Image">
-                <h4 class="text-center mt-5">TIME REMANING</h4>
-                <div id="countdown" class="text-center"></div>
+                <h2 class="text-center mt-5">TIME REMANING</h2>
+                <h4 id="countdown" class="text-center"></h4>
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">@Model.auction.AuctionName</h2>
                 <p class="text-center">@Model.product.Description</p>
-                <p><strong>Host Name:</strong> HostName</p>
+                <p><strong>Host Name:</strong> @Model.Host </p>
+                <p><strong>Product owner Name:</strong> @Model.CreateBy </p>
                 <p><strong>Start Time:</strong> @Model.auction.StartTime</p>
                 <p><strong>End Time:</strong> @Model.auction.EndTime</p>
                 <p><strong>Start Price:</strong> @Model.auction.StartPrice.ToString()</p>
@@ -107,15 +108,22 @@
                     }
                     else
                     {
-                        @foreach (var item in Model.AuctionDetails)
+                        @for(int i=0; i < Model.listParticipant.Count; i++)
                         {
-                            <li class="list-group-item">Name:@item.ParticipantId - BidAmount: @item.ParticipantPrice - Time:@item.BidTime</li>
+                             <li class="list-group-item">Name: @Model.listParticipant[i]   -   BidAmount: @Model.AuctionDetails[i].ParticipantPrice   -   Time:@Model.AuctionDetails[i].BidTime</li> 
                         }
                     }
 
                 </ul>
-
+                @if ("THE AUCTION IS ENDED!".Equals(ViewData["EndBibMessage"]))
+                {
+                        <h4 class="text-center mt-5"> @ViewData["EndBibMessage"]</h4>
+                }
+                else
+                {
+                 
                 <!-- Bid Form -->
+                <p>@ViewBag.Message</p>
                 <form method="post">
                     <div class="input-group mt-3">
                         <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
@@ -133,6 +141,7 @@
                     </div>
                 </form>
                 <div asp-validation-summary="All" class="text-danger text-center"></div>
+                }
             </div>
         </div>
     </div>

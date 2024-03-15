@@ -15,5 +15,6 @@ namespace Repository
         User? GetUserByUsernamePassword(string userName, string password);
         public List<User> SearchUserByUserNameAndRole(string searchValue, String Role);
         public List<User> GetUserByRoleName(String RoleName);
+        public User GetUserById(int Id);
     }
 }

@@ -14,13 +14,15 @@ namespace BussinessService
         readonly IAuctionDetailRepository auctionDetailRepository;
         readonly IOrderRepository orderRepository;
         readonly IOrderDetailRepository orderDetailRepository;
+        readonly IUserRepository userRepository;
 
-        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder, IOrderDetailRepository orderDetailRepository)
+        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder, IOrderDetailRepository orderDetailRepository, IUserRepository userRepository)
         {
             auctionDetailRepository = iauctiondetail;
             auctionRepository = iauction;
             orderRepository = iroder;
             this.orderDetailRepository = orderDetailRepository;
+            this.userRepository = userRepository;
         }
 
         public string CheckBidPrice(float BidPrice, float CurrentPrice, float PriceStep)
@@ -95,7 +97,7 @@ namespace BussinessService
 
         public List<AuctionDetail> GetAllAuctionDetailByAuctionId(int AuctionId)
         {
-            return auctionDetailRepository.GetAll().Where(p => p.AuctionId == AuctionId).ToList();
+            return auctionDetailRepository.GetAll().Where(p => p.AuctionId == AuctionId).OrderByDescending(p => p.ParticipantPrice).ToList();
         }
 
         public float GetCurrentPriceSrv(int AuctionId)
@@ -105,7 +107,8 @@ namespace BussinessService
             {
                 return (float)auctionRepository.GetAuctionById(AuctionId).StartPrice;
             }
-            return auctionDetailRepository.GetListAuctionDetailByAuctionId(AuctionId)
+            var auction = auctionRepository.GetAuctionById(AuctionId);
+            return auctionDetailRepository.GetListAuctionDetailByAuctionId(AuctionId).Where(p=>p.BidTime<auction.EndTime)
             .OrderByDescending(a => a.ParticipantPrice)
             .FirstOrDefault().ParticipantPrice;
         }
@@ -126,6 +129,25 @@ namespace BussinessService
             catch (Exception ex)
             {
 
+            }
+        }
+
+        public List<String> GetListUserNameInAuctionDetail(int AuctionId)
+        {
+            try
+            {
+                var listAuctionDetail = GetAllAuctionDetailByAuctionId(AuctionId);
+                List<String> participants = new List<String>();
+                foreach (var item in listAuctionDetail)
+                {
+                    var user = userRepository.GetUserById((int)item.ParticipantId);
+                    participants.Add(user.LastName+" "+user.FirstName);
+                }
+                return participants;
+            }
+            catch (Exception ex)
+            {
+                return new List<String>();
             }
         }
     }
