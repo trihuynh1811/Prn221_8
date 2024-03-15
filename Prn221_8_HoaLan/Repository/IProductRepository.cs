@@ -13,6 +13,8 @@ namespace Repository
         Product SaveProduct(Product p);
         Product GetProductById(int? id);
 
+        List<Product> GetProductNotAuctionAndInStock();
+
         Product? GetById(int id);
 
         //List<Product> GetByUserId(int id);

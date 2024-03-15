@@ -3,7 +3,16 @@
 @{
     Layout = "_Layout";
 }
-
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
 @if (Model.cartList.Count < 0 || Model.cartList == null)
 {
     <div>nothing in the cart</div>
@@ -22,7 +31,7 @@ else
                 </div>
                 <div class="w-75">
                     <span>Name </span>
-                    <span>@Model.cartList[i].pName</span>
+                    <span class="name">@Model.cartList[i].pName</span>
                     <br />
                     <span>Price </span>
                     <span class="price">@Model.cartList[i].price</span>
@@ -40,7 +49,7 @@ else
     <div>
         <button>delete all</button>
         <button>delete</button>
-        <button>buy</button>
+        <button onclick="AddCartToOrder()">buy</button>
     </div>
     <script>
         var totalPriceNumber = 0;
@@ -89,6 +98,48 @@ else
             }
             console.log(quantity)
 
+        }
+
+        async function AddCartToOrder() {
+            var confirmation = confirm("do you want to order these product ?")
+            if(confirmation === false){
+                return
+            }
+            const selectedProducts = document.querySelectorAll('input[type="checkbox"]:checked')
+
+            let data = []
+            console.log(selectedProducts.length)
+            if (selectedProducts.length === 0) {
+                alert("please select products to buy")
+                return
+            }
+            selectedProducts.forEach(selectedProduct => {
+                const parent = selectedProduct.parentElement.parentElement
+                console.log(parent)
+                console.log(parent.dataset.id)
+                let p = {
+                    pId: parseInt(parent.dataset.id),
+                    pName: parent.querySelector('.name').textContent,
+                    quantity: parseInt(parent.querySelector('.quantity').value),
+                    price: parseFloat(parent.querySelector('.price').textContent)
+                }
+
+                data.push(p)
+
+                console.log(data)
+
+            })
+            const res = await fetch('?handler=AddToOrder', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            if (res.status === 200) {
+                console.log(res.json())
+            }
         }
     </script>
 }

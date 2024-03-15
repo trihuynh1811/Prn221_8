@@ -20,7 +20,7 @@ namespace Prn221_8_HoaLan.Pages.Products
 
         public IActionResult OnGet()
         {
-            Products = productService.getAllProduct();
+            Products = productService.GetProductsNotInAuctionAndInStock();
             return Page();
         }
 
@@ -43,6 +43,15 @@ namespace Prn221_8_HoaLan.Pages.Products
                 if (id > 0)
                 {
                     product = productService.GetById(id);
+                    if (product.Quantity <= 0)
+                    {
+                        return new ContentResult
+                        {
+                            StatusCode = 400,
+                            ContentType = "application/json",
+                            Content = JsonConvert.SerializeObject($"{product.ProductName} is out of stock")
+                        };
+                    }
                 }
 
                 CartModel cart = new CartModel

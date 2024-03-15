@@ -10,5 +10,13 @@ namespace Repository
 {
     public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
+        public Order SaveOrder(Order order)
+        {
+            GetContext().Orders.Add(order);
+
+            GetContext().SaveChanges();
+
+            return order;
+        }
     }
 }

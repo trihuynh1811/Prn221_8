@@ -3,7 +3,16 @@
 @{
     Layout = "_Layout";
 }
-
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
 <div>
     <span>Name </span>
     <span>@Model.p.ProductName</span>
@@ -39,6 +48,14 @@
 
         if (res.status === 200) {
             console.log(res.json())
+        }
+        if(res.status === 400){
+            res.json().then(function(res){
+                alert(res)
+            }).catch(function(e) {
+                alert(e)
+            })
+            
         }
     }
 

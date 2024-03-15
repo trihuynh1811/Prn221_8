@@ -60,6 +60,14 @@
         if(res.status === 200){
             console.log(res.json())
         }
+                if(res.status === 400){
+            res.json().then(function(res){
+                alert(res)
+            }).catch(function(e) {
+                alert(e)
+            })
+            
+        }
     }
 
 </script>

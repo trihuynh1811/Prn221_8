@@ -30,9 +30,10 @@ builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
 builder.Services.AddTransient<IAuctionDetailRepository, AuctionDetailRepository>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IAuctionDetailService, AuctionDetailService>();
-builder.Services.AddTransient<IAuctionService,  AuctionService>();
+builder.Services.AddTransient<IAuctionService, AuctionService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IOrderDetailRepository, OrderDetail>();
+builder.Services.AddTransient<IOrderDetailRepository, OrderDetailReposity>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
 // Add secction

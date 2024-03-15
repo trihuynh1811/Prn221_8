@@ -16,7 +16,7 @@ namespace Prn221_8_HoaLan.Pages
 
         public IActionResult OnGet()
         {
-            Products = ProductService.getAllProduct();
+            Products = ProductService.GetProductsNotInAuctionAndInStock();
             return Page();
         }
     }

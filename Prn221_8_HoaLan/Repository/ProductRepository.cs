@@ -25,6 +25,11 @@ namespace Repository
             return GetContext().Products.FirstOrDefault(p=>p.ProductId == id);
         }
 
+        public List<Product> GetProductNotAuctionAndInStock()
+        {
+            return GetAll().Where(x => x.IsAuction == false && x.Quantity > 0).ToList();
+        }
+
         public Product SaveProduct(Product p)
         {
             GetContext().Products.Add(p);

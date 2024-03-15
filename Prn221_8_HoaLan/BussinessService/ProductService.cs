@@ -72,5 +72,10 @@ namespace BussinessService
         {
             return productRepository.GetProductById(id);
         }
+
+        public List<Product> GetProductsNotInAuctionAndInStock()
+        {
+            return productRepository.GetProductNotAuctionAndInStock();
+        }
     }
 }

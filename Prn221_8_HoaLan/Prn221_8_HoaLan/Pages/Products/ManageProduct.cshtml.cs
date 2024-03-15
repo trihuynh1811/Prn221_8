@@ -1,22 +1,27 @@
 using BussinessService;
+using BussinessService.Request;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using Prn221_8_HoaLan.Pages.Order;
 using System.Collections.Generic;
 
 namespace Prn221_8_HoaLan.Pages.Products
 {
+    [IgnoreAntiforgeryToken(Order = 1001)]
     public class ManageProductModel : PageModel
     {
         readonly IProductService productService;
+        readonly IOrderService orderService;
 
         public List<Product> productList { get; set; }
         public List<CartModel> cartList = new List<CartModel>();
 
-        public ManageProductModel(IProductService productService)
+        public ManageProductModel(IProductService productService, IOrderService orderService)
         {
             this.productService = productService;
+            this.orderService = orderService;   
         }
 
         public IActionResult OnGet()
@@ -35,6 +40,37 @@ namespace Prn221_8_HoaLan.Pages.Products
 
             }
             return null;
+        }
+
+        public async Task<IActionResult> OnPostAddToOrder()
+        {
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+
+            if (user == null)
+            {
+                return RedirectToPage("../Login/Login");
+            }
+
+            string requestBody = string.Empty;
+            List<CreateOrderDTO> orderList = new List<CreateOrderDTO>();
+
+            using (var reader = new System.IO.StreamReader(Request.Body))
+            {
+                requestBody = await reader.ReadToEndAsync();
+                orderList = JsonConvert.DeserializeObject<List<CreateOrderDTO>>(requestBody);
+            }
+
+            if(orderList.Count > 0)
+            {
+                orderService.CreateNewOrder(orderList, user);
+            }
+
+            return new ContentResult
+            {
+                StatusCode = 200,
+                ContentType = "application/json",
+                Content = JsonConvert.SerializeObject("lmao")
+            };
         }
     }
 }
