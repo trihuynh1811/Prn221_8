@@ -20,6 +20,11 @@ namespace Repository
             return GetAll()?.FirstOrDefault(x => x.ProductId == id);
         }
 
+        public Product GetProductById(int? id)
+        {
+            return GetContext().Products.FirstOrDefault(p=>p.ProductId == id);
+        }
+
         public Product SaveProduct(Product p)
         {
             GetContext().Products.Add(p);

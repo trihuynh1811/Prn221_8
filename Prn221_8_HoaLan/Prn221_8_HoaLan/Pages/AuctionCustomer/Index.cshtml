@@ -1,0 +1,57 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.AuctionCustomer.IndexModel
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="container">
+    <h1 class="text-center mt-5 mb-5">Auction Management</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Auction Name</th>
+                    <th class="text-center">Product Name</th>
+                    <th class="text-center">Start Time</th>
+                    <th class="text-center">End Time</th>
+                    <th class="text-center">Start Price</th>
+                    <th class="text-center">Price Step</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Join Auction</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Auctions == null || Model.Auctions.ToList().Count == 0)
+                {
+                    <tr>
+                        <td colspan="8" class="text-center">No auction</td>
+                    </tr>
+                }
+                else
+                {
+                    <form method="post">
+                        @foreach (var auction in Model.Auctions)
+                        {
+                        <tr>
+                            <td class="text-center">@auction.AuctionName </td>
+                            <td class="text-center">@auction.AuctionId</td>
+                            <td class="text-center">@auction.StartTime</td>
+                            <td class="text-center">@auction.EndTime</td>
+                            <td class="text-center">@auction.StartPrice</td>
+                            <td class="text-center">@auction.PriceStep</td>
+                            <td class="text-center">@auction.Status</td>
+                            <td class="text-center">
+                                <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
+                                <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@auction.AuctionId">
+                                    Join
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </form>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

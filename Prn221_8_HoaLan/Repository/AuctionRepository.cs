@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Model;
+using Microsoft.EntityFrameworkCore;
 using Repository.BaseRepository;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,15 @@ namespace Repository
 {
     public class AuctionRepository : BaseRepository<Auction>, IAuctionRepository
     {
+        public Auction GetAuctionById(int id)
+        {
+            return GetContext().Auctions.FirstOrDefault(p=>p.AuctionId == id);
+        }
+
+        public List<Auction> GetAuctionsByHostId(int hostId)
+        {
+            return GetContext().Auctions.Where(p => p.HostBy == hostId).ToList();
+        }
         public List<Auction>? GetByUserId(int userId)
         {
             return GetAll()?.Where(x => x.CreateBy.Equals(userId)).ToList();

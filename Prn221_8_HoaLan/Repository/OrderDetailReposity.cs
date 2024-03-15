@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public interface IAuctionRepository : IBaseRepository<Auction>
+    public class OrderDetailReposity : BaseRepository<OrderDetail>, IOrderDetailRepository
     {
-        Auction GetAuctionById(int id);
-        List<Auction> GetAuctionsByHostId(int hostId);
-        List<Auction>? GetByUserId(int userId);
     }
 }

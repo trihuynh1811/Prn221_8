@@ -67,5 +67,10 @@ namespace BussinessService
         {
             return productRepository.GetAll();
         }
+
+        public Product getProductById(int? id)
+        {
+            return productRepository.GetProductById(id);
+        }
     }
 }

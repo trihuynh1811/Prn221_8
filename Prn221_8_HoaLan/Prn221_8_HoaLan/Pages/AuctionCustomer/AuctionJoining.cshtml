@@ -1,0 +1,80 @@
+﻿@page "{AuctionId:int}"
+@model Prn221_8_HoaLan.Pages.AuctionCustomer.AuctionJoiningModel
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auction Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bid-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .rounded-image {
+            border-radius: 10%; /* Độ cong 50% sẽ tạo ra hình ảnh có hình dạng hình tròn */
+            overflow: hidden; /* Đảm bảo rằng hình ảnh không vượt ra khỏi khung bao */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Model.product.Image" class="img-fluid rounded-image" alt="Product Image">
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">@Model.auction.AuctionName</h2>
+                <p class="text-center">@Model.product.Description</p>
+                <p><strong>Host Name:</strong> HostName</p>
+                <p><strong>Start Time:</strong> @Model.auction.StartTime</p>
+                <p><strong>End Time:</strong> @Model.auction.EndTime</p>
+                <p><strong>Start Price:</strong> @Model.auction.StartPrice.ToString()</p>
+                <p><strong>Price Step:</strong> @Model.auction.PriceStep</p>
+                <p><strong>Current Price:</strong> @Model.CurrentPrice</p>
+
+                <!-- Bid History -->
+                <h4 class="text-center">Bid History</h4>
+                <ul class="list-group bid-list">
+                    @if (Model.AuctionDetails == null || Model.AuctionDetails.Count == 0)
+                    {
+                        <li class="list-group-item text-center">Not yet</li>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.AuctionDetails)
+                        {
+                            <li class="list-group-item">UserName:@item.ParticipantId - BidAmount: @item.ParticipantPrice - Time:@item.BidTime</li>
+                        }
+                    }
+
+                </ul>
+
+                <!-- Bid Form -->
+                <form method="post">
+                    <div class="input-group mt-3">
+                        <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
+                        @if (Model.BidPrice == null || Model.BidPrice == 0)
+                        {
+                            <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice" value="">
+                        }
+                        else
+                        {
+                            <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice">
+                        }
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit" onclick="placeBid()">Place Bid</button>
+                        </div>
+                    </div>
+                </form>
+                <div asp-validation-summary="All" class="text-danger text-center"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,99 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.Staff.AuctionManagement.indexModel
+@using DataAccessLayer.Model;
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
+
+<div class="container">
+    <h2>Auction Management</h2>
+    <form class="form-horizontal mb-5" method="post">
+        <div class="input-group mb-3 mt-5">
+            <select asp-for="StatusAuctionValue" class="form-control">
+                <option value="All">All</option>
+                <option value="Upcomming">Upcomming</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Finished">Finished</option>
+                <option value="Processing">Processing</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Search Auction Name" asp-for="SearchValue">
+            <button class="btn btn-primary" type="submit" name="button" value="Search">Search</button>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Auction Name</th>
+                <th class="text-center">CreateBy</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Detail</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Auctions == null || Model.Auctions.ToList().Count == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">No auction</td>
+                </tr>
+            }
+            else
+            {
+                <form method="post">
+                    @foreach (var auction in Model.Auctions)
+                    {
+                    <tr>
+                        <td class="text-center">@auction.AuctionId</td>
+                        <td class="text-center">@auction.AuctionName </td>
+                        <td class="text-center">@auction.CreateBy</td>
+                        <td class="text-center">@auction.Status</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
+                                View Detail
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
+                                @if ("Processing".Equals(auction.Status))
+                                {
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                    Register Auction
+                                </a>
+                                }
+                                else if ("Upcomming".Equals(auction.Status))
+                                {
+                                <button class="btn btn-primary" name="button" value="Start Auction">
+                                    Start Auction
+                                </button>
+                                }
+                                else if ("Ongoing".Equals(auction.Status))
+                                {
+                                <button class="btn btn-primary" name="button" value="End Auction">
+                                    End Auction
+                                </button>
+                                }
+                                else if ("Finished".Equals(auction.Status))
+                                {
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                    View Auction
+                                </a>    
+                                }
+                        </td>
+                    </tr>
+                    }
+                </form>
+                }
+            </tbody>
+        </table>
+    </div>

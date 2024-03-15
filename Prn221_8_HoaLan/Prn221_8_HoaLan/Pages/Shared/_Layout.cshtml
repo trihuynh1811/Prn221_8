@@ -68,22 +68,28 @@
                                         <a class="nav-link" asp-page="/Index">Home</a>
                                     </li>
 
-                                    @if (ViewBag.Role == 3)
+                                    @if (ViewBag.Role == 3) // Role Name == "Product Owner"
                                     {
                                         <li class="nav-item" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Products/ProductDisplay">Shop</a>
+                                        </li>
+                                        <li class="nav-item" style="font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/AuctionRegistration/RegisterAuctionProduct">Register Auction</a>
                                         </li>
                                         <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Products/ProductRegister">Register Product</a>
                                         </li>
                                     }
-                                    else
+                                    else  //Role Name = "Customer"
                                     {
-                                        <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
+                                        <li class="nav-item" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Products/ProductDisplay">Shop</a>
                                         </li>
+                                        <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/AuctionCustomer/index">Auction</a>
+                                        </li>
                                     }
-                                    @if (user == null && admin == null)
+                                    @if (user == null && admin == null) // Actor: Guest
                                     {
                                         <li class="nav-item d_none login_btn" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Login/Login">Login</a>
@@ -92,7 +98,7 @@
                                             <a class="nav-link btn btn-secondary" asp-page="/Register/Register">Register</a>
                                         </li>
                                     }
-                                    else
+                                    else  // Logined
                                     {
                                         <li class="nav-item d_none" style="font-size: 1.25rem;">
                                             <a class="nav-link btn btn-danger" asp-page="/Products/ManageProduct">Cart</a>

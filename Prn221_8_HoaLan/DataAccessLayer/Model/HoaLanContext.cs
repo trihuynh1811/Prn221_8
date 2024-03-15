@@ -52,17 +52,31 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.CreateBy).HasColumnName("createBy");
 
+                entity.Property(e => e.EndPrice).HasColumnName("end_price");
+
+                entity.Property(e => e.EndTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("end_time");
+
                 entity.Property(e => e.HostBy).HasColumnName("hostBy");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
-                entity.Property(e => e.Price).HasColumnName("price");
+                entity.Property(e => e.PriceStep).HasColumnName("price_step");
 
                 entity.Property(e => e.Product).HasColumnName("product");
 
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.StartPrice).HasColumnName("start_price");
 
-                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.StartTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("start_time");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(10)
+                    .HasColumnName("status");
+
+                entity.Property(e => e.WinnerId).HasColumnName("winner_id");
 
                 entity.HasOne(d => d.Order)
                     .WithOne(p => p.Auction)
@@ -81,20 +95,25 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.AuctionDetailId).HasColumnName("auction_detail_id");
 
-                entity.Property(e => e.Auction).HasColumnName("auction");
+                entity.Property(e => e.AuctionId).HasColumnName("auction_id");
 
-                entity.Property(e => e.Participant).HasColumnName("participant");
+                entity.Property(e => e.BidTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("bid_time");
 
-                entity.Property(e => e.WinnerId).HasColumnName("winner_id");
+                entity.Property(e => e.ParticipantId).HasColumnName("participant_id");
 
-                entity.HasOne(d => d.AuctionNavigation)
+                entity.Property(e => e.ParticipantPrice).HasColumnName("participant_price");
+
+                entity.HasOne(d => d.Auction)
                     .WithMany(p => p.AuctionDetails)
-                    .HasForeignKey(d => d.Auction)
+                    .HasForeignKey(d => d.AuctionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK5dygb3k049gmjcquym4ddub04");
 
-                entity.HasOne(d => d.ParticipantNavigation)
+                entity.HasOne(d => d.Participant)
                     .WithMany(p => p.AuctionDetails)
-                    .HasForeignKey(d => d.Participant)
+                    .HasForeignKey(d => d.ParticipantId)
                     .HasConstraintName("FKcmi76t59v5sin7ee8ppp2xy94");
             });
 
@@ -155,6 +174,8 @@ namespace DataAccessLayer.Model
                     .IsUnicode(false)
                     .HasColumnName("image");
 
+                entity.Property(e => e.IsAuction).HasColumnName("is_auction");
+
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.ProductName)
@@ -168,6 +189,8 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.Status)
                     .HasMaxLength(10)
                     .HasColumnName("status");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
             });
 
             modelBuilder.Entity<Report>(entity =>

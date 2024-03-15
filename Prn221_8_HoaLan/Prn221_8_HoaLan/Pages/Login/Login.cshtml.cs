@@ -34,6 +34,10 @@ namespace Prn221_8_HoaLan.Pages.Login
             if (user != null)
             {
                 Prn221_8_HoaLan.SessionExtensions.Set<User>(session, "User", user);
+                if (user.Role == 2) //Staff
+                {
+                    return RedirectToPage("../Staff/AuctionManagement/index");
+                }
                 return RedirectToPage("/Index");
             }
             else if (_configuration.GetSection("AdminAccount")["Username"].Equals(Username) && _configuration.GetSection("AdminAccount")["Password"].Equals(Password))

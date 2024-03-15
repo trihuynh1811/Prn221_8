@@ -10,5 +10,9 @@ namespace Repository
 {
     public class AuctionDetailRepository : BaseRepository<AuctionDetail>, IAuctionDetailRepository
     {
+        public List<AuctionDetail> GetListAuctionDetailByAuctionId(int AuctionId)
+        {
+            return GetContext().AuctionDetails.Where(p=>p.AuctionId == AuctionId).ToList();
+        }
     }
 }

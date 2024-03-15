@@ -12,13 +12,17 @@ namespace DataAccessLayer.Model
 
         public int AuctionId { get; set; }
         public string? AuctionName { get; set; }
-        public float Price { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; } = null!;
         public int? OrderId { get; set; }
         public int? Product { get; set; }
         public int? CreateBy { get; set; }
         public int? HostBy { get; set; }
-        public int? Quantity { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
+        public float? PriceStep { get; set; }
+        public float? StartPrice { get; set; }
+        public int? WinnerId { get; set; }
+        public float? EndPrice { get; set; }
 
         public virtual Order? Order { get; set; }
         public virtual Product? ProductNavigation { get; set; }

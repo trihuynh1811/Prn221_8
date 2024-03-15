@@ -13,6 +13,8 @@ namespace BussinessService
         public void CreateProduct(CreateUpdateProductDTO dto);
         public List<Product> getAllProduct();
 
+        public Product getProductById(int? id);
+
         public List<Product> GetProducts();
 
         public Product GetById(int id);

@@ -24,9 +24,6 @@ namespace Prn221_8_HoaLan.Pages.Auctions
 
         [BindProperty]
         public string ProductDesc { get; set; }       
-        
-        [BindProperty]
-        public string ProductQuantity { get; set; }
 
         public RegisterAuctionProductModel(IHttpClientFactory httpClientFactory, IAuctionService auctionService)
         {
@@ -46,6 +43,7 @@ namespace Prn221_8_HoaLan.Pages.Auctions
 
         public async Task<IActionResult> OnPost(IFormFile imageFile)
         {
+
             var httpClient = _httpClientFactory.CreateClient();
             var clientSecret = "c75a7c6cf6f9c5fb9e79c7f00098a55e80163387";
             var clientId = "cb2bb6bdf2aedbf";
@@ -71,21 +69,22 @@ namespace Prn221_8_HoaLan.Pages.Auctions
                     if (uploadResponse != null)
                     {
                         imageUrl = uploadResponse.data?.link;
-                        CreateUpdateProductDTO dto = new CreateUpdateProductDTO
+                        CreateUpdateProductDTO ProductDTO = new CreateUpdateProductDTO
                         {
                             ProductName = ProductName,
                             Price = 0,
                             Image = imageUrl,
                             Description = ProductDesc,
+                            IsAuction = 1,
+                            Quantity = 1,
+                            UserId = user.UserId
                         };
-                        CreateUpdateAuctionDTO aDto = new CreateUpdateAuctionDTO
+                        CreateUpdateAuctionDTO AuctionDTO = new CreateUpdateAuctionDTO
                         {
                             AuctionName = AuctionName,
-                            Price = 0,
-                            Quantity = int.Parse(ProductQuantity),
                             CreateBy = user.UserId
                         };
-                        Product p = auctionService.CreateAuction(dto, aDto); 
+                        Product p = auctionService.CreateAuction(ProductDTO, AuctionDTO); 
                     }
                 }
             }catch(Exception ex)

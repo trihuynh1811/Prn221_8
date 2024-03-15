@@ -7,75 +7,68 @@
 @{
     Layout = "_LayoutAdmin";
 }
-
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
 <div class="container">
     <h2>Auction Management</h2>
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Image</th>
+                <th>Auction Name</th>
+                <th>CreateBy</th>
                 <th>Status</th>
-                <th>Assign to Staff</th>
+                <th class="text-center">Detail</th>
+                <th class="text-center">Staff Name</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
+            @if(Model.Auctions==null || Model.Auctions.ToList().Count==0)
+            {
+                <tr>
+                    <td colspan="7" class="text-center">No auction to assign to staff</td>
+                </tr>
+            }else{
             <form method="post">
                 @foreach (var auction in Model.Auctions)
                 {
                 <tr>
-                    <td>@auction.AuctionName</td>
-                    <td>@auction.Price</td>
+                    <td>@auction.AuctionId</td>
+                    <td>@auction.AuctionName </td>
+                    <td>@auction.CreateBy</td>
                     <td>@auction.Status</td>
-                    <td>@auction.Quantity</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productImageModal">
-                            View Image
-                        </button>
+                    <td class="text-center">
+                        <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
+                            View Detail
+                        </a>
                     </td>
-                    <td>@auction.Status</td>
                     <td>
-                         <div class="form-group">
+                        <div class="form-group">
                             <select class="form-control" name="SelectedStaffId">
                                     @foreach (var staff in Model.Staffs)
                                     {
                                     <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
                                     }
                             </select>
-                        </div> 
+                        </div>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-primary" name="button" value="Reject">Assign</button>
+                        <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
+                        <button type="submit" class="btn btn-primary" name="button" value="AssignToStaff">Assign</button>
                     </td>
                 </tr>
                 }
             </form>
+            }
         </tbody>
     </table>
 </div>
-
-
-<!-- Product Image Modal -->
-@*                 <div class="modal fade" id="productImageModal_@auction.Product" tabindex="-1" role="dialog"
-                     aria-labelledby="productImageModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="productImageModalLabel">Product Image</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="" style="max-width: 100%; max-height: 31.25rem;">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> *@

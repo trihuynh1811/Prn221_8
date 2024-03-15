@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using DataAccessLayer.Model
+@{
+    var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(Context.Session, "User");
+    var admin = Prn221_8_HoaLan.SessionExtensions.Get<String>(Context.Session, "Admin");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,46 +31,46 @@
             --danger-color: #FF4000;
         }
 
-        body {
-            background-color: var(--primary-color);
-            color: var(--tertiary-color);
-            font-family: 'Montserrat', sans-serif;
-        }
+    body {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .navbar,
-        .navbar-nav,
-        .nav-item,
-        .navbar-brand {
-            background-color: var(--primary-color) !important;
-            color: var(--secondary-color) !important;
-            padding: 10px 0 !important;
-        }
+    .navbar,
+    .navbar-nav,
+    .nav-item,
+    .navbar-brand {
+      background-color: var(--primary-color) !important;
+      color: var(--secondary-color) !important;
+      padding: 10px 0 !important;
+    }
 
-        .nav-item {
-            margin-left: 10px;
-        }
+    .nav-item {
+      margin-left: 10px;
+    }
 
-            .nav-item > a:hover {
-                color: var(--danger-color) !important;
-            }
+    .nav-item>a:hover {
+      color: var(--danger-color) !important;
+    }
 
-        /* Search and Select */
-        .form-control {
-            background-color: var(--tertiary-color);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
+    /* Search and Select */
+    .form-control {
+      background-color: var(--tertiary-color);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
 
-            .form-control:focus {
-                background-color: var(--tertiary-color);
-                border-color: var(--secondary-color);
-                color: var(--primary-color);
-            }
+    .form-control:focus {
+      background-color: var(--tertiary-color);
+      border-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
 
-        select.form-control option {
-            background-color: var(--tertiary-color);
-            color: var(--primary-color);
-        }
+    select.form-control option {
+      background-color: var(--tertiary-color);
+      color: var(--primary-color);
+    }
 
         /* Table */
         .table {
@@ -162,33 +168,33 @@
                 color: var(--primary-color);
             }
 
-        .btn-secondary {
-            background-color: var(--primary-color);
-            color: var(--tertiary-color);
-            border-left: 1px solid var(--secondary-color);
-        }
+    .btn-secondary {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+      border-left: 1px solid var(--secondary-color);
+    }
 
-            .btn-secondary:hover {
-                background-color: var(--primary-color);
-                border-color: var(--primary-color);
-                color: var(--tertiary-color);
-            }
+    .btn-secondary:hover {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--tertiary-color);
+    }
 
-        .btn-danger {
-            background-color: var(--primary-color);
-            color: var(--tertiary-color);
-        }
+    .btn-danger {
+      background-color: var(--primary-color);
+      color: var(--tertiary-color);
+    }
 
-            .btn-danger:hover {
-                background-color: var(--primary-color);
-                border-color: var(--primary-color);
-                color: var(--danger-color);
-                border-bottom-color: var(--danger-color);
-            }
-    </style>
+    .btn-danger:hover {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--danger-color);
+      border-bottom-color: var(--danger-color);
+    }
+  </style>
 </head>
 
-<body style="min-height: 100vh">
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -199,12 +205,22 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="" asp-area="" asp-page="/Login/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="" asp-area="" asp-page="/Admin/ManageUser/Detail">ManageUser</a>
-                        </li>
+
+                        @if (admin!=null) // Role admin
+                        {
+                            <li class="nav-item">
+                                <a class="" asp-area="" asp-page="/Admin/ManageUser/Detail">ManageUser</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="" asp-area="" asp-page="/Admin/ManageAuction/AssignAuctionToStaff">Assign Staff</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="" asp-area="" asp-page="/Staff/AuctionManagement/AuctionCreate">Auction Submition</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -222,11 +238,11 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
