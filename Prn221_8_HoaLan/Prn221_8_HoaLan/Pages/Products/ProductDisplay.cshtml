@@ -33,8 +33,9 @@
                         <figure class="d-flex justify-content-center align-items-center"><img src="@item.Image" alt="#" /></figure>
                         <h3>@item.Price.ToString("N0") <span class="blu">VND</span></h3>
                         <p>@item.ProductName</p>
-                        <div>
-                            <button>Buy Now</button>
+                        <div class="d-flex justify-content-between mx-4 my-3">
+                            <a role="button" class="buyBtn bg-success w-25 h-25 text-white" onclick="AddToCart(@item.ProductId)">Buy Now</a>
+                            <a class="bg-primary w-25 h-25 text-white" asp-page="./ProductDetail" asp-route-id="@item.ProductId">More Info</a>
                         </div>
                     </div>
                 </div>
@@ -42,3 +43,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function AddToCart(pid){
+        let data = {
+            id: pid
+        }
+        const res = await fetch('?handler=AddToCart', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        if(res.status === 200){
+            console.log(res.json())
+        }
+    }
+
+</script>

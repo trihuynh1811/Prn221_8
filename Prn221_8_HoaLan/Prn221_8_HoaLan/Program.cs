@@ -9,6 +9,13 @@ using BussinessService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
@@ -27,13 +34,7 @@ builder.Services.AddTransient<IAuctionService,  AuctionService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 // Add secction
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+
 
 var app = builder.Build();
 
@@ -45,15 +46,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
+// Add middleware session into pipeline
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// Add middleware session into pipeline
-app.UseSession();
+
 
 app.UseAuthorization();
 

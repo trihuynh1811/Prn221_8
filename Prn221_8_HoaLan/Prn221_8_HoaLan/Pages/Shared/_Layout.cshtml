@@ -94,9 +94,12 @@
                                     }
                                     else
                                     {
-                                    <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                        <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                            <a class="nav-link btn btn-danger" asp-page="/Products/ManageProduct">Cart</a>
+                                        </li>
+                                        <li class="nav-item d_none" style="font-size: 1.25rem;">
                                             <a class="nav-link btn btn-danger" asp-page="/Logout/Logout">Logout</a>
-                                    </li>
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -106,39 +109,39 @@
             </div>
         </div>
     </header>
-@*     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" asp-area="" asp-page="/Login/Login">Login</a>
-                        </li>
+    @*     <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+    <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+    </li>
+    <li class="nav-item">
+    <a class="btn btn-outline-primary" asp-area="" asp-page="/Login/Login">Login</a>
+    </li>
 
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    </ul>
+    </div>
+    </div>
+    </nav>
     </header> *@
 
     @RenderBody()
 
-@*     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Prn221_8_HoaLan - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
+    @*     <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2024 - Prn221_8_HoaLan - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
     </footer> *@
     <footer class="mt-4 w-100 position-sticky" style="height: 3rem; top: 100%;">
         <div class="position-absolute d-flex flex-column align-items-center justify-content-center w-100"

@@ -5,5 +5,41 @@
 }
 
 <div>
-    <div></div>
+    <span>Name </span>
+    <span>@Model.p.ProductName</span>
+    <br />
+    <span>Description </span>
+    <span>@Model.p.Description</span>
+    <br />
+    <span>Quantity </span>
+    <span>@Model.p.Quantity</span>
+    <br />
+    <span>Price </span>
+    <span>@Model.p.Price</span>
+    <div>
+        <img style="width: 300px; height: 300px; object-fit: contain;" src="@Model.p.Image" />
+    </div>
+    <div>
+        <button onclick="AddToCart(@Model.p.ProductId)">Buy</button>
+    </div>
+    
 </div>
+<script>
+    async function AddToCart(pid) {
+        let data = {
+            id: pid
+        }
+        const res = await fetch('?handler=AddToCart', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        if (res.status === 200) {
+            console.log(res.json())
+        }
+    }
+
+</script>

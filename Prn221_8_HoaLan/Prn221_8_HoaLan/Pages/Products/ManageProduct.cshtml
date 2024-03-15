@@ -1,4 +1,94 @@
 ﻿@page
 @model Prn221_8_HoaLan.Pages.Products.ManageProductModel
 @{
+    Layout = "_Layout";
+}
+
+@if (Model.cartList.Count < 0 || Model.cartList == null)
+{
+    <div>nothing in the cart</div>
+}
+else
+{
+    @for (int i = 0; i < Model.cartList.Count; i++)
+    {
+        <div class="d-flex flex-column">
+            <div class="d-flex" data-id="@Model.cartList[i].pId">
+                <div>
+                    <input type="checkbox" class="checkBox" name="checkBox" onchange="CalculateTotalPrice(this)" />
+                </div>
+                <div class="w-25">
+                    <img class="w-100" src="@Model.cartList[i].imgLink" />
+                </div>
+                <div class="w-75">
+                    <span>Name </span>
+                    <span>@Model.cartList[i].pName</span>
+                    <br />
+                    <span>Price </span>
+                    <span class="price">@Model.cartList[i].price</span>
+                    <br />
+                    <span>Quantity </span>
+                    <span>
+                        <input type="number" class="quantity" name="" value=@Model.cartList[i].quanity min="1" onchange="CalculateTotalPriceInput(this, @Model.cartList[i].quanity)" />
+                        <input type="hidden" class="prevQuantity" name="" value=@Model.cartList[i].quanity />
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+    <div>total price: <span class="totalPrice">0</span></div>
+    <div>
+        <button>delete all</button>
+        <button>delete</button>
+        <button>buy</button>
+    </div>
+    <script>
+        var totalPriceNumber = 0;
+        const totalPrice = document.querySelector('.totalPrice')
+        function CalculateTotalPrice(btn) {
+            var parent = btn.parentElement.parentElement
+            var price = parseInt(parent.querySelector('.price').textContent)
+            var quantity = parseInt(parent.querySelector('.quantity').value)
+            totalPriceNumber += btn.checked ? price * quantity : -(price * quantity)
+            totalPrice.innerHTML = totalPriceNumber
+        }
+        function CalculateTotalPriceInput(btn, currentValue) {
+            console.log(currentValue)
+            var parent = btn.parentElement.parentElement.parentElement
+            var checked = parent.querySelector('.checkBox').checked
+            var price = parseInt(parent.querySelector('.price').textContent)
+            var quantity = parseInt(parent.querySelector('.quantity').value)
+            var prevQuantity = parent.querySelector('.prevQuantity')
+            if (quantity > prevQuantity.value) {
+                console.log(quantity)
+                console.log(prevQuantity.value)
+                console.log(quantity - prevQuantity.value)
+                var newQuantity = quantity - prevQuantity.value
+                console.log(newQuantity)
+                totalPriceNumber += checked ? price * newQuantity : 0
+                totalPrice.innerHTML = totalPriceNumber
+                prevQuantity.value = quantity
+                return
+            }
+            if (prevQuantity.value > quantity) {
+                if (quantity === 1) {
+                    totalPriceNumber -= checked ? price * quantity : 0
+                    totalPrice.innerHTML = totalPriceNumber
+                    prevQuantity.value = quantity
+                    return
+                }
+                console.log(quantity)
+                console.log(prevQuantity.value)
+                console.log(quantity - prevQuantity.value)
+                var newQuantity = prevQuantity.value - quantity
+                console.log(newQuantity)
+                totalPriceNumber -= checked ? price * newQuantity : 0
+                totalPrice.innerHTML = totalPriceNumber
+                prevQuantity.value = quantity
+                return
+            }
+            console.log(quantity)
+
+        }
+    </script>
 }
