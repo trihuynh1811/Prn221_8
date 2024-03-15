@@ -14,11 +14,13 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
         public string StatusAuctionValue { get; set; }
 
         IAuctionService _iAuctionSrv;
+        IAuctionDetailService _iAuctionDetailSrv;
         public List<Auction> Auctions;
 
-        public indexModel(IAuctionService auctionService)
+        public indexModel(IAuctionService auctionService, IAuctionDetailService iAuctionDetailSrv)
         {
             _iAuctionSrv = auctionService;
+            _iAuctionDetailSrv = iAuctionDetailSrv;
         }
 
         public IActionResult OnGet()
@@ -49,7 +51,8 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
             }
             else if("End Auction".Equals(button))
             {
-                _iAuctionSrv.ChangeStatusAuction(AuctionId, "Finshed");
+                //_iAuctionSrv.ChangeStatusAuction(AuctionId, "Finshed");
+                _iAuctionDetailSrv.EndBidAuction(AuctionId);
                 Auctions = _iAuctionSrv.SearchAuctoionByAuctionNameAndStatus(user.UserId, SearchValue, "All");
             }
 

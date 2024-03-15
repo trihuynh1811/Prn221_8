@@ -25,6 +25,8 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IAuctionDetailService, AuctionDetailService>();
 builder.Services.AddTransient<IAuctionService,  AuctionService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IOrderDetailRepository, OrderDetail>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
 // Add secction
 builder.Services.AddDistributedMemoryCache();

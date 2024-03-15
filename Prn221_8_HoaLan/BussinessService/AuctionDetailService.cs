@@ -12,28 +12,75 @@ namespace BussinessService
     {
         readonly IAuctionRepository auctionRepository;
         readonly IAuctionDetailRepository auctionDetailRepository;
-        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail)
+        readonly IOrderRepository orderRepository;
+        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder)
         {
             auctionDetailRepository = iauctiondetail;
             auctionRepository = iauction;
+            orderRepository = iroder;
         }
 
         public string CheckBidPrice(float BidPrice, float CurrentPrice, float PriceStep)
         {
             try
             {
-                if (BidPrice<= CurrentPrice)
+                if (BidPrice <= CurrentPrice)
                 {
                     return "Bid Price must be greater than Start Price!";
                 }
-                if (BidPrice%PriceStep!=0)
+                if (BidPrice % PriceStep != 0)
                 {
                     return "Bid Price must be a multiple of Price Step!";
                 }
                 return "No Error";
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return "Error";
+            }
+        }
+
+        public bool EndBidAuction(int AuctionId)
+        {
+            try
+            {
+                Auction auction = auctionRepository.GetAuctionById(AuctionId);
+                var auctionDetailTemp = auctionDetailRepository.GetAll()
+                    .Where(ad => ad.AuctionId == auction.AuctionId && ad.BidTime <= auction.EndTime)
+                    .OrderByDescending(ad => ad.ParticipantPrice)
+                    .FirstOrDefault();
+                if (auctionDetailTemp != null)
+                {
+                    auction.Status = "Finished";
+                    auction.EndPrice = auctionDetailTemp.ParticipantPrice;
+
+                    int WinnerId = (int)auctionDetailTemp.ParticipantId;
+                    if (WinnerId != null)
+                    {
+                        auction.WinnerId = WinnerId;
+                    }
+                    auctionRepository.Update(auction);
+                    //Chuyển qua orders table
+                    Order order = new Order()
+                    {
+                        Status = false,
+                        OrderDate = auctionDetailTemp.BidTime,
+                        OrderBy = auctionDetailTemp.ParticipantId,
+                    };
+                    orderRepository.Save(order);
+                    OrderDetail oderDetail = new OrderDetail()
+                    {
+                        Quantity = 1,
+                        Orders = order.OrderId,
+                        Product = auction.Product,
+                    };
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
@@ -44,7 +91,7 @@ namespace BussinessService
 
         public List<AuctionDetail> GetAllAuctionDetailByAuctionId(int AuctionId)
         {
-            return auctionDetailRepository.GetAll().Where(p=>p.AuctionId == AuctionId).ToList();
+            return auctionDetailRepository.GetAll().Where(p => p.AuctionId == AuctionId).ToList();
         }
 
         public float GetCurrentPriceSrv(int AuctionId)
