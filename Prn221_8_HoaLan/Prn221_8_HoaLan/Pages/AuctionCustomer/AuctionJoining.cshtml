@@ -1,7 +1,16 @@
 ﻿@page "{AuctionId:int}"
+@using Newtonsoft.Json
 @model Prn221_8_HoaLan.Pages.AuctionCustomer.AuctionJoiningModel
 @{
     Layout = "_Layout";
+}
+@{
+    var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+    string json = JsonConvert.SerializeObject(Model.auction, settings);
 }
 <!DOCTYPE html>
 <html>
@@ -19,6 +28,55 @@
             overflow: hidden; /* Đảm bảo rằng hình ảnh không vượt ra khỏi khung bao */
         }
     </style>
+    <script>
+        var auction = @Html.Raw(json);
+        console.log(auction);
+
+        // Lấy thời gian kết thúc và bắt đầu của phiên đấu giá
+        var endTime = new Date(auction.EndTime).getTime();
+        var startTime = new Date(auction.StartTime).getTime();
+        console.log(endTime);
+
+
+        // Định nghĩa hàm countdown
+        function countdown() {
+            var now = new Date().getTime();
+            var distance = endTime - now;
+            var StartTime = startTime - now;
+            var timerId = 'time-' + auction.AuctionId;
+            console.log(auction.AuctionId);
+            var timerElement = document.getElementById("countdown");
+
+            // Tính toán số ngày, giờ, phút, giây còn lại
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị đồng hồ đếm ngược
+            timerElement.innerHTML = '<span>' + days + 'D </span>:<span>' + hours + 'H </span>:<span>' + minutes + 'M </span>:<span>' + seconds + 'S</span>';
+
+            // Kiểm tra xem phiên đấu giá đã kết thúc chưa
+            if (distance < 0) {
+                clearInterval(x);
+                timerElement.innerHTML = "AUCTION IS ENDED";
+                updateAuctionStatus(auction.Id);
+                findWinner(auction.Id);
+            }
+
+            // Kiểm tra xem phiên đấu giá đã bắt đầu chưa
+            if (StartTime > 0) {
+                clearInterval(x);
+                timerElement.innerHTML = "AUCTION IS NOT STARTED";
+            }
+        }
+
+        // Gọi hàm countdown và cập nhật mỗi giây
+        var x = setInterval(countdown, 1000);
+
+        // Thực hiện countdown lần đầu khi trang được load
+        countdown();
+    </script>
 </head>
 <body>
 
@@ -26,6 +84,8 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="@Model.product.Image" class="img-fluid rounded-image" alt="Product Image">
+                <h4 class="text-center mt-5">TIME REMANING</h4>
+                <div id="countdown" class="text-center"></div>
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">@Model.auction.AuctionName</h2>
@@ -36,6 +96,7 @@
                 <p><strong>Start Price:</strong> @Model.auction.StartPrice.ToString()</p>
                 <p><strong>Price Step:</strong> @Model.auction.PriceStep</p>
                 <p><strong>Current Price:</strong> @Model.CurrentPrice</p>
+
 
                 <!-- Bid History -->
                 <h4 class="text-center">Bid History</h4>
@@ -48,7 +109,7 @@
                     {
                         @foreach (var item in Model.AuctionDetails)
                         {
-                            <li class="list-group-item">UserName:@item.ParticipantId - BidAmount: @item.ParticipantPrice - Time:@item.BidTime</li>
+                            <li class="list-group-item">Name:@item.ParticipantId - BidAmount: @item.ParticipantPrice - Time:@item.BidTime</li>
                         }
                     }
 
