@@ -86,7 +86,7 @@ namespace BussinessService
                     orderDetailRepository.Save(oderDetail);
                     var customer = userRepository.GetUserById(WinnerId);
                     var host = userRepository.GetUserById((int)auction.HostBy);
-                    emailService.SendEmail(customer.UserEmail, customer.LastName+" "+customer.FirstName, "0706600157", "Trần Xuân Tiến");
+                    emailService.SendEmail(customer.UserEmail, customer.FirstName+" "+customer.LastName, "0706600157", "Trần Xuân Tiến");
                     return true;
                 }
                 return false;
