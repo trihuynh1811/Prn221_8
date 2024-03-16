@@ -32,6 +32,11 @@ namespace Prn221_8_HoaLan.Pages.Products
 
         public async Task<IActionResult> OnPostAddToCart()
         {
+            var customer = HttpContext.Session.Get("User");
+            if (customer == null)
+            {
+                return RedirectToPage("../Login/Login");
+            }
             try
             {
                 var serializedCartList = HttpContext.Session.GetString("Cart");

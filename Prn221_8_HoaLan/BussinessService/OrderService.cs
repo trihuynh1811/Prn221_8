@@ -30,6 +30,7 @@ namespace BussinessService
                 OrderDate = DateTime.Now,
                 Status = false,
                 OrderBy = user.UserId,
+                IsAuction = false,
             };
 
             order = orderRepository.SaveOrder(order);

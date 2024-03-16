@@ -42,19 +42,19 @@
                 else
                 {
                     <form method="post">
-                        @foreach (var auction in Model.Auctions)
-                        {
+                        @for (int i = 0; i < Model.Auctions.Count; i++)
+                                {
                         <tr>
-                            <td class="text-center">@auction.AuctionName </td>
-                            <td class="text-center">@auction.AuctionId</td>
-                            <td class="text-center">@auction.StartTime</td>
-                            <td class="text-center">@auction.EndTime</td>
-                            <td class="text-center">@auction.StartPrice</td>
-                            <td class="text-center">@auction.PriceStep</td>
-                            <td class="text-center">@auction.Status</td>
+                            <td class="text-center">@Model.Auctions[i].AuctionName </td>
+                            <td class="text-center">@Model.ProductName[i]</td>
+                            <td class="text-center">@Model.Auctions[i].StartTime</td>
+                            <td class="text-center">@Model.Auctions[i].EndTime</td>
+                            <td class="text-center">@Model.Auctions[i].StartPrice</td>
+                            <td class="text-center">@Model.Auctions[i].PriceStep</td>
+                            <td class="text-center">@Model.Auctions[i].Status</td>
                             <td class="text-center">
-                                <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
-                                <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@auction.AuctionId">
+                                <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
+                                <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
                                     Join
                                 </a>
                             </td>

@@ -17,6 +17,7 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
         public String CreateBy;
         public List<String> listParticipant;
         public List<AuctionDetail> AuctionDetails { get; set; }
+        [BindProperty]
         public float BidPrice { get; set; }
         public float CurrentPrice { get; set; }
 
@@ -60,6 +61,9 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
             {
                 ViewData["EndBibMessage"] = "";
             }
+            listParticipant = auctionDetailService.GetListUserNameInAuctionDetail(AuctionId);
+            CurrentPrice = auctionDetailService.GetCurrentPriceSrv(AuctionId);
+            AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
             return Page();
         }
 
@@ -103,7 +107,8 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
                 return Page();
             }
             auctionDetailService.InsertBidToAuctionDetail(user.UserId, auction.AuctionId, BidPrice, DateTime.Now);
-            
+            listParticipant = auctionDetailService.GetListUserNameInAuctionDetail(AuctionId);
+            AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
             CurrentPrice = BidPrice;
             return Page();
         }

@@ -13,14 +13,18 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
         [BindProperty]
         public string StatusAuctionValue { get; set; }
 
+        public List<string> ProductOwnerName { get; set; } = new List<string>();
+
         IAuctionService _iAuctionSrv;
         IAuctionDetailService _iAuctionDetailSrv;
+        IProductService productService;
         public List<Auction> Auctions;
 
-        public indexModel(IAuctionService auctionService, IAuctionDetailService iAuctionDetailSrv)
+        public indexModel(IAuctionService auctionService, IAuctionDetailService iAuctionDetailSrv, IProductService productService)
         {
             _iAuctionSrv = auctionService;
             _iAuctionDetailSrv = iAuctionDetailSrv;
+            this.productService = productService;
         }
 
         public IActionResult OnGet()
@@ -31,6 +35,15 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
                 return RedirectToPage("/Login/Login");
             }
             Auctions = _iAuctionSrv.GetAuctionByHostId(user.UserId);
+            if (Auctions != null && Auctions.Count != 0)
+            {
+                for (int i = 0; i < Auctions.Count; i++)
+                    if (Auctions[i] != null && productService.getProductById(Auctions[i].Product) != null)
+                    {
+                        var product = productService.getProductById(Auctions[i].Product);
+                        ProductOwnerName.Add(product.ProductName);
+                    }
+            }
             return Page();
         }
         public IActionResult OnPost(string button, int AuctionId)
@@ -55,7 +68,15 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
                 _iAuctionDetailSrv.EndBidAuction(AuctionId);
                 Auctions = _iAuctionSrv.SearchAuctoionByAuctionNameAndStatus(user.UserId, SearchValue, "All");
             }
-
+            if (Auctions != null && Auctions.Count != 0)
+            {
+                for (int i = 0; i < Auctions.Count; i++)
+                    if (Auctions[i] != null && productService.getProductById(Auctions[i].Product) != null)
+                    {
+                        var product = productService.getProductById(Auctions[i].Product);
+                        ProductOwnerName.Add(product.ProductName);
+                    }
+            }
             return Page();
         }
     }

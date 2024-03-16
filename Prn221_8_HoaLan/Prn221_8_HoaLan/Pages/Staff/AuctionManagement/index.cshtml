@@ -35,7 +35,7 @@
             <tr>
                 <th class="text-center">ID</th>
                 <th class="text-center">Auction Name</th>
-                <th class="text-center">CreateBy</th>
+                <th class="text-center">Product Name</th>
                 <th class="text-center">Status</th>
                 <th class="text-center">Detail</th>
                 <th class="text-center">Action</th>
@@ -51,41 +51,41 @@
             else
             {
                 <form method="post">
-                    @foreach (var auction in Model.Auctions)
+                    @for(int i=0; i< Model.Auctions.Count; i++)
                     {
                     <tr>
-                        <td class="text-center">@auction.AuctionId</td>
-                        <td class="text-center">@auction.AuctionName </td>
-                        <td class="text-center">@auction.CreateBy</td>
-                        <td class="text-center">@auction.Status</td>
+                        <td class="text-center">@Model.Auctions[i].AuctionId</td>
+                        <td class="text-center">@Model.Auctions[i].AuctionName </td>
+                        <td class="text-center">@Model.ProductOwnerName[i]</td>
+                        <td class="text-center">@Model.Auctions[i].Status</td>
                         <td class="text-center">
-                            <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
+                            <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
                                 View Detail
                             </a>
                         </td>
                         <td class="text-center">
-                            <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
-                                @if ("Processing".Equals(auction.Status))
+                            <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
+                                @if ("Processing".Equals(Model.Auctions[i].Status))
                                 {
-                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
                                     Register Auction
                                 </a>
                                 }
-                                else if ("Upcomming".Equals(auction.Status))
+                                else if ("Upcomming".Equals(Model.Auctions[i].Status))
                                 {
                                 <button class="btn btn-primary" name="button" value="Start Auction">
                                     Start Auction
                                 </button>
                                 }
-                                else if ("Ongoing".Equals(auction.Status))
+                                else if ("Ongoing".Equals(Model.Auctions[i].Status))
                                 {
                                 <button class="btn btn-primary" name="button" value="End Auction">
                                     End Auction
                                 </button>
                                 }
-                                else if ("Finished".Equals(auction.Status))
+                                else if ("Finished".Equals(Model.Auctions[i].Status))
                                 {
-                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@auction.AuctionId">
+                                <a class="btn btn-primary" asp-page="./AuctionCreate" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
                                     View Auction
                                 </a>    
                                 }
