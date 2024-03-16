@@ -1,0 +1,30 @@
+﻿@page
+@using DataAccessLayer.Model
+@model Prn221_8_HoaLan.Pages.Orders.ManageOrderModel
+@{
+    Layout = "_Layout";
+}
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
+
+<div class="d-flex flex-column" style="min-height: 100vh">
+    @foreach (Order o in Model.orderList)
+    {
+        <div class="h-50 border-2 py-2 px-3" style="border-color: black">
+            <a asp-page="./OrderDetail" asp-route-id="@o.OrderId">
+                order:
+                @o.OrderDate
+            </a>
+
+        </div>
+    }
+
+</div>

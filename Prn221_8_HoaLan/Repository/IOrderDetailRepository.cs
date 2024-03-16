@@ -10,5 +10,6 @@ namespace Repository
 {
     public interface IOrderDetailRepository : IBaseRepository<OrderDetail>
     {
+        List<OrderDetail> GetAllByOrderId(int id);
     }
 }

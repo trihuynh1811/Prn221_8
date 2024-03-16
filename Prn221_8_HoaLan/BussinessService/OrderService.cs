@@ -42,11 +42,24 @@ namespace BussinessService
                     Orders = order.OrderId,
                     Product = dto.pId
                 };
+                orderDetailRepository.Save(orderDetail);
+            }
+            foreach (CreateOrderDTO dto in orderDTOList)
+            {
                 Product p = productRepository.GetProductById(dto.pId);
                 p.Quantity -= dto.quantity;
-                orderDetailRepository.Save(orderDetail);
                 productRepository.Save(p);
             }
+        }
+
+        public List<OrderDetail> GetAllOrderDetailByOrderId(int id)
+        {
+            return orderDetailRepository.GetAllByOrderId(id);
+        }
+
+        public List<Order> GetOrdersByUser(User user)
+        {
+            return orderRepository.GetAllOrdersByUser(user);
         }
     }
 }

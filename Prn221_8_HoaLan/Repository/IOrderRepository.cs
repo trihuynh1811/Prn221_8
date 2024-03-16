@@ -11,5 +11,7 @@ namespace Repository
     public interface IOrderRepository : IBaseRepository<Order>
     {
         Order SaveOrder(Order order);
+
+        List<Order> GetAllOrdersByUser(User user);
     }
 }

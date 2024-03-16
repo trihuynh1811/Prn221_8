@@ -4,7 +4,7 @@ using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using Prn221_8_HoaLan.Pages.Order;
+using Prn221_8_HoaLan.Pages.Orders;
 using System.Collections.Generic;
 
 namespace Prn221_8_HoaLan.Pages.Products

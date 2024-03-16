@@ -1,0 +1,26 @@
+﻿@page
+@using DataAccessLayer.Model
+@model Prn221_8_HoaLan.Pages.Orders.OrderDetailModel
+@{
+    Layout = "_Layout";
+}
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
+}
+
+<div class="d-flex flex-column">
+    @foreach (OrderDetail od in @Model.orderDetails)
+    {
+        <div>
+            @od.ProductNavigation.ProductName
+            @od.Quantity
+        </div>
+    }
+</div>

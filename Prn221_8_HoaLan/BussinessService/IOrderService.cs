@@ -11,5 +11,9 @@ namespace BussinessService
     public interface IOrderService
     {
         void CreateNewOrder(List<CreateOrderDTO> orderDTOList, User user);
+
+        List<Order> GetOrdersByUser(User user);
+
+        List<OrderDetail> GetAllOrderDetailByOrderId(int id);
     }
 }

@@ -10,6 +10,11 @@ namespace Repository
 {
     public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
+        public List<Order> GetAllOrdersByUser(User user)
+        {
+            return GetAll().Where(x => x.OrderBy.Equals(user.UserId)).ToList();
+        }
+
         public Order SaveOrder(Order order)
         {
             GetContext().Orders.Add(order);
