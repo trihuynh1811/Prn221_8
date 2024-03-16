@@ -64,10 +64,11 @@
                                                  style="width: 4.25rem; height: 4.25rem; object-fit: contain;" />
                                         </a>
                                     </li>
+                                    @if(ViewBag.Role != 2){
                                     <li class="nav-item active" style="margin-left: 3rem; font-size: 1.25rem;">
                                         <a class="nav-link" asp-page="/Index">Home</a>
                                     </li>
-
+                                    }
                                     @if (ViewBag.Role == 3) // Role Name == "Product Owner"
                                     {
                                         <li class="nav-item" style="font-size: 1.25rem;">
@@ -78,6 +79,11 @@
                                         </li>
                                         <li class="nav-item" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Products/ProductRegister">Register Product</a>
+                                        </li>
+                                    }else if(ViewBag.Role == 2) //Role Staff
+                                    {
+                                        <li class="nav-item" style="font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Staff/AuctionManagement/index">Auction Managament</a>
                                         </li>
                                     }
                                     else  //Role Name = "Customer"
@@ -98,11 +104,14 @@
                                     else  // Logined
                                     {
                                         <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
-                                            <a class="nav-link" asp-page="/AuctionCustomer/index">Auction</a>
+                                            <a class="nav-link" asp-page="/AuctionManagement/index">Auction Management</a>
                                         </li>
-                                        <li class="nav-item d_none" style="font-size: 1.25rem;">
-                                            <a class="nav-link btn btn-danger" asp-page="/Products/ManageProduct">Cart</a>
-                                        </li>
+                                        if (ViewBag.Role != 2)
+                                        {
+                                            <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                                <a class="nav-link btn btn-danger" asp-page="/Products/ManageProduct">Cart</a>
+                                            </li>
+                                        }
                                         <li class="nav-item d_none" style="font-size: 1.25rem;">
                                             <a class="nav-link btn btn-danger" asp-page="/Logout/Logout">Logout</a>
                                         </li>

@@ -13,6 +13,9 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
         [BindProperty]
         public string StatusAuctionValue { get; set; }
 
+        [BindProperty]
+        public string AuctionIda { get; set; }
+
         public List<string> ProductOwnerName { get; set; } = new List<string>();
 
         IAuctionService _iAuctionSrv;
@@ -46,9 +49,10 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
             }
             return Page();
         }
-        public IActionResult OnPost(string button, int AuctionId)
+        public IActionResult OnPost(string button)
         {
             var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            var AuctionId = int.Parse(AuctionIda);
             if (user == null)
             {
                 return RedirectToPage("/Login/Login");

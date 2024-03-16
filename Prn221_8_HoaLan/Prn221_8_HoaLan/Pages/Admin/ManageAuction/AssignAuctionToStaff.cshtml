@@ -24,7 +24,8 @@
             <tr>
                 <th>ID</th>
                 <th>Auction Name</th>
-                <th>CreateBy</th>
+                <th>Product Name</th>
+                <th>Product Owner</th>
                 <th>Status</th>
                 <th class="text-center">Detail</th>
                 <th class="text-center">Staff Name</th>
@@ -32,42 +33,45 @@
             </tr>
         </thead>
         <tbody>
-            @if(Model.Auctions==null || Model.Auctions.ToList().Count==0)
+            @if (Model.Auctions == null || Model.Auctions.ToList().Count == 0)
             {
                 <tr>
                     <td colspan="7" class="text-center">No auction to assign to staff</td>
                 </tr>
-            }else{
-            <form method="post">
-                @foreach (var auction in Model.Auctions)
-                {
-                <tr>
-                    <td>@auction.AuctionId</td>
-                    <td>@auction.AuctionName </td>
-                    <td>@auction.CreateBy</td>
-                    <td>@auction.Status</td>
-                    <td class="text-center">
-                        <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@auction.AuctionId">
-                            View Detail
-                        </a>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select class="form-control" name="SelectedStaffId">
-                                    @foreach (var staff in Model.Staffs)
-                                    {
-                                    <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
-                                    }
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <input type="hidden" name="AuctionId" value="@auction.AuctionId" />
-                        <button type="submit" class="btn btn-primary" name="button" value="AssignToStaff">Assign</button>
-                    </td>
-                </tr>
-                }
-            </form>
+            }
+            else
+            {
+                <form method="post">
+                    @for (int i = 0; i < Model.Auctions.Count; i++)
+                    {
+                    <tr>
+                        <td>@Model.Auctions[i].AuctionId</td>
+                        <td>@Model.Auctions[i].AuctionName </td>
+                        <td>@Model.ProductName[i]</td>
+                        <td>@Model.ProductOwnerName[i]</td>
+                        <td>@Model.Auctions[i].Status</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" asp-page="./AuctionDetail" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
+                                View Detail
+                            </a>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" name="SelectedStaffId">
+                                        @foreach (var staff in Model.Staffs)
+                                        {
+                                        <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
+                                        }
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
+                            <button type="submit" class="btn btn-primary" name="button" value="AssignToStaff">Assign</button>
+                        </td>
+                    </tr>
+                    }
+                </form>
             }
         </tbody>
     </table>

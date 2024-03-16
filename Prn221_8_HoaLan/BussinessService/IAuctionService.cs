@@ -23,6 +23,8 @@ namespace BussinessService
         public List<Auction> SearchAuctoionByAuctionNameAndStatus(int hostId, string searchValue, String StatusAuction);
         public bool ChangeStatusAuction(int AuctionId, string status);
         public string GetNameByAuctionId(int AuctionId, int UserId);
-
+        public List<Auction> GetAuctionByProductOwnerId(int productOwnerId);
+        public List<string> getStaffsInAuction(List<Auction> auctions);
+        public List<string> getProductOnersNameInAuction(List<Auction> auctions);
     }
 }

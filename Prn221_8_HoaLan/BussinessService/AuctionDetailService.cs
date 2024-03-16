@@ -89,6 +89,13 @@ namespace BussinessService
                     emailService.SendEmail(customer.UserEmail, customer.FirstName+" "+customer.LastName, "0706600157", "Trần Xuân Tiến");
                     return true;
                 }
+                else
+                {
+                    auction.Status = "Finished";
+                    auction.EndPrice = 0;
+
+                    auctionRepository.Update(auction);
+                }
                 return false;
             }
             catch (Exception ex)

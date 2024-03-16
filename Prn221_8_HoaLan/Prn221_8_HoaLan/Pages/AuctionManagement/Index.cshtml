@@ -16,8 +16,9 @@
     }
 }
 
+
 <div class="container">
-    <h1 class="text-center mt-5 mb-5">Auction Management</h1>
+    <h1 class="text-center mt-5 mb-5">Auction</h1>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -28,6 +29,7 @@
                     <th class="text-center">End Time</th>
                     <th class="text-center">Start Price</th>
                     <th class="text-center">Price Step</th>
+                    <th class="text-center">Staff Manage</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Join Auction</th>
                 </tr>
@@ -43,7 +45,7 @@
                 {
                     <form method="post">
                         @for (int i = 0; i < Model.Auctions.Count; i++)
-                                {
+                        {
                         <tr>
                             <td class="text-center">@Model.Auctions[i].AuctionName </td>
                             <td class="text-center">@Model.ProductName[i]</td>
@@ -51,12 +53,20 @@
                             <td class="text-center">@Model.Auctions[i].EndTime</td>
                             <td class="text-center">@Model.Auctions[i].StartPrice</td>
                             <td class="text-center">@Model.Auctions[i].PriceStep</td>
+                            <td class="text-center">@Model.StaffManageName[i]</td>
                             <td class="text-center">@Model.Auctions[i].Status</td>
                             <td class="text-center">
-                                <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
-                                <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
-                                    Join
-                                </a>
+                                    @if ("Processing".Equals(Model.Auctions[i].Status))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                    <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
+                                    <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
+                                        Join
+                                    </a>
+                                    }
                             </td>
                         </tr>
                         }

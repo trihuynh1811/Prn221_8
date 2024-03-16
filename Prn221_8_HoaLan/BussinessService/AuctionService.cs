@@ -87,6 +87,11 @@ namespace BussinessService
             return auctionRepository.GetAll().Where(p => p.HostBy == hostId).ToList();
         }
 
+        public List<Auction> GetAuctionByProductOwnerId(int productOwnerId)
+        {
+            return auctionRepository.GetAll().Where(p => p.CreateBy == productOwnerId).ToList();
+        }
+
         public Auction GetAuctionById(int id)
         {
             return auctionRepository.GetAuctionById(id);
@@ -184,6 +189,50 @@ namespace BussinessService
             var auction = auctionRepository.GetAuctionById(AuctionId);
             User user = (User)userRepository.GetUserById((int)UserId);
             return user.LastName + " " + user.FirstName;
+        }
+
+        public List<string> getStaffsInAuction(List<Auction> auctions)
+        {
+            var listStaff = new List<string>();
+            foreach (var auction in auctions)
+            {
+                if ("Processing".Equals(auction.Status))
+                {
+                    listStaff.Add("Unknow");
+                }
+                else
+                {
+                    int id = (int)auction.HostBy;
+                    if (id != null)
+                    {
+                        var user = userRepository.GetUserById(id);
+                        if (user != null)
+                        {
+                            listStaff.Add(user.LastName + " " + user.FirstName);
+                        }
+                    }
+                }
+            }
+            return listStaff;
+        }
+
+        public List<string> getProductOnersNameInAuction(List<Auction> auctions)
+        {
+            var listPO = new List<string>();
+            foreach (var auction in auctions)
+            {
+
+                int id = (int)auction.CreateBy;
+                if (id != null)
+                {
+                    var user = userRepository.GetUserById(id);
+                    if (user != null)
+                    {
+                        listPO.Add(user.LastName + " " + user.FirstName);
+                    }
+                }
+            }
+            return listPO;
         }
     }
 }
