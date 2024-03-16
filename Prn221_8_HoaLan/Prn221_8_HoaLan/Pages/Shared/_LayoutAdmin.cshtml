@@ -31,46 +31,46 @@
             --danger-color: #FF4000;
         }
 
-    body {
-      background-color: var(--primary-color);
-      color: var(--tertiary-color);
-      font-family: 'Montserrat', sans-serif;
-    }
+        body {
+            background-color: var(--primary-color);
+            color: var(--tertiary-color);
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .navbar,
-    .navbar-nav,
-    .nav-item,
-    .navbar-brand {
-      background-color: var(--primary-color) !important;
-      color: var(--secondary-color) !important;
-      padding: 10px 0 !important;
-    }
+        .navbar,
+        .navbar-nav,
+        .nav-item,
+        .navbar-brand {
+            background-color: var(--primary-color) !important;
+            color: var(--secondary-color) !important;
+            padding: 10px 0 !important;
+        }
 
-    .nav-item {
-      margin-left: 10px;
-    }
+        .nav-item {
+            margin-left: 10px;
+        }
 
-    .nav-item>a:hover {
-      color: var(--danger-color) !important;
-    }
+            .nav-item > a:hover {
+                color: var(--danger-color) !important;
+            }
 
-    /* Search and Select */
-    .form-control {
-      background-color: var(--tertiary-color);
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-    }
+        /* Search and Select */
+        .form-control {
+            background-color: var(--tertiary-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
 
-    .form-control:focus {
-      background-color: var(--tertiary-color);
-      border-color: var(--secondary-color);
-      color: var(--primary-color);
-    }
+            .form-control:focus {
+                background-color: var(--tertiary-color);
+                border-color: var(--secondary-color);
+                color: var(--primary-color);
+            }
 
-    select.form-control option {
-      background-color: var(--tertiary-color);
-      color: var(--primary-color);
-    }
+        select.form-control option {
+            background-color: var(--tertiary-color);
+            color: var(--primary-color);
+        }
 
         /* Table */
         .table {
@@ -85,10 +85,10 @@
                 border-color: var(--primary-color);
                 color: var(--secondary-color);
             }
-/* 
-            .table td {
-                border-color: var(--primary-color);
-            } */
+        /*
+                    .table td {
+                        border-color: var(--primary-color);
+                    } */
 
         .table-hover tbody tr:hover {
             background-color: #232323 !important;
@@ -168,37 +168,37 @@
                 color: var(--primary-color);
             }
 
-    .btn-secondary {
-      background-color: var(--primary-color);
-      color: var(--tertiary-color);
-      border-left: 1px solid var(--secondary-color);
-    }
+        .btn-secondary {
+            background-color: var(--primary-color);
+            color: var(--tertiary-color);
+            border-left: 1px solid var(--secondary-color);
+        }
 
-    .btn-secondary:hover {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-      color: var(--tertiary-color);
-    }
+            .btn-secondary:hover {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                color: var(--tertiary-color);
+            }
 
-    .btn-danger {
-      background-color: var(--primary-color);
-      color: var(--tertiary-color);
-    }
+        .btn-danger {
+            background-color: var(--primary-color);
+            color: var(--tertiary-color);
+        }
 
-    .btn-danger:hover {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-      color: var(--danger-color);
-      border-bottom-color: var(--danger-color);
-    }
-  </style>
+            .btn-danger:hover {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                color: var(--danger-color);
+                border-bottom-color: var(--danger-color);
+            }
+    </style>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Prn221_8_HoaLan</a>
+               
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -206,13 +206,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        @if (admin!=null) // Role admin
+                        @if (admin != null) // Role admin
                         {
                             <li class="nav-item">
                                 <a class="" asp-area="" asp-page="/Admin/ManageUser/Detail">ManageUser</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" style="flex: 1; font-size: 1.25rem;">
                                 <a class="" asp-area="" asp-page="/Admin/ManageAuction/AssignAuctionToStaff">Assign Staff</a>
+                            </li>
+                            <li class="nav-item d_none" style="font-size: 1.25rem;">
+                                <a class="nav-link btn btn-danger" asp-page="/Logout/Logout">Logout</a>
                             </li>
                         }
                     </ul>
@@ -232,11 +235,11 @@
         </div>
     </footer>
 
-  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
-  @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
