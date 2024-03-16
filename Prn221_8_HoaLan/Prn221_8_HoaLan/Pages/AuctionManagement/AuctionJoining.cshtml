@@ -60,8 +60,6 @@
             if (distance < 0) {
                 clearInterval(x);
                 timerElement.innerHTML = "Time Out!!!";
-                updateAuctionStatus(auction.Id);
-                findWinner(auction.Id);
             }
 
             // Kiểm tra xem phiên đấu giá đã bắt đầu chưa
@@ -108,39 +106,39 @@
                     }
                     else
                     {
-                        @for(int i=0; i < Model.listParticipant.Count; i++)
+                        @for (int i = 0; i < Model.listParticipant.Count; i++)
                         {
-                             <li class="list-group-item">Name: @Model.listParticipant[i]   -   BidAmount: @Model.AuctionDetails[i].ParticipantPrice   -   Time:@Model.AuctionDetails[i].BidTime</li> 
+                            <li class="list-group-item">Name: @Model.listParticipant[i]   -   BidAmount: @Model.AuctionDetails[i].ParticipantPrice   -   Time:@Model.AuctionDetails[i].BidTime</li>
                         }
                     }
 
                 </ul>
                 @if ("THE AUCTION IS ENDED!".Equals(ViewData["EndBibMessage"]))
                 {
-                        <h4 class="text-center mt-5"> @ViewData["EndBibMessage"]</h4>
+                    <h4 class="text-center mt-5"> @ViewData["EndBibMessage"]</h4>
                 }
                 else
                 {
-                 
-                <!-- Bid Form -->
-                <p>@ViewBag.Message</p>
-                <form method="post">
-                    <div class="input-group mt-3">
-                        <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
-                        @if (Model.BidPrice == null || Model.BidPrice == 0)
-                        {
-                            <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice" value="">
-                        }
-                        else
-                        {
-                            <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice">
-                        }
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit" onclick="placeBid()">Place Bid</button>
+
+                    <!-- Bid Form -->
+                    <p>@ViewBag.Message</p>
+                    <form method="post">
+                        <div class="input-group mt-3">
+                            <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
+                            @if (Model.BidPrice == null || Model.BidPrice == 0)
+                            {
+                                <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice" value="">
+                            }
+                            else
+                            {
+                                <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice">
+                            }
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Place Bid</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div asp-validation-summary="All" class="text-danger text-center"></div>
+                    </form>
+                    <div asp-validation-summary="All" class="text-danger text-center"></div>
                 }
             </div>
         </div>

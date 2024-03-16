@@ -14,6 +14,7 @@ namespace DataAccessLayer.Model
         public DateTime? OrderDate { get; set; }
         public bool Status { get; set; }
         public int? OrderBy { get; set; }
+        public bool? IsAuction { get; set; }
 
         public virtual User? OrderByNavigation { get; set; }
         public virtual Auction? Auction { get; set; }

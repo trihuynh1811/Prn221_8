@@ -1,13 +1,27 @@
 ﻿@page "{AuctionId:int}"
+@using DataAccessLayer.Model
 @model Prn221_8_HoaLan.Pages.Staff.AuctionManagement.AuctionDetailModel
 @{
-    Layout = "_LayoutAdmin";
+    Layout = "_Layout";
+}
+
+@{
+    var fullName = "";
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
+    if (user != null)
+    {
+        fullName = user.FirstName + " " + user.LastName;
+        ViewBag.Role = user.Role;
+    }
 }
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="border p-4 col-md-8 mx-auto">
-        <img src="@Model.Product.Image" class="img-fluid mx-auto d-block" alt="Auction Image">
         <h1 class="text-center mb-4">Auction Information</h1>
+
+        <img src="@Model.Product.Image" class="img-fluid mx-auto d-block" alt="Auction Image">
+        
 
         <div class="mb-3">
             <label for="auctionId" class="form-label">Auction ID</label>

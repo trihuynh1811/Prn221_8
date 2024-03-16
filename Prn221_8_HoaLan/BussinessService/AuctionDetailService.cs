@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Model;
 using Repository;
+using SendEmailApp.Service.EmailService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,16 @@ namespace BussinessService
         readonly IOrderRepository orderRepository;
         readonly IOrderDetailRepository orderDetailRepository;
         readonly IUserRepository userRepository;
+        readonly IEmailService emailService;
 
-        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder, IOrderDetailRepository orderDetailRepository, IUserRepository userRepository)
+        public AuctionDetailService(IAuctionRepository iauction, IAuctionDetailRepository iauctiondetail, IOrderRepository iroder, IOrderDetailRepository orderDetailRepository, IUserRepository userRepository, IEmailService emailService)
         {
             auctionDetailRepository = iauctiondetail;
             auctionRepository = iauction;
             orderRepository = iroder;
             this.orderDetailRepository = orderDetailRepository;
             this.userRepository = userRepository;
+            this.emailService = emailService;
         }
 
         public string CheckBidPrice(float BidPrice, float CurrentPrice, float PriceStep)
@@ -71,6 +74,7 @@ namespace BussinessService
                         Status = false,
                         OrderDate = auctionDetailTemp.BidTime,
                         OrderBy = auctionDetailTemp.ParticipantId,
+                        IsAuction = true,
                     };
                     orderRepository.Save(order);
                     OrderDetail oderDetail = new OrderDetail()
@@ -80,7 +84,17 @@ namespace BussinessService
                         Product = auction.Product,
                     };
                     orderDetailRepository.Save(oderDetail);
+                    var customer = userRepository.GetUserById(WinnerId);
+                    var host = userRepository.GetUserById((int)auction.HostBy);
+                    emailService.SendEmail(customer.UserEmail, customer.FirstName+" "+customer.LastName, "0706600157", "Trần Xuân Tiến");
                     return true;
+                }
+                else
+                {
+                    auction.Status = "Finished";
+                    auction.EndPrice = 0;
+
+                    auctionRepository.Update(auction);
                 }
                 return false;
             }
@@ -141,7 +155,7 @@ namespace BussinessService
                 foreach (var item in listAuctionDetail)
                 {
                     var user = userRepository.GetUserById((int)item.ParticipantId);
-                    participants.Add(user.LastName+" "+user.FirstName);
+                    participants.Add(user.FirstName+" "+user.LastName);
                 }
                 return participants;
             }

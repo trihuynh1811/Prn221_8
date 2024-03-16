@@ -123,6 +123,8 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
+                entity.Property(e => e.IsAuction).HasColumnName("is_auction");
+
                 entity.Property(e => e.OrderBy).HasColumnName("order_by");
 
                 entity.Property(e => e.OrderDate)
