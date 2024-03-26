@@ -78,8 +78,11 @@
                                         <li class="nav-item" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Auctions/RegisterAuctionProduct">Register Auction</a>
                                         </li>
-                                        <li class="nav-item" style="font-size: 1.25rem;">
+@*                                         <li class="nav-item" style="font-size: 1.25rem;">
                                             <a class="nav-link" asp-page="/Products/ProductRegister">Register Product</a>
+                                        </li> *@
+                                        <li class="nav-item" style="font-size: 1.25rem;">
+                                            <a class="nav-link" asp-page="/Products/Index">Manage Product</a>
                                         </li>
                                     }
                                     else if (user != null && user.Role == 2) //Role Staff
@@ -173,7 +176,6 @@
             <p>© 2024 All Rights Reserved</p>
         </div>
     </footer>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

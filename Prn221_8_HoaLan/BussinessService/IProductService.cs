@@ -11,6 +11,7 @@ namespace BussinessService
     public interface IProductService 
     {
         public void CreateProduct(CreateUpdateProductDTO dto);
+        public void UpdateProduct(Product p);
         public List<Product> getAllProduct();
 
         public List<Product> GetProductsNotInAuctionAndInStock();
@@ -25,5 +26,6 @@ namespace BussinessService
 
         IQueryable<Product> GetProductsUsingContext();
         IQueryable<Product> GetProductsUsingContextForStaff();
+        IQueryable<Product> GetProductsUsingContextByUserId(int id);
     }
 }
