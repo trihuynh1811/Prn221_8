@@ -22,11 +22,11 @@
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="auctionName" class="form-label">Name of the Auction</label>
-                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="auctionName" name="auctionName">
+                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="auctionName" name="auctionName" required/>
             </div>
             <div class="mb-3">
                 <label for="productName" class="form-label">Name of Product</label>
-                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="productName" name="productName">
+                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="productName" name="productName" required/>
             </div>
             <div class="mb-3">
                 <label for="productDesc" class="form-label">Description of Product</label>
@@ -34,7 +34,7 @@
             </div>
             <div class="mb-3">
                 <label for="imageInput" class="form-label">Select Image</label>
-                <input type="file" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="imageInput" name="imageFile" />
+                <input type="file" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="imageInput" name="imageFile" required />
             </div>
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Register Product</button>
