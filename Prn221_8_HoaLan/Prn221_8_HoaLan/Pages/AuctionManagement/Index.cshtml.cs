@@ -3,7 +3,7 @@ using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Prn221_8_HoaLan.Pages.AuctionCustomer
+namespace Prn221_8_HoaLan.Pages.AuctionManagement
 {
     public class IndexModel : PageModel
     {

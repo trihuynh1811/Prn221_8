@@ -52,19 +52,33 @@ namespace Prn221_8_HoaLan.Pages.Products
             }
 
             string requestBody = string.Empty;
-            List<CreateOrderDTO> orderList = new List<CreateOrderDTO>();
+            OrderListDTO orderList = new OrderListDTO();
 
             using (var reader = new System.IO.StreamReader(Request.Body))
             {
                 requestBody = await reader.ReadToEndAsync();
-                orderList = JsonConvert.DeserializeObject<List<CreateOrderDTO>>(requestBody);
+                orderList = JsonConvert.DeserializeObject<OrderListDTO>(requestBody);
             }
 
-            if(orderList.Count > 0)
+            if(orderList.products.Count > 0)
             {
+                foreach(CreateOrderDTO product in orderList.products)
+                {
+                    if(productService.getProductById(product.pId).Quantity <= 0)
+                    {
+                        return new ContentResult
+                        {
+                            StatusCode = 406,
+                            ContentType = "application/json",
+                            Content = JsonConvert.SerializeObject($"product {product.pName} is out of stock, please unselected it from you cart!")
+                        };
+                    }
+                }
                 orderService.CreateNewOrder(orderList, user);
             }
-
+            List<CartModel> cart = JsonConvert.DeserializeObject<List<CartModel>>(HttpContext.Session.GetString("Cart"));
+            orderList.products.ForEach(x => cart.RemoveAll(y => y.pId.Equals(x.pId.ToString())));
+            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             return new ContentResult
             {
                 StatusCode = 200,
@@ -82,5 +96,11 @@ public class CartModel
     public string imgLink { get; set; }
     public string price { get; set; }
     public string quanity { get; set; }
+}
+
+public class OrderListModel
+{
+    public string totalPrice { get; set; }
+    public List<CreateOrderDTO> products { get; set; }
 }
 

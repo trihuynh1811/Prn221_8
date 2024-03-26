@@ -1,5 +1,6 @@
 ﻿using BussinessService.Request;
 using DataAccessLayer.Model;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,16 @@ namespace BussinessService
         public List<Product> GetProducts()
         {
             return productRepository.GetAll();
+        }
+
+        public IQueryable<Product> GetProductsUsingContext()
+        {
+            return productRepository.GetContext().Products.Where(x => !x.IsAuction && x.Quantity > 0 && x.Status.Equals("approved"));
+        }
+
+        public IQueryable<Product> GetProductsUsingContextForStaff()
+        {
+            return productRepository.GetContext().Products.Where(x => !x.IsAuction);
         }
 
         public Product getProductById(int? id)

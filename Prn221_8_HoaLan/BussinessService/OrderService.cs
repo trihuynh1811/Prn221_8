@@ -22,7 +22,7 @@ namespace BussinessService
             this.productRepository = productRepository;
         }
 
-        public void CreateNewOrder(List<CreateOrderDTO> orderDTOList, User user)
+        public void CreateNewOrder(OrderListDTO orderDTOList, User user)
         {
 
             Order order = new Order
@@ -31,25 +31,28 @@ namespace BussinessService
                 Status = false,
                 OrderBy = user.UserId,
                 IsAuction = false,
+                TotalPrice = orderDTOList.totalPrice 
             };
 
             order = orderRepository.SaveOrder(order);
 
-            foreach (CreateOrderDTO dto in orderDTOList)
+            foreach (CreateOrderDTO dto in orderDTOList.products)
             {
+                Product p = productRepository.GetById(dto.pId);
                 OrderDetail orderDetail = new OrderDetail
                 {
                     Quantity = dto.quantity,
                     Orders = order.OrderId,
-                    Product = dto.pId
+                    Product = dto.pId,
+                    TotalPrice = p.Price * dto.quantity
                 };
                 orderDetailRepository.Save(orderDetail);
             }
-            foreach (CreateOrderDTO dto in orderDTOList)
+            foreach (CreateOrderDTO dto in orderDTOList.products)
             {
                 Product p = productRepository.GetProductById(dto.pId);
                 p.Quantity -= dto.quantity;
-                productRepository.Save(p);
+                productRepository.Update(p);
             }
         }
 

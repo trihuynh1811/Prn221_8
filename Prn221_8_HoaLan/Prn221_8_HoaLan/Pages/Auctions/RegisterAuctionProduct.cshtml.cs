@@ -23,7 +23,9 @@ namespace Prn221_8_HoaLan.Pages.Auctions
         public string ProductName { get; set; }
 
         [BindProperty]
-        public string ProductDesc { get; set; }       
+        public string ProductDesc { get; set; }
+
+        public string Msg { get; set; }
 
         public RegisterAuctionProductModel(IHttpClientFactory httpClientFactory, IAuctionService auctionService)
         {
@@ -84,8 +86,12 @@ namespace Prn221_8_HoaLan.Pages.Auctions
                             AuctionName = AuctionName,
                             CreateBy = user.UserId
                         };
-                        Product p = auctionService.CreateAuction(ProductDTO, AuctionDTO); 
+                        Product p = auctionService.CreateAuction(ProductDTO, AuctionDTO);
+                        Msg = "Successfully register product";
+                        return Page();
                     }
+                    Msg = "Can't register this product please chose different image";
+                    return Page();
                 }
             }catch(Exception ex)
             {

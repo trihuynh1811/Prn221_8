@@ -15,12 +15,22 @@
     }
 }
 
-<div class="d-flex flex-column">
+<div class="d-flex flex-column mx-4 mt-3">
     @foreach (OrderDetail od in @Model.orderDetails)
     {
-        <div>
-            @od.ProductNavigation.ProductName
-            @od.Quantity
+        <div style="border-color: black; border: 1px solid; border-radius: 13px" class="d-flex flex-column mb-2 px-3 py-2">
+            <h1>@od.ProductNavigation.ProductName</h1>
+            <div class="ms-4 flex flex-column">
+                <div>
+                    Quantity
+                    @od.Quantity
+                </div>
+                <div>
+                    Total price
+                    @od.TotalPrice
+                </div>
+            </div>
         </div>
+
     }
 </div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Model;
 
 namespace Repository.BaseRepository
 {
@@ -12,5 +13,7 @@ namespace Repository.BaseRepository
         void Save(T entity);
         void Delete(T entity);
         void Update(T entity);
+
+        HoaLanContext GetContext();
     }
 }

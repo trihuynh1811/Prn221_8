@@ -22,5 +22,8 @@ namespace BussinessService
         public Product GetById(int id);
 
         public void SetProductStatus(int id, string status);
+
+        IQueryable<Product> GetProductsUsingContext();
+        IQueryable<Product> GetProductsUsingContextForStaff();
     }
 }

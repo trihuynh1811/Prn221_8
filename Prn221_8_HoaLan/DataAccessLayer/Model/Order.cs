@@ -15,6 +15,7 @@ namespace DataAccessLayer.Model
         public bool Status { get; set; }
         public int? OrderBy { get; set; }
         public bool? IsAuction { get; set; }
+        public float? TotalPrice { get; set; }
 
         public virtual User? OrderByNavigation { get; set; }
         public virtual Auction? Auction { get; set; }

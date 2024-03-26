@@ -10,7 +10,7 @@ namespace BussinessService
 {
     public interface IOrderService
     {
-        void CreateNewOrder(List<CreateOrderDTO> orderDTOList, User user);
+        void CreateNewOrder(OrderListDTO orderDTOList, User user);
 
         List<Order> GetOrdersByUser(User user);
 

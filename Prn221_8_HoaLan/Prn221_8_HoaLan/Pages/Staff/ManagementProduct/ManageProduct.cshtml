@@ -2,9 +2,9 @@
 @model Prn221_8_HoaLan.Pages.Staff.ManagementProduct.ManageProductModel
 @using DataAccessLayer.Model;
 @{
-    Layout = "_LayoutAdmin";
+    Layout = "_Layout";
 }
-<div class="imageOverlay position-fixed top-0 start-0 d-none d-flex justify-content-center w-100 h-100"
+<div class="imageOverlay position-fixed top-0 start-0 d-none justify-content-center w-100 h-100"
      style="z-index: 99;">
     <div class="d-flex flex-column align-items-center justify-content-center my-2"
          style="width: 100%; height: 100%; position: fixed; margin: 0px; background: #000000ab">
@@ -75,6 +75,21 @@
             }
         </tbody>
     </table>
+    @{
+        var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-page="./ManageProduct"
+       asp-route-pageIndex="@(Model.Products.PageIndex - 1)"
+       class="btn btn-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./ManageProduct"
+       asp-route-pageIndex="@(Model.Products.PageIndex + 1)"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
 </div>
 <script>
 

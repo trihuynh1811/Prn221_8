@@ -26,6 +26,7 @@ namespace Prn221_8_HoaLan.Pages.Products
         [BindProperty]
         public string QuanityProduct { get; set; }
 
+        public string Msg { get; set; }
 
         public ProductRegisterModel(IHttpClientFactory httpClientFactory, IProductService IProductSrv)
         {
@@ -80,8 +81,12 @@ namespace Prn221_8_HoaLan.Pages.Products
                             Quantity = int.Parse(QuanityProduct),
                         };
                         _productService.CreateProduct(productDTO);
+                        Msg = "Successfully register product";
+                        return Page();
                     }
                 }
+                Msg = "Can't register this product please chose different image";
+                return Page();
             }
             catch (Exception ex)
             {

@@ -12,7 +12,7 @@
     if (user != null)
     {
         fullName = user.FirstName + " " + user.LastName;
-        ViewBag.Role = user.Role;
+        // ViewBag.Role = user.Role;
     }
 }
 <div>
@@ -49,6 +49,7 @@
         })
 
         if (res.status === 200) {
+            alert("add this hoa to the cart 🛒")
             console.log(res.json())
         }
         if(res.status === 400){

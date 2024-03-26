@@ -18,12 +18,14 @@ namespace Prn221_8_HoaLan.Pages.Staff.ManagementProduct
         }
 
         [BindProperty]
-        public List<Product> Products { get; set; }
+        public Paging<Product> Products { get; set; }
         public List<Auction> Auctions { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? pageIndex)
         {
-            Products = productService.GetProducts();
+            Products = Paging<Product>.CreateAsync(
+    productService.GetProductsUsingContextForStaff(), pageIndex ?? 1, 10).Result;
+            return Page();
 
             return Page();
         }

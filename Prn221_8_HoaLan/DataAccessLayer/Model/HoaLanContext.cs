@@ -133,6 +133,8 @@ namespace DataAccessLayer.Model
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
+                entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
+
                 entity.HasOne(d => d.OrderByNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.OrderBy)
@@ -150,6 +152,8 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.Product).HasColumnName("product");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
 
                 entity.HasOne(d => d.OrdersNavigation)
                     .WithMany(p => p.OrderDetails)

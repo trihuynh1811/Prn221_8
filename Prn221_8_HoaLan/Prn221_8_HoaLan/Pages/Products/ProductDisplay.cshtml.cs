@@ -3,6 +3,7 @@ using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Prn221_8_HoaLan.Pages.Products
 {
@@ -10,7 +11,7 @@ namespace Prn221_8_HoaLan.Pages.Products
     public class ProductDisplayModel : PageModel
     {
         IProductService productService;
-        public List<Product> Products;
+        public Paging<Product> Products;
         public List<CartModel> cartList = new List<CartModel>();
 
         public ProductDisplayModel(IProductService iproduct)
@@ -18,9 +19,10 @@ namespace Prn221_8_HoaLan.Pages.Products
             productService = iproduct;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? pageIndex)
         {
-            Products = productService.GetProductsNotInAuctionAndInStock();
+            Products = Paging<Product>.CreateAsync(
+                productService.GetProductsUsingContext(), pageIndex ?? 1, 4).Result;
             return Page();
         }
 
@@ -81,6 +83,15 @@ namespace Prn221_8_HoaLan.Pages.Products
                     }
                     else
                     {
+                        if(int.Parse(p.quanity) + 1 > product.Quantity)
+                        {
+                            return new ContentResult
+                            {
+                                StatusCode = 406,
+                                ContentType = "application/json",
+                                Content = JsonConvert.SerializeObject($"{product.ProductName} is out of stock")
+                            };
+                        }
                         p.quanity = (int.Parse(p.quanity) + 1).ToString();
                     }
                     serializedCartList = JsonConvert.SerializeObject(cartList);

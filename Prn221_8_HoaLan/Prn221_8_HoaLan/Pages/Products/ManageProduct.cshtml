@@ -104,12 +104,15 @@ else
 
         async function AddCartToOrder() {
             var confirmation = confirm("do you want to order these product ?")
-            if(confirmation === false){
+            if (confirmation === false) {
                 return
             }
             const selectedProducts = document.querySelectorAll('input[type="checkbox"]:checked')
 
-            let data = []
+            let data = { 
+                totalPrice: totalPriceNumber,    
+                products: []
+            }
             console.log(selectedProducts.length)
             if (selectedProducts.length === 0) {
                 alert("please select products to buy")
@@ -126,7 +129,7 @@ else
                     price: parseFloat(parent.querySelector('.price').textContent)
                 }
 
-                data.push(p)
+                data.products.push(p)
 
                 console.log(data)
 
@@ -140,8 +143,16 @@ else
             })
 
             if (res.status === 200) {
+                alert("check your order.")
                 console.log(res.json())
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3000)
             }
+            if (res.status === 406) {
+                await res.json().then(res => alert(res.data))
+            }
+
         }
     </script>
 }
