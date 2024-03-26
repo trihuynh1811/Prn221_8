@@ -27,7 +27,7 @@ namespace Repository
 
         public List<Product> GetProductNotAuctionAndInStock()
         {
-            return GetAll().Where(x => x.IsAuction == false && x.Quantity > 0).ToList();
+            return GetAll().Where(x => x.IsAuction == false && x.Quantity > 0 && x.Status.Equals("approved")).ToList();
         }
 
         public Product SaveProduct(Product p)

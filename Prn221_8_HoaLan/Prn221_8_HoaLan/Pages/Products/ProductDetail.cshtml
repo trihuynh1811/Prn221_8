@@ -15,7 +15,7 @@
         // ViewBag.Role = user.Role;
     }
 }
-<div>
+@* <div>
     <span>Name </span>
     <span>@Model.p.ProductName</span>
     <br />
@@ -34,7 +34,31 @@
         <button onclick="AddToCart(@Model.p.ProductId)">Buy</button>
     </div>
     
+</div> *@
+<div class="container mt-5">
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <div class="rounded overflow-hidden">
+                <img class="" style="object-fit: cover; width: inherit; height: 500px; border-radius: 13px" src="@Model.p.Image" alt="Product Image">
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h1 class="card-title">@Model.p.ProductName</h1>
+                    <p class="card-text">@Model.p.Description</p>
+                    <p class="card-text">Quantity: @Model.p.Quantity</p>
+                    <p class="card-text">Price: $@Model.p.Price</p>
+                    <button class="btn btn-primary rounded-pill px-4 py-2 w-25" onclick="AddToCart(@Model.p.ProductId)">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <script>
     async function AddToCart(pid) {
         let data = {

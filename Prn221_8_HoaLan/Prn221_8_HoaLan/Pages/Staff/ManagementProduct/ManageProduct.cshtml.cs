@@ -23,10 +23,10 @@ namespace Prn221_8_HoaLan.Pages.Staff.ManagementProduct
 
         public IActionResult OnGet(int? pageIndex)
         {
-            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
-            if (user == null || user.Role!=2)
+            var customer = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            if (customer == null)
             {
-                return RedirectToPage("/Login/Login");
+                return RedirectToPage("../../Login/Login");
             }
             Products = Paging<Product>.CreateAsync(
                 productService.GetProductsUsingContextForStaff(), pageIndex ?? 1, 10).Result;

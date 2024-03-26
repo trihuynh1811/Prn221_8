@@ -11,7 +11,7 @@
     if (user != null)
     {
         fullName = user.FirstName + " " + user.LastName;
-        ViewBag.Role = user.Role;
+        // ViewBag.Role = user.Role;
     }
 }
 
@@ -22,11 +22,11 @@
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="ProductName" class="form-label">Product Name</label>
-                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="ProductName" name="ProductName">
+                <input type="text" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="ProductName" name="ProductName" required />
             </div>
             <div class="mb-3">
                 <label for="priceInput" class="form-label">Price Of Product</label>
-                <input type="number" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="priceInput" name="ProductPrice" min="10000" max="1000000000"/>
+                <input type="number" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="priceInput" name="ProductPrice" min="10000" max="1000000000" required />
             </div>
             <div class="mb-3">
                 <label for="descriptionInput" class="form-label">Description Of Product</label>
@@ -34,11 +34,11 @@
             </div>
             <div class="mb-3">
                 <label for="quantityInput" class="form-label">Quantity Of Product</label>
-                <input type="number" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="quantityInput" name="QuanityProduct" min="1" max="1000000"/>
+                <input type="number" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="quantityInput" name="QuanityProduct" min="1" max="1000000" required />
             </div>
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label">Image Of Product</label>
-                <input type="file" id="imageInput" name="imageFile" accept=".jpg,.png,.jpeg" />
+                <input type="file" class="form-control shadow-none border-0" style="background-color: #d3d3d3" id="imageInput" name="imageFile" accept=".jpg,.png,.jpeg" required />
             </div>
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Register</button>
