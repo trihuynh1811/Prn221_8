@@ -31,11 +31,11 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
 
         public IActionResult OnGet(int AuctionId)
         {
-            //var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
-            //if (user == null)
-            //{
-            //    return Redirect("../Login/Login");
-            //}
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            if (user == null || user.Role == 1)
+            {
+                return RedirectToPage("/Login/Login");
+            }
             auction = auctionService.GetAuctionById(AuctionId);
             if (auction == null)
             {
@@ -106,7 +106,15 @@ namespace Prn221_8_HoaLan.Pages.AuctionCustomer
                 AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
                 return Page();
             }
-            auctionDetailService.InsertBidToAuctionDetail(user.UserId, auction.AuctionId, BidPrice, DateTime.Now);
+            try
+            {
+                auctionDetailService.InsertBidToAuctionDetail(user.UserId, auction.AuctionId, BidPrice, DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
             listParticipant = auctionDetailService.GetListUserNameInAuctionDetail(AuctionId);
             AuctionDetails = auctionDetailService.GetAllAuctionDetailByAuctionId(AuctionId);
             CurrentPrice = BidPrice;

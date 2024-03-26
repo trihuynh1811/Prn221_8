@@ -1,4 +1,5 @@
 ﻿using BussinessService;
+using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -29,6 +30,11 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
 
         public IActionResult OnGet(int AuctionId)
         {
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            if (user == null || user.Role != 2)
+            {
+                return RedirectToPage("/Login/Login");
+            }
             return Page();
         }
 

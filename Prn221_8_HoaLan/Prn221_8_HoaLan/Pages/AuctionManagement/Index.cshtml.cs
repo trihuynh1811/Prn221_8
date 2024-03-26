@@ -19,7 +19,7 @@ namespace Prn221_8_HoaLan.Pages.AuctionManagement
         }
         public IActionResult OnGet()
         {
-            User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
             if (user == null)
             {
                 return RedirectToPage("/Login/Login");
@@ -27,7 +27,9 @@ namespace Prn221_8_HoaLan.Pages.AuctionManagement
             if (user.Role == 4)
             {
                 Auctions = (List<Auction>)_iAuctionSrv.GetAuctionByStatus("Ongoing");
-            }else if (user.Role == 3)
+                StaffManageName = _iAuctionSrv.getStaffsInAuction(Auctions);
+            }
+            else if (user.Role == 3)
             {
                 Auctions = (List<Auction>)_iAuctionSrv.GetAuctionByProductOwnerId(user.UserId);
                 StaffManageName = _iAuctionSrv.getStaffsInAuction(Auctions);

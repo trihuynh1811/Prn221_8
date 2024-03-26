@@ -1,4 +1,4 @@
-using BussinessService;
+﻿using BussinessService;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,7 +33,7 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
         public IActionResult OnGet()
         {
             var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
-            if (user == null)
+            if (user == null || user.Role != 2)
             {
                 return RedirectToPage("/Login/Login");
             }
@@ -67,13 +67,27 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
             }
             else if("Start Auction".Equals(button))
             {
-                _iAuctionSrv.ChangeStatusAuction(AuctionId, "Ongoing");
+                if(!_iAuctionSrv.checkTime(AuctionId, "Upcoming"))
+                {
+                    ViewData["ErrorMessageAuction"] = "It's not time for the auction to start yet!";
+                }
+                else
+                {
+                    _iAuctionSrv.ChangeStatusAuction(AuctionId, "Ongoing");
+                }
                 Auctions = _iAuctionSrv.SearchAuctoionByAuctionNameAndStatus(user.UserId, SearchValue, "All");
             }
             else if("End Auction".Equals(button))
             {
-                //_iAuctionSrv.ChangeStatusAuction(AuctionId, "Finshed");
-                _iAuctionDetailSrv.EndBidAuction(AuctionId);
+                if(!_iAuctionSrv.checkTime(AuctionId, "Ongoing"))
+                {
+                    ViewData["ErrorMessageAuction"] = "It's not time for the auction to end yet!";
+                }
+                else if(!_iAuctionSrv.GetAuctionById(AuctionId).Status.Equals("Finished"))
+                {
+                    _iAuctionSrv.ChangeStatusAuction(AuctionId, "Finshed");
+                    _iAuctionDetailSrv.EndBidAuction(AuctionId);
+                }
                 Auctions = _iAuctionSrv.SearchAuctoionByAuctionNameAndStatus(user.UserId, SearchValue, "All");
             }
             if (Auctions != null && Auctions.Count != 0)

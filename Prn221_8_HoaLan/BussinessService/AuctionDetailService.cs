@@ -62,12 +62,7 @@ namespace BussinessService
                     auction.Status = "Finished";
                     auction.EndPrice = auctionDetailTemp.ParticipantPrice;
 
-                    int WinnerId = (int)auctionDetailTemp.ParticipantId;
-                    if (WinnerId != null)
-                    {
-                        auction.WinnerId = WinnerId;
-                    }
-                    auctionRepository.Update(auction);
+
                     //Chuyển qua orders table
                     Order order = new Order()
                     {
@@ -75,6 +70,7 @@ namespace BussinessService
                         OrderDate = auctionDetailTemp.BidTime,
                         OrderBy = auctionDetailTemp.ParticipantId,
                         IsAuction = true,
+                        TotalPrice = auctionDetailTemp.ParticipantPrice,
                     };
                     orderRepository.Save(order);
                     OrderDetail oderDetail = new OrderDetail()
@@ -82,11 +78,21 @@ namespace BussinessService
                         Quantity = 1,
                         Orders = order.OrderId,
                         Product = auction.Product,
+                        TotalPrice = auctionDetailTemp.ParticipantPrice,
                     };
                     orderDetailRepository.Save(oderDetail);
+                    //Update auction
+                    int WinnerId = (int)auctionDetailTemp.ParticipantId;
+                    if (WinnerId != null)
+                    {
+                        auction.WinnerId = WinnerId;
+                        auction.OrderId = order.OrderId;
+                    }
+                    auctionRepository.Update(auction);
                     var customer = userRepository.GetUserById(WinnerId);
                     var host = userRepository.GetUserById((int)auction.HostBy);
                     emailService.SendEmail(customer.UserEmail, customer.FirstName+" "+customer.LastName, "0706600157", "Trần Xuân Tiến");
+
                     return true;
                 }
                 else
