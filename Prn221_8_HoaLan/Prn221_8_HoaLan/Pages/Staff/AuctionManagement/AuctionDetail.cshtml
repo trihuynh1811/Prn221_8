@@ -15,12 +15,12 @@
         ViewBag.Role = user.Role;
     }
 }
-
-<div class="container d-flex justify-content-center align-items-center vh-100">
+<div class="auction-detail-container" style="max-height: 80vh; overflow-y: auto;">
+<div class="container d-flex justify-content-center align-items-center vh-100 mt-5">
     <div class="border p-4 col-md-8 mx-auto">
         <h1 class="text-center mb-4">Auction Information</h1>
 
-        <img src="@Model.Product.Image" class="img-fluid mx-auto d-block" alt="Auction Image">
+            <img src="@Model.Product.Image" style="width: 450px; height: 300px;"  class="img-fluid mx-auto d-block" alt="Auction Image">
         
 
         <div class="mb-3">
@@ -52,9 +52,9 @@
             <label for="createBy" class="form-label">Created By</label>
             <div class="form-control" id="createBy" name="createBy">@Model.Auction.CreateBy</div>
         </div>
-
         <div class="mb-3 text-center">
             <a class="btn btn-secondary" asp-page="/Staff/AuctionManagement/index">Close</a>
         </div>
     </div>
+</div>
 </div>
