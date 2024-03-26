@@ -1,0 +1,47 @@
+﻿@page
+@model Prn221_8_HoaLan.Pages.Products.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+<h1 class="text-center">Edit Product</h1>
+<div class="row ms-3">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.Product.ProductId" />
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input value="@Model.Product.ProductName" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                <input value="@Model.Product.Description" title="@Model.Product.Description" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Quantity</label>
+                <input value="@Model.Product.Quantity" name="quantity" type="number" class="form-control" min="0" max="1000000000" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Price</label>
+                <input value="@Model.Product.Price" name="price" type="number" class="form-control" min="10000" max="1000000000" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Status</label>
+                <input value="@Model.Product.Status" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

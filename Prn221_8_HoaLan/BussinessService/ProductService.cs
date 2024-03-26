@@ -88,5 +88,15 @@ namespace BussinessService
         {
             return productRepository.GetProductNotAuctionAndInStock();
         }
+
+        public IQueryable<Product> GetProductsUsingContextByUserId(int id)
+        {
+            return productRepository.GetContext().Products.Where(x => x.UserId.Equals(id) && !x.IsAuction);
+        }
+
+        public void UpdateProduct(Product p)
+        {
+            productRepository.Update(p);
+        }
     }
 }
