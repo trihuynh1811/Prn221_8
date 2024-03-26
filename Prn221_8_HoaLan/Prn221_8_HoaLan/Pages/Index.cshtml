@@ -34,7 +34,7 @@
                         <a asp-page="./Products/ProductDetail" asp-route-id="@Model.Products[i].ProductId">
                             <div class="glasses_box p-0 m-2">
                                 <figure class="d-flex justify-content-center align-items-center"><img style="object-fit: cover" src="@Model.Products[i].Image" alt="#" /></figure>
-                                <h3>@Model.Products[i].Price.ToString("N0") <span class="blu">VND</span></h3>
+                                <h3 class="pt-4">@Model.Products[i].Price.ToString("N0") <span class="blu">VND</span></h3>
                                 <p>@Model.Products[i].ProductName</p>
                             </div>
                         </a>
