@@ -43,12 +43,24 @@
                     <td data-id="@product.ProductId">
                         @product.Status
                     </td>
-                    @if (product.Status.Equals("processing"))
+                    @switch (product.Status)
                     {
-                        <td>
-                            <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approved', this)">Approve</button>
-                            <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'declined', this)">Decline</button>
-                        </td>
+                        case "processing":
+                            <td>
+                                <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approved', this)">Approve</button>
+                                <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'declined', this)">Decline</button>
+                            </td>
+                            break;
+                        case "approved":
+                            <td>
+                                <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'declined', this)">Decline</button>
+                            </td>
+                            break;
+                        case "declined":
+                            <td>
+                                <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approved', this)">Approve</button>
+                            </td>
+                            break;
                     }
                 </tr>
                 <!-- Product Image Modal -->
@@ -117,7 +129,7 @@
             },
             body: JSON.stringify(data)
         }).then(res => {
-            if(res.status === 200){
+            if (res.status === 200) {
                 window.location.reload();
             }
         }).catch(e => console.log(e))
