@@ -14,7 +14,6 @@
     </div>
 </div>
 <div class="container">
-    <h2>Product Auction Management</h2>
     <table class="table">
         <thead>
             <tr>
@@ -47,8 +46,8 @@
                     @if (product.Status.Equals("processing"))
                     {
                         <td>
-                            <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approve', this)">Approve</button>
-                            <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'decline', this)">Decline</button>
+                            <button type="button" class="approveBtn btn btn-primary" onclick="updateApproveDecline(@product.ProductId, 'approved', this)">Approve</button>
+                            <button type="button" class="declineBtn btn btn-danger" onclick="updateApproveDecline(@product.ProductId, 'declined', this)">Decline</button>
                         </td>
                     }
                 </tr>
@@ -110,13 +109,18 @@
             id: id,
             status: status
         }
+        console.log(data)
         const res = await fetch('?handler=ApproveDecline', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(res => console.log(res.status)).catch(e => console.log(e))
+        }).then(res => {
+            if(res.status === 200){
+                window.location.reload();
+            }
+        }).catch(e => console.log(e))
 
         btn.parentElement.classList.add('d-none');
     }

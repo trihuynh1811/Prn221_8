@@ -24,9 +24,7 @@ namespace Prn221_8_HoaLan.Pages.Staff.ManagementProduct
         public IActionResult OnGet(int? pageIndex)
         {
             Products = Paging<Product>.CreateAsync(
-    productService.GetProductsUsingContextForStaff(), pageIndex ?? 1, 10).Result;
-            return Page();
-
+                productService.GetProductsUsingContextForStaff(), pageIndex ?? 1, 10).Result;
             return Page();
         }
 

@@ -11,6 +11,11 @@ namespace BussinessService
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
 
+        public Paging()
+        {
+
+        }
+
         public Paging(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
