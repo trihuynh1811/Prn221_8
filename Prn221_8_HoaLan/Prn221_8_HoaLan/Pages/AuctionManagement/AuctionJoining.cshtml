@@ -1,4 +1,6 @@
 ﻿@page "{AuctionId:int}"
+@using DataAccessLayer.Model
+@using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
 @model Prn221_8_HoaLan.Pages.AuctionCustomer.AuctionJoiningModel
 @{
@@ -11,6 +13,8 @@
             };
 
     string json = JsonConvert.SerializeObject(Model.auction, settings);
+    var session = HttpContext.Session;
+    User user = Prn221_8_HoaLan.SessionExtensions.Get<User>(session, "User");
 }
 <!DOCTYPE html>
 <html>
@@ -119,26 +123,29 @@
                 }
                 else
                 {
-
-                    <!-- Bid Form -->
-                    <p>@ViewBag.Message</p>
-                    <form method="post">
-                        <div class="input-group mt-3">
-                            <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
-                            @if (Model.BidPrice == null || Model.BidPrice == 0)
-                            {
-                                <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice" value="">
-                            }
-                            else
-                            {
-                                <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice">
-                            }
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Place Bid</button>
+                    if (user!=null && user.Role==4)
+                    {
+                        <!-- Bid Form -->
+                        <p>@ViewBag.Message</p>
+                        <form method="post">
+                            <div class="input-group mt-3">
+                                <input type="hidden" name="AuctionId" value="@Model.auction.AuctionId" />
+                                @if (Model.BidPrice == null || Model.BidPrice == 0)
+                                {
+                                    <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice" value="">
+                                }
+                                else
+                                {
+                                    <input type="number" class="form-control" placeholder="Enter bid amount" step="@Model.auction.PriceStep" min="@Model.auction.StartPrice" asp-for="BidPrice">
+                                }
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Place Bid</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    <div asp-validation-summary="All" class="text-danger text-center"></div>
+                        </form>
+                        <div asp-validation-summary="All" class="text-danger text-center"></div>
+                    }
+                    
                 }
             </div>
         </div>

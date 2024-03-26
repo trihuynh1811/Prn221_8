@@ -16,7 +16,7 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
         public List<User> Staffs;
 
         [BindProperty]
-        public int SelectedStaffId {  get; set; }
+        public string SelectedStaffId {  get; set; }
 
         [BindProperty(Name = "AuctionId")]
         public int AuctionId { get; set; }
@@ -40,6 +40,7 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
                 return RedirectToPage("/NoAuthorization");
             }
             Auctions = _auctionService.GetAllAssignedAuction();
+            Auctions = Auctions.Where(p => p.HostBy == null).ToList();
             Staffs = _userService.GetActiveStaffSrv();
             if (Auctions != null && Auctions.Count != 0)
             {
@@ -61,11 +62,14 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
             {
                 return RedirectToPage("/NoAuthorization");
             }
-            if (SelectedStaffId != null && SelectedStaffId!=0)
+            
+            if (SelectedStaffId != null && !SelectedStaffId.Equals("0"))
             {
-                _auctionService.AssignToStaff(SelectedStaffId, AuctionId); // Assign auction to staff
+                var StaffId = int.Parse(SelectedStaffId);
+                _auctionService.AssignToStaff(StaffId, AuctionId); // Assign auction to staff
             }
             Auctions = _auctionService.GetAllAssignedAuction();
+            Auctions = Auctions.Where(p=>p.HostBy==null).ToList();
             Staffs = _userService.GetActiveStaffSrv();
 
             if (Auctions != null && Auctions.Count != 0)

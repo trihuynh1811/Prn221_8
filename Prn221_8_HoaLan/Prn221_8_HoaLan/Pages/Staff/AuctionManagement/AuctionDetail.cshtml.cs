@@ -35,7 +35,7 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
             }
 
             Auction = _auctionService.GetAuctionById(AuctionId);
-            Product = _productService.getProductById(AuctionId);
+            Product = _productService.getProductById(Auction.Product);
             if (Auction == null || Product == null)
             {
                 return NotFound();

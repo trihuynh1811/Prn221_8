@@ -56,11 +56,14 @@
                             <td class="text-center">@Model.StaffManageName[i]</td>
                             <td class="text-center">@Model.Auctions[i].Status</td>
                             <td class="text-center">
-                                    @if ("Processing".Equals(Model.Auctions[i].Status))
+                                    @if (Model.Auctions[i].Status.Equals("Finished"))
                                     {
-
+                                    <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
+                                    <a class="btn btn-warning" asp-page="./AuctionJoining" asp-route-AuctionId="@Model.Auctions[i].AuctionId">
+                                        View
+                                    </a>
                                     }
-                                    else
+                                    else if (Model.Auctions[i].Status.Equals("Ongoing"))
                                     {
                                     <input type="hidden" name="AuctionId" value="@Model.Auctions[i].AuctionId" />
                                     <a class="btn btn-success" asp-page="./AuctionJoining" asp-route-AuctionId="@Model.Auctions[i].AuctionId">

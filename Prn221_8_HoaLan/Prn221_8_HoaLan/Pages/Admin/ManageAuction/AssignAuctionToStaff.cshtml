@@ -41,9 +41,10 @@
             }
             else
             {
-                <form method="post">
+                
                     @for (int i = 0; i < Model.Auctions.Count; i++)
                     {
+                    <form method="post">
                     <tr>
                         <td>@Model.Auctions[i].AuctionId</td>
                         <td>@Model.Auctions[i].AuctionName </td>
@@ -57,7 +58,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <select class="form-control" name="SelectedStaffId">
+                                <select class="form-control" asp-for="SelectedStaffId">
                                         @foreach (var staff in Model.Staffs)
                                         {
                                         <option value="@staff.UserId">@staff.LastName @staff.FirstName</option>
@@ -70,8 +71,9 @@
                             <button type="submit" class="btn btn-primary" name="button" value="AssignToStaff">Assign</button>
                         </td>
                     </tr>
+                    </form>
                     }
-                </form>
+               
             }
         </tbody>
     </table>
