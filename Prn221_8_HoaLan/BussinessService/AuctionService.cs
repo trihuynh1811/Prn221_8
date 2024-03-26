@@ -38,6 +38,30 @@ namespace BussinessService
             }
         }
 
+        public bool checkTime(int auctionId, string status)
+        {
+            var auction = auctionRepository.GetAll().FirstOrDefault(p => p.AuctionId == auctionId);
+            if (auction == null)
+            {
+                return false;
+            }
+            if ("Upcoming".Equals(status))
+            {
+                if(DateTime.Now < auction.StartTime)
+                {
+                    return false;
+                }
+            }
+            else if ("Ongoing".Equals(status))
+            {
+                if (DateTime.Now < auction.EndTime)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public Product CreateAuction(CreateUpdateProductDTO productDTO, CreateUpdateAuctionDTO auctionDTO)
         {
             Product product = new Product
@@ -122,7 +146,7 @@ namespace BussinessService
                 auction.PriceStep = PriceStep;
                 auction.StartTime = StartTime;
                 auction.EndTime = EndTime;
-                auction.Status = "Upcomming";
+                auction.Status = "Upcoming";
                 auctionRepository.Update(auction);
                 return true;
             }

@@ -87,19 +87,17 @@ namespace Prn221_8_HoaLan.Pages.Auctions
                             CreateBy = user.UserId
                         };
                         Product p = auctionService.CreateAuction(ProductDTO, AuctionDTO);
-                        Msg = "Successfully register product";
+                        Msg = "Successfully register auction";
                         return Page();
                     }
-                    Msg = "Can't register this product please chose different image";
+                    Msg = "Can't register this auction please try again!";
                     return Page();
                 }
             }catch(Exception ex)
             {
-                throw new Exception(ex.InnerException.ToString());
+                Msg = "Can't register this auction please try again!";
+                return Page();
             }
-
-
-
             return Page();
         }
     }

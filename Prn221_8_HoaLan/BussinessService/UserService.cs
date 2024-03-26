@@ -34,9 +34,9 @@ namespace BussinessService
         {
             var listStaff = GetUserByRoleNameService("Staff");
             List<User> filteredStaffList = listStaff
-            .Where(s =>
-            !_auctionRepo.GetAll().Any(a => a.HostBy == s.UserId) ||
-                    _auctionRepo.GetAll().Any(a => a.HostBy == s.UserId && a.Status == "Finished")
+                .Where(s =>
+                    !_auctionRepo.GetAll().Any(a => a.HostBy == s.UserId)  
+                    || _auctionRepo.GetAll().All(a => a.HostBy != s.UserId || a.Status == "Finished") 
                 )
                 .ToList();
             return filteredStaffList;

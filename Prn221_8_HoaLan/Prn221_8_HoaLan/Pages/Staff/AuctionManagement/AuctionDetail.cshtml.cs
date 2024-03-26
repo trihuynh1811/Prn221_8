@@ -23,6 +23,12 @@ namespace Prn221_8_HoaLan.Pages.Staff.AuctionManagement
 
         public IActionResult OnGet()
         {
+            var user = Prn221_8_HoaLan.SessionExtensions.Get<User>(HttpContext.Session, "User");
+            if (user == null || user.Role != 2)
+            {
+                return RedirectToPage("/Login/Login");
+            }
+
             if (AuctionId <= 0)
             {
                 return NotFound();

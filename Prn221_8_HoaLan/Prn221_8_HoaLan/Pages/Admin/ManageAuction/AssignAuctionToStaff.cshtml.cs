@@ -61,12 +61,13 @@ namespace Prn221_8_HoaLan.Pages.Admin.ManageAuction
             {
                 return RedirectToPage("/NoAuthorization");
             }
-            if (SelectedStaffId != null)
+            if (SelectedStaffId != null && SelectedStaffId!=0)
             {
-                _auctionService.AssignToStaff(SelectedStaffId, AuctionId);
+                _auctionService.AssignToStaff(SelectedStaffId, AuctionId); // Assign auction to staff
             }
             Auctions = _auctionService.GetAllAssignedAuction();
-            Staffs = _userService.GetUserByRoleNameService("Staff");
+            Staffs = _userService.GetActiveStaffSrv();
+
             if (Auctions != null && Auctions.Count != 0)
             {
                 for (int i = 0; i < Auctions.Count; i++)

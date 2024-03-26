@@ -26,5 +26,6 @@ namespace BussinessService
         public List<Auction> GetAuctionByProductOwnerId(int productOwnerId);
         public List<string> getStaffsInAuction(List<Auction> auctions);
         public List<string> getProductOnersNameInAuction(List<Auction> auctions);
+        public bool checkTime(int auctionId, string status);
     }
 }
